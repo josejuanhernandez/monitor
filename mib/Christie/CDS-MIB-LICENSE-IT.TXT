@@ -1,0 +1,38 @@
+﻿MIB (Management Information Base) per Proiettore SNMP Solaria 
+Condizioni di licenza del Software
+ 
+
+Le presenti condizioni di licenza costituiscono un contratto stipulato tra CHRISTIE DIGITAL SYSTEMS USA, INC., con sede a 10550 Camden Drive, Cypress, CA 90630, USA ("Christie") e il destinatario del Software soggetto a licenza  ("Licenziatario"). 
+
+L'UTILIZZO DEL SOFTWARE DA PARTE DEL LICENZIATARIO EQUIVALE ALL'ACCETTAZIONE DELLE PRESENTI CONDIZIONI. QUALORA IL LICENZIATARIO NON ACCETTI LE SUDDETTE CONDIZIONI, DOVRÀ ASTENERSI DALL'UTILIZZARE IL SOFTWARE. QUALORA IL LICENZIATARIO OTTEMPERI ALLE PRESENTI CONDIZIONI DI LICENZA, SI VEDRÀ RICONOSCIUTI I DIRITTI RIPORTATI DI SEGUITO.
+
+
+   * * * * * *
+
+ 
+INTRODUZIONE
+
+A.	Christie possiede o cede in licenza il software proprietario digitale per management information query del proiettore cinematografico SNMP ("Software soggetto a licenza") che viene utilizzato in relazione al monitoraggio remoto dei proiettori cinematografici digitali della serie CP2000 ("Proiettori DC Christie").
+
+B.	In virtù dei termini e delle condizioni della presente Licenza, il Licenziatario desidera ottenere in licenza da Christie, e Christie, da parte sua, dichiara la propria disponibilità a concedere in licenza al Licenziatario, il Software soggetto a licenza, affinché il Licenziatario lo utilizzi in relazione al monitoraggio remoto dei Proiettori DC Christie.
+
+LICENZA
+
+1.	Concessione di Licenza. In virtù della presente scrittura, Christie concede in licenza al Licenziatario, in osservanza dei termini e delle condizioni sanciti qui di seguito, una licenza perpetua, non trasferibile, non esclusiva, esente da royalty, per utilizzare il Software soggetto a licenza, in relazione al monitoraggio remoto dei Proiettori DC Christie. Qualora Christie, a sua sola e insindacabile discrezione, fornisca al Licenziatario qualsiasi aggiornamento in ordine al Software soggetto a licenza, tale aggiornamento sarà incluso nel Software soggetto a licenza per tutti gli scopi di cui alla presente Licenza.
+
+2.	Limitazioni. Al Licenziatario è imposto divieto di (i) modificare, decodificare, decompilare o smembrare il Software soggetto a Licenza, (ii) effettuare qualsiasi copia del Software soggetto a licenza, oltre a un numero ragionevole di copie di backup a uso esclusivo del Licenziatario, (iii) fornire il Software soggetto a licenza e qualsiasi copia dello stesso a qualsiasi parte terza, o (iv) 
+
+rimuovere qualsiasi copyright, marchio, brevetto o altra notifica proprietaria dal Software soggetto a licenza o qualsiasi parte dello stesso. 
+
+3.	Eccezione dei diritti. Fatto salvo quanto sancito per le licenze e i diritti concessi ai sensi della presente Licenza, Christie si riserva tutti i diritti, titoli e interessi in e relativi a tutta la sua proprietà intellettuale, tutti i contenuti, dati o informazioni, incluso tutto quanto precedentemente indicato in ordine al Software soggetto a licenza. 
+
+4.	Licenza "Tal quale". LA LICENZA CONCESSA DA CHRISTIE AL LICENZIATARIO AI SENSI DELLE PRESENTI CONDIZIONI, VIENE FORNITA SU BASE "TAL QUALE", AL CONTEMPO, CHRISTIE NON RILASCIA ALCUNA DICHIARAZIONE, GARANZIA O IMPONE CONDIZIONI DI QUALSIASI NATURA IN MERITO A O IN RELAZIONE AL SOFTWARE SOGGETTO A LICENZA, SIANO ESSE SCRITTE OD ORALI, INCLUSA, A TITOLO ESEMPLIFICATIVO MA NON LIMITATIVO, QUALSIASI GARANZIA O CONDIZIONE DI COMMERCIABILITÀ O ADEGUATEZZA PER UN USO O SCOPO PARTICOLARE O DI NON VIOLAZIONE, ALLE QUALI CON LA PRESENTE SCRITTURA SI RINUNCIA ESPRESSAMENTE. 
+
+5.	Limitazione di responsabilità. CHRISTIE NON SI ASSUME ALCUNA RESPONSABILITÀ DI QUALSIASI NATURA NEI CONFRONTI DEL LICENZIATARIO IN ORDINE AL SOFTWARE SOGGETTO A LICENZA, IVI COMPRESA, A TITOLO ESEMPLIFICATIVO MA NON LIMITATIVO, QUALSIASI RESPONSABILITÀ PER DANNI CONSEGUENTI, LUCRO CESSANTE, PERDITA DI INTROITI, PERDITA O VIOLAZIONE DI DATI, SIA CHE ESSI SIANO DOVUTI A ILLECITI, CONTRATTI O ALTRO E SIA CHE CHRISTIE SIA STATA AVVISATA CHE TALI DANNI POTESSERO VERIFICARSI O MENO.
+
+6.	Legge applicabile. La presente Licenza sarà disciplinata da e interpretata e applicata in osservanza delle leggi vigenti nello Stato della California, USA, senza applicazione di alcuna norma sui conflitti di leggi. 
+
+7.	Lingua. La presente Licenza è redatta in lingua inglese. Christie avrà la facoltà di fornire una traduzione della presente Licenza in altre lingue e tale versione tradotta sarà esclusivamente intesa per facilità d'uso e non sarà vincolante. Solo la versione in lingua inglese della presente Licenza sarà vincolante.
+
+8.	Integrità del contratto. La presente Licenza costituisce l'intero contratto tra le parti in relazione alla materia precedentemente trattata. La presente Licenza non potrà subire emendamenti o modifiche, fatta eccezione per qualsiasi atto debitamente formalizzato da entrambe le parti contraenti.
+

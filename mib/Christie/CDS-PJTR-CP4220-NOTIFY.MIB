@@ -1,0 +1,216 @@
+CDS-PJTR-CP4220-NOTIFY DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cp4220
+        FROM CDS-PJTR-CP4220
+    NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    ;
+
+cdcp4220Notification MODULE-IDENTITY
+    LAST-UPDATED  "201212191650Z" -- December 19, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:  10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:  +1 800 221-8025
+
+         E-mail:  support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS cinema projector notifications. Alarms
+         correspond to those generated within the TPC  and are
+         documented in the manual."
+    REVISION      "201212191650Z" -- December 19, 2012
+    DESCRIPTION
+        "Replaced LampLifeRotation with the LampHalfLife notification."
+
+    ::= { cp4220 100 }
+
+cdcp4220NotificationGroups OBJECT IDENTIFIER ::= { cdcp4220Notification 1 }
+
+-- ====================================================================
+-- 
+-- Object groups
+
+cdcp4220NotificationObjectsGroup OBJECT-GROUP
+    OBJECTS
+        { cdSensorName, cdSensorValue, cdComponentName, cdLampHours,
+        cdTamperName, cdTamperValue }
+    STATUS        current
+    DESCRIPTION
+        "Notification objects"
+    ::= { cdcp4220NotificationGroups 1 }
+
+-- cdcp4220NotificationGroup OBJECT-GROUP OBJECTS
+
+cdcp4220NotificationGroup NOTIFICATION-GROUP
+    NOTIFICATIONS
+        { cdcp4220NotifyFan, cdcp4220NotifyInterlock,
+        cdcp4220NotifyTemperature, cdcp4220NotifySystemComm,
+        cdcp4220NotifyLampExpire, cdcp4220NotifyLampStrike,
+        cdcp4220NotifyLampUnexpectedOff, cdcp4220NotifySecurityTamper,
+        cdcp4220NotifyLampHalfLife, cdcp4220NotifyCoolant }
+    STATUS        current
+    DESCRIPTION
+        "Notifications"
+    ::= { cdcp4220NotificationGroups 2 }
+
+cdcp4220NotificationObjects OBJECT IDENTIFIER ::= { cdcp4220Notification 2 }
+
+-- ====================================================================
+-- 
+-- Notification objects
+
+cdSensorName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Identifies the specific sensor which triggered the
+         notification."
+    ::= { cdcp4220NotificationObjects 1 }
+
+cdSensorValue OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "A string with the formatted value of the sensor which
+         triggered the notification."
+    ::= { cdcp4220NotificationObjects 2 }
+
+cdComponentName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Descripes the component which caused a comm error to trigger
+         the notification."
+    ::= { cdcp4220NotificationObjects 3 }
+
+cdLampHours OBJECT-TYPE
+    SYNTAX        INTEGER (0..65535)
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Hours the installed lamp has operated."
+    ::= { cdcp4220NotificationObjects 4 }
+
+cdTamperName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Identifies the specific tamper which triggered the
+         notification."
+    ::= { cdcp4220NotificationObjects 5 }
+
+cdTamperValue OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "A string with the formatted value of the tamper which
+         triggered the notification."
+    ::= { cdcp4220NotificationObjects 6 }
+
+cdcp4220Notifications OBJECT IDENTIFIER ::= { cdcp4220Notification 3 }
+
+cdcp4220NotificationsPrefix OBJECT IDENTIFIER ::= { cdcp4220Notifications 0 }
+
+-- ====================================================================
+-- 
+-- Projector notifications
+
+cdcp4220NotifyFan NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "A fan speed error has occurred."
+    ::= { cdcp4220NotificationsPrefix 1 }
+
+cdcp4220NotifyInterlock NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "An interlock was tripped."
+    ::= { cdcp4220NotificationsPrefix 2 }
+
+cdcp4220NotifyTemperature NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "Temperature sensor breached operational threshold."
+    ::= { cdcp4220NotificationsPrefix 3 }
+
+cdcp4220NotifySystemComm NOTIFICATION-TYPE
+    OBJECTS
+        { cdComponentName }
+    STATUS        current
+    DESCRIPTION
+        "Communications to critical system component failed."
+    ::= { cdcp4220NotificationsPrefix 4 }
+
+cdcp4220NotifyLampExpire NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp reached operational limit."
+    ::= { cdcp4220NotificationsPrefix 5 }
+
+cdcp4220NotifyLampStrike NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp failed to strike."
+    ::= { cdcp4220NotificationsPrefix 6 }
+
+cdcp4220NotifyLampUnexpectedOff NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Unexpected lamp failure."
+    ::= { cdcp4220NotificationsPrefix 7 }
+
+cdcp4220NotifyCoolant NOTIFICATION-TYPE
+    STATUS        current
+    DESCRIPTION
+        "Liquid cooling pump failure"
+    ::= { cdcp4220NotificationsPrefix 8 }
+
+cdcp4220NotifyLampHalfLife NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp half life exceeded."
+    ::= { cdcp4220NotificationsPrefix 9 }
+
+cdcp4220NotifySecurityTamper NOTIFICATION-TYPE
+    OBJECTS
+        { cdTamperName, cdTamperValue }
+    STATUS        current
+    DESCRIPTION
+        "Security System has been tampered tamper name and tamper
+         state."
+    ::= { cdcp4220NotificationsPrefix 10 }
+
+END
+
+

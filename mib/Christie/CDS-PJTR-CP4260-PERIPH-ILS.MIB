@@ -1,0 +1,221 @@
+CDS-PJTR-CP4260-PERIPH-ILS DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdcp4260StatusPeripherals
+        FROM CDS-PJTR-CP4260
+    MODULE-COMPLIANCE, NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION
+        FROM SNMPv2-TC
+    ;
+
+cdcp4260PeriphIls MODULE-IDENTITY
+    LAST-UPDATED  "201008111814Z" -- August 11, 2010
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:     10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:        +1 800 221-8025
+
+         E-mail:     support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions CP4260 Cinema
+         projector.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsProjector(7)"
+    ::= { cdcp4260StatusPeripherals 1 }
+
+cdcp4260PeriphIlsNotifications OBJECT IDENTIFIER ::= { cdcp4260StatusPeripherals 0 }
+
+cdcp4260PeriphIlsObjects OBJECT IDENTIFIER ::= { cdcp4260PeriphIls 1 }
+
+cdcp4260PeriphIlsStats OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsObjects 1 }
+
+cdcp4260PeriphIlsCommunicating OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if ILS board is communicating no, if ILS board is
+         communicating na, if board not installed"
+    ::= { cdcp4260PeriphIlsStats 1 }
+
+cdcp4260PeriphIlsBoardID OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Electronic board ID"
+    ::= { cdcp4260PeriphIlsStats 2 }
+
+cdcp4260PeriphIlsVersions OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsStats 3 }
+
+cdcp4260PeriphIlsBootVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Boot Loader version"
+    ::= { cdcp4260PeriphIlsVersions 1 }
+
+cdcp4260PeriphIlsMainVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Main Software version"
+    ::= { cdcp4260PeriphIlsVersions 2 }
+
+cdcp4260PeriphIlsHwVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Hardware version"
+    ::= { cdcp4260PeriphIlsVersions 3 }
+
+cdcp4260PeriphIlsTemperature OBJECT-TYPE
+    SYNTAX        INTEGER (-999..200)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the onboard temperature (or -999 if not avaliable)"
+    ::= { cdcp4260PeriphIlsStats 4 }
+
+cdcp4260PeriphIlsMainCrcOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Main software CRC is OK. no, if Main software CRC is
+         not OK. na, if board not installed or not communicating"
+    ::= { cdcp4260PeriphIlsStats 5 }
+
+cdcp4260PeriphIlsSensors OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsStats 6 }
+
+cdcp4260PeriphIlsXSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4260PeriphIlsSensors 1 }
+
+cdcp4260PeriphIlsYSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4260PeriphIlsSensors 2 }
+
+cdcp4260PeriphIlsZoomSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4260PeriphIlsSensors 3 }
+
+cdcp4260PeriphIlsFocusSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4260PeriphIlsSensors 4 }
+
+cdcp4260PeriphIlsConfig OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsObjects 2 }
+
+cdcp4260PeriphIlsAutoEnabled OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns 'Auto ILS' is enable state."
+    ::= { cdcp4260PeriphIlsConfig 1 }
+
+cdcp4260PeriphIlsResetOnStartup OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns ILS 'Reset on Startup' state."
+    ::= { cdcp4260PeriphIlsConfig 2 }
+
+cdcp4260PeriphIlsConformance OBJECT IDENTIFIER ::= { cdcp4260PeriphIls 2 }
+
+cdcp4260PeriphIlsCompliances OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsConformance 1 }
+
+cdcp4260PeriphIlsGroups OBJECT IDENTIFIER ::= { cdcp4260PeriphIlsConformance 2 }
+
+cdcp4260PeriphIlsGroupAll OBJECT-GROUP
+    OBJECTS
+        { cdcp4260PeriphIlsBoardID, cdcp4260PeriphIlsCommunicating,
+        cdcp4260PeriphIlsBootVersion, cdcp4260PeriphIlsMainVersion,
+        cdcp4260PeriphIlsHwVersion, cdcp4260PeriphIlsTemperature,
+        cdcp4260PeriphIlsMainCrcOK, cdcp4260PeriphIlsXSensorOK,
+        cdcp4260PeriphIlsYSensorOK, cdcp4260PeriphIlsZoomSensorOK,
+        cdcp4260PeriphIlsFocusSensorOK, cdcp4260PeriphIlsAutoEnabled,
+        cdcp4260PeriphIlsResetOnStartup }
+    STATUS        current
+    DESCRIPTION
+        "Group of objects implemented in the projector peripherals (ILS
+         option) for reporting the status of ILS."
+    ::= { cdcp4260PeriphIlsGroups 1 }
+
+END
+
+

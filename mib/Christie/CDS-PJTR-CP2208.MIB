@@ -1,0 +1,1277 @@
+CDS-PJTR-CP2208 DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdEsProjector
+        FROM CDS-SMI
+    Gauge32, Integer32, MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString, TEXTUAL-CONVENTION, TruthValue
+        FROM SNMPv2-TC
+    ;
+
+cp2208 MODULE-IDENTITY
+    LAST-UPDATED  "201209131910Z" -- September 13, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:     10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:        +1 800 221-8025
+
+         E-mail:     support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions Solaria One Cinema
+         projector.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsProjector(1)"
+         
+    ::= { cdEsProjector 7 }
+
+-- ====================================================================
+-- 
+-- Lens Table - a table of lens entries
+
+Cdcp2208LensIndex ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index the Lens table."
+    SYNTAX        Integer32
+
+-- ====================================================================
+-- 
+-- Versions - a table of serial numbers of install sw/hw components
+
+Cdcp2208SerialNumberIdx ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index projector serial numbers."
+    SYNTAX        Integer32 (1..64)
+
+-- ====================================================================
+-- 
+-- Versions - a table of versions of install sw/hw components
+
+Cdcp2208VersionsIdx ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index projector versions."
+    SYNTAX        Integer32 (1..64)
+
+-- ====================================================================
+-- 
+-- Admin only
+
+X509Certificate ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "An X509 digital certificate encoded as an ASN.1 DER object."
+    SYNTAX        OCTET STRING (SIZE(0..4096))
+
+cdcp2208Config OBJECT IDENTIFIER ::= { cp2208 1 }
+
+cdcp2208VersionsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208VersionsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the versions of the projectors hardware and
+         software components."
+    ::= { cdcp2208Config 1 }
+
+cdcp2208VersionsEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208VersionsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The projector component description and version."
+    INDEX
+        { cdcp2208VersionsIndex }
+    ::= { cdcp2208VersionsTable 1 }
+
+Cdcp2208VersionsEntry ::= SEQUENCE
+{
+    cdcp2208VersionsIndex       Cdcp2208VersionsIdx,
+    cdcp2208VersionsDescription DisplayString,
+    cdcp2208VersionsVersion     DisplayString
+}
+
+cdcp2208VersionsIndex OBJECT-TYPE
+    SYNTAX        Cdcp2208VersionsIdx
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Configuration index to which the parameters in this
+         row apply."
+    ::= { cdcp2208VersionsEntry 1 }
+
+cdcp2208VersionsDescription OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Component which this version entry maps to."
+    ::= { cdcp2208VersionsEntry 2 }
+
+cdcp2208VersionsVersion OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The version or serial number of the component this row
+         represents.
+         ."
+    ::= { cdcp2208VersionsEntry 3 }
+
+cdcp2208SerialNumberTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208SerialNumberEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the serial numbers of the projectors hardware
+         and software components."
+    ::= { cdcp2208Config 2 }
+
+cdcp2208SerialNumberEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208SerialNumberEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The projector component description and serial number."
+    INDEX
+        { cdcp2208SerialNumberIndex }
+    ::= { cdcp2208SerialNumberTable 1 }
+
+Cdcp2208SerialNumberEntry ::= SEQUENCE
+{
+    cdcp2208SerialNumberIndex       Cdcp2208SerialNumberIdx,
+    cdcp2208SerialNumberDescription DisplayString,
+    cdcp2208SerialNumberVersion     DisplayString
+}
+
+cdcp2208SerialNumberIndex OBJECT-TYPE
+    SYNTAX        Cdcp2208SerialNumberIdx
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Configuration index to which the parameters in this
+         row apply."
+    ::= { cdcp2208SerialNumberEntry 1 }
+
+cdcp2208SerialNumberDescription OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Component which this serial number entry maps to."
+    ::= { cdcp2208SerialNumberEntry 2 }
+
+cdcp2208SerialNumberVersion OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the component this row represents. ."
+    ::= { cdcp2208SerialNumberEntry 3 }
+
+cdcp2208Priv OBJECT IDENTIFIER ::= { cdcp2208Config 3 }
+
+cdcp2208CertificateIcp OBJECT-TYPE
+    SYNTAX        X509Certificate
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "This object contains the Interface Certificate.  The object
+         value must be the ASN.1 DER encoding of the MTA manufacturer's
+         X.509 public key certificate. ,contains the MTA's MAC  address.
+         It The MTA Manufacturer Certificate is issued to each MTA
+         manufacturer and is installed into each MTA at the time of
+         manufacture or with a secure code download. The specific
+         requirements related to this certificate are defined in  the
+         Security specification."
+    REFERENCE
+        "Security Specification."
+    ::= { cdcp2208Priv 1 }
+
+cdcp2208CertificateLD OBJECT-TYPE
+    SYNTAX        X509Certificate
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "ASN.1 DER encoding of the MTA's X.509 public-key  certificate
+         issued by the manufacturer and installed  into the embedded-MTA
+         in the factory. This certificate,  called Certificate, cannot
+         be updated by the provisioning server."
+    ::= { cdcp2208Priv 2 }
+
+cdcp2208IcpType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown
+        na(1),
+        -- 8 MegaByte flash
+        series2mb8(2),
+        -- 16 MegaByte flash
+        series2mb16(3),
+        -- ICP 1.5 - 16 MegaByte flash
+        series2Icp15mb16(4)
+
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP type:
+         Series2 - 8 MB flash 
+         Series2 - 16 MB flash
+         Series2 - ICP 1.5 - 16 MB flash"
+    ::= { cdcp2208Config 4 }
+
+cdcp2208DmdType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Not attached or unknown
+        na(1),
+        -- .98 inch DMD
+        dc2k98(2),
+        -- 2k 1.2 inch DMD
+        dc2k12(3),
+        -- 4k 1.38 inch DMD
+        dc4k138(4),
+        -- 2K .69 inch DMD
+        dc2k69(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the DMD Type:
+         2K - 0.98 inch DMD
+         2K - 1.2 inch DMD
+         4K - 1.38 inch DMD
+         2K - 0.69 inch DMD"
+    ::= { cdcp2208Config 5 }
+
+cdcp2208SatelliteType OBJECT IDENTIFIER ::= { cdcp2208Config 6 }
+
+cdcp2208RedSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcp2208SatelliteType 1 }
+
+cdcp2208GreenSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcp2208SatelliteType 2 }
+
+cdcp2208BlueSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcp2208SatelliteType 3 }
+
+cdcp2208Peripherals OBJECT IDENTIFIER ::= { cdcp2208Config 7 }
+
+cdcp2208IlsInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if ILS is installed otherwise returns false."
+    ::= { cdcp2208Peripherals 1 }
+
+cdcp2208LdInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if LD is installed otherwise returns false."
+    ::= { cdcp2208Peripherals 2 }
+
+cdcp2208MediaBlockInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if MediaBlock is installed otherwise returns
+         false."
+    ::= { cdcp2208Peripherals 3 }
+
+cdcp2208Status OBJECT IDENTIFIER ::= { cp2208 2 }
+
+-- ====================================================================
+-- 
+-- Security status group
+
+cdcp2208SecurityStatus OBJECT IDENTIFIER ::= { cdcp2208Status 1 }
+
+cdcp2208SecurityArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        notArmed(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure armed."
+    ::= { cdcp2208SecurityStatus 1 }
+
+cdcp2208SecurityTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure tamper."
+    ::= { cdcp2208SecurityStatus 2 }
+
+cdcp2208MarriageActive OBJECT-TYPE
+    SYNTAX        INTEGER {
+        married(1),
+        marriageBroken(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Marriage State,  When marriage is broken, no encrypted content
+         can be played."
+    ::= { cdcp2208SecurityStatus 3 }
+
+cdcp2208PhysicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Physical Marriage State, Removal of any board within the card
+         cage will cause a Physical tamper."
+    ::= { cdcp2208SecurityStatus 4 }
+
+cdcp2208LogicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Local Marriage State, The cryptographic exchange which
+         establishes/verifies a FIPS logical marriage with the ICP and
+         the LD board or Image Media Block."
+    ::= { cdcp2208SecurityStatus 5 }
+
+cdcp2208SoftwareCertZeroization OBJECT-TYPE
+    SYNTAX        INTEGER {
+        zeroed(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Certificate State, A zeroed certificate state indicates  that
+         a tamper has occurred on the LD board."
+    ::= { cdcp2208SecurityStatus 6 }
+
+cdcp2208ServiceDoorTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Service door to light engine compartment"
+    ::= { cdcp2208SecurityStatus 7 }
+
+cdcp2208TopEnclosureOpen OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure state, top side."
+    ::= { cdcp2208SecurityStatus 8 }
+
+cdcp2208BottomEnclosureOpen OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure state, top side."
+    ::= { cdcp2208SecurityStatus 9 }
+
+cdcp2208SecurityBatteryEvent OBJECT-TYPE
+    SYNTAX        INTEGER {
+        failed(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Battery failed"
+    ::= { cdcp2208SecurityStatus 10 }
+
+cdcp2208BatteryLow OBJECT-TYPE
+    SYNTAX        INTEGER {
+        low(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Battery state."
+    ::= { cdcp2208SecurityStatus 11 }
+
+cdcp2208SecurityLog OBJECT-TYPE
+    SYNTAX        INTEGER {
+        ok(1),
+        warning(2),
+        error(3),
+        na(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The Security Log Warning indicates that there are  less than
+         100 log entry locations available before  unread log entries
+         will be overwritten.
+
+         The Security Log Error indicates that there is no  more room to
+         write log entries.
+
+         When this warning/error is active, the Server needs  to extract
+         the log data (via ASM/TLS session) from  the LD Security Log.
+         Reads of the security log by any other entity/means will not
+         impact this warning."
+    ::= { cdcp2208SecurityStatus 12 }
+    
+cdcp2208IMBSecurityArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        notArmed(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Security enclosure armed."
+    ::= { cdcp2208SecurityStatus 13 }
+
+cdcp2208IMBSecurityTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Security enclosure tamper."
+    ::= { cdcp2208SecurityStatus 14 }
+
+cdcp2208IMBMarriageActive OBJECT-TYPE
+    SYNTAX        INTEGER {
+        married(1),
+        marriageBroken(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Marriage State,  When marriage is broken, no encrypted content
+         can be played."
+    ::= { cdcp2208SecurityStatus 15 }
+
+cdcp2208IMBPhysicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Physical Marriage State, Removal of any board within the card
+         cage will cause a Physical tamper."
+    ::= { cdcp2208SecurityStatus 16 }
+
+cdcp2208IMBLogicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Local Marriage State, The cryptographic exchange which
+         establishes/verifies a FIPS logical marriage with the ICP and
+         the Image Media Block."
+    ::= { cdcp2208SecurityStatus 17 }
+    
+cdcp2208IMBServiceDoorArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        tamper(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Service door to light engine compartment"
+    ::= { cdcp2208SecurityStatus 18 }
+
+cdcp2208IMBServiceDoorTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Service door to light engine compartment"
+    ::= { cdcp2208SecurityStatus 19 }
+
+cdcp2208IMBBatteryLow OBJECT-TYPE
+    SYNTAX        INTEGER {
+        low(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Battery state."
+    ::= { cdcp2208SecurityStatus 20 }
+    
+cdcp2208IMBICPCommunicationError OBJECT-TYPE
+    SYNTAX        INTEGER {
+        error(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Battery state."
+    ::= { cdcp2208SecurityStatus 21 }
+
+-- ====================================================================
+-- 
+-- Sensor tables
+
+cdcp2208Sensors OBJECT IDENTIFIER ::= { cdcp2208Status 2 }
+
+cdcp2208TempSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208TempSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of temperature sensors and their values."
+    ::= { cdcp2208Sensors 1 }
+
+cdcp2208TempSensorsEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208TempSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcp2208TempSensorsIndex }
+    ::= { cdcp2208TempSensorsTable 1 }
+
+Cdcp2208TempSensorsEntry ::= SEQUENCE
+{
+    cdcp2208TempSensorsIndex      Integer32,
+    cdcp2208TempSensorsDevice     DisplayString,
+    cdcp2208TempSensorsDiodeError TruthValue,
+    cdcp2208TempSensorsLowerLimit TruthValue,
+    cdcp2208TempSensorsUpperLimit TruthValue,
+    cdcp2208TempSensorsValue      Gauge32
+}
+
+cdcp2208TempSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcp2208TempSensorsEntry 1 }
+
+cdcp2208TempSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the temperature sensor we are reading."
+    ::= { cdcp2208TempSensorsEntry 2 }
+
+cdcp2208TempSensorsDiodeError OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if a diode error has occured."
+    ::= { cdcp2208TempSensorsEntry 3 }
+
+cdcp2208TempSensorsLowerLimit OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the sensor has breached it's lower limit."
+    ::= { cdcp2208TempSensorsEntry 4 }
+
+cdcp2208TempSensorsUpperLimit OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the sensor has breached it's upper limit."
+    ::= { cdcp2208TempSensorsEntry 5 }
+
+cdcp2208TempSensorsValue OBJECT-TYPE
+    SYNTAX        Gauge32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The temperature of this sensor in Celsius"
+    ::= { cdcp2208TempSensorsEntry 6 }
+
+cdcp2208FanSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208FanSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of fan sensors and their values."
+    ::= { cdcp2208Sensors 2 }
+
+cdcp2208FanSensorsEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208FanSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcp2208FanSensorsIndex }
+    ::= { cdcp2208FanSensorsTable 1 }
+
+Cdcp2208FanSensorsEntry ::= SEQUENCE
+{
+    cdcp2208FanSensorsIndex   Integer32,
+    cdcp2208FanSensorsDevice  DisplayString,
+    cdcp2208FanSensorsFault   TruthValue,
+    cdcp2208FanSensorsTooSlow TruthValue,
+    cdcp2208FanSensorsValue   Gauge32
+}
+
+cdcp2208FanSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcp2208FanSensorsEntry 1 }
+
+cdcp2208FanSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the fan sensor we are reading."
+    ::= { cdcp2208FanSensorsEntry 2 }
+
+cdcp2208FanSensorsFault OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the fan has faulted."
+    ::= { cdcp2208FanSensorsEntry 3 }
+
+cdcp2208FanSensorsTooSlow OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if a fan speed error has occured with this fan."
+    ::= { cdcp2208FanSensorsEntry 4 }
+
+cdcp2208FanSensorsValue OBJECT-TYPE
+    SYNTAX        Gauge32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The rotation speed of the fan in RPM."
+    ::= { cdcp2208FanSensorsEntry 5 }
+
+cdcp2208InterlockSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208InterlockSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of interlock sensors and their value."
+    ::= { cdcp2208Sensors 3 }
+
+cdcp2208InterlockSensorsEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208InterlockSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcp2208InterlockSensorsIndex }
+    ::= { cdcp2208InterlockSensorsTable 1 }
+
+Cdcp2208InterlockSensorsEntry ::= SEQUENCE
+{
+    cdcp2208InterlockSensorsIndex  Integer32,
+    cdcp2208InterlockSensorsDevice DisplayString,
+    cdcp2208InterlockSensorsValue  INTEGER
+}
+
+cdcp2208InterlockSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcp2208InterlockSensorsEntry 1 }
+
+cdcp2208InterlockSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the interlock sensor we are reading."
+    ::= { cdcp2208InterlockSensorsEntry 2 }
+
+cdcp2208InterlockSensorsValue OBJECT-TYPE
+    SYNTAX        INTEGER {
+        open(1),
+        closed(2),
+        troubleOpen(3),
+        troubleClosed(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The status of this interlock."
+    ::= { cdcp2208InterlockSensorsEntry 3 }
+
+-- ====================================================================
+-- 
+-- System health table, reports diagnostic test results.
+
+cdcp2208SystemHealthTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208SystemHealthEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of diagnostic tests and their results"
+    ::= { cdcp2208Status 3 }
+
+cdcp2208SystemHealthEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208SystemHealthEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Each row respresents a diagnostic test and the result."
+    INDEX
+        { cdcp2208SystemHealthIndex }
+    ::= { cdcp2208SystemHealthTable 1 }
+
+Cdcp2208SystemHealthEntry ::= SEQUENCE
+{
+    cdcp2208SystemHealthIndex  Integer32,
+    cdcp2208SystemHealthName   DisplayString,
+    cdcp2208SystemHealthResult DisplayString
+}
+
+cdcp2208SystemHealthIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed test."
+    ::= { cdcp2208SystemHealthEntry 1 }
+
+cdcp2208SystemHealthName OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Name of the diagnostic being reported."
+    ::= { cdcp2208SystemHealthEntry 2 }
+
+cdcp2208SystemHealthResult OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Result of diagnostic."
+    ::= { cdcp2208SystemHealthEntry 3 }
+
+cdcp2208LensTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF Cdcp2208LensEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the lens entries."
+    ::= { cdcp2208Status 4 }
+
+cdcp2208LensEntry OBJECT-TYPE
+    SYNTAX        Cdcp2208LensEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The number of hours the projector has operated."
+    INDEX
+        { cdcp2208LensIdx }
+    ::= { cdcp2208LensTable 1 }
+
+Cdcp2208LensEntry ::= SEQUENCE
+{
+    cdcp2208LensIdx          Cdcp2208LensIndex,
+    cdcp2208LensClass        DisplayString,
+    cdcp2208LensType         DisplayString,
+    cdcp2208LensSerialNumber DisplayString,
+    cdcp2208LensStatus       INTEGER
+}
+
+cdcp2208LensIdx OBJECT-TYPE
+    SYNTAX        Cdcp2208LensIndex (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Lens index.  Each entry represents a various
+         attributes of the Lens"
+    ::= { cdcp2208LensEntry 1 }
+
+cdcp2208LensClass OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Class (Primary, Secondry...)"
+    ::= { cdcp2208LensEntry 2 }
+
+cdcp2208LensType OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Type"
+    ::= { cdcp2208LensEntry 3 }
+
+cdcp2208LensSerialNumber OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Serial Number"
+    ::= { cdcp2208LensEntry 4 }
+
+cdcp2208LensStatus OBJECT-TYPE
+    SYNTAX        INTEGER {
+        in(1),
+        out(2)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Status"
+    ::= { cdcp2208LensEntry 5 }
+
+cdcp2208System OBJECT IDENTIFIER ::= { cdcp2208Status 5 }
+
+cdcp2208Tpc OBJECT IDENTIFIER ::= { cdcp2208System 1 }
+
+cdcp2208TpcType OBJECT-TYPE
+    SYNTAX        OCTET STRING
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC Type:
+         TPC-660E TPC-650H"
+    ::= { cdcp2208Tpc 1 }
+
+cdcp2208TpcOs OBJECT-TYPE
+    SYNTAX        OCTET STRING
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC OS Image"
+    ::= { cdcp2208Tpc 2 }
+
+cdcp2208TpcDiskSpaceAvailable OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available TPC Disk Space"
+    ::= { cdcp2208Tpc 3 }
+
+cdcp2208TpcDiskSpaceUsed OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC Disk Space, Used (MB)"
+    ::= { cdcp2208Tpc 4 }
+
+cdcp2208TpcMemorySpaceAvailable OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available TPC Memory RAM (KB)"
+    ::= { cdcp2208Tpc 5 }
+
+cdcp2208Power OBJECT IDENTIFIER ::= { cdcp2208System 2 }
+
+cdcp2208LvpsACok OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the AC OK signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 1 }
+
+cdcp2208LvpsDCok OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the CC OK signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 2 }
+
+cdcp2208PibPowerGoodVid OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Power Good Vid signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 3 }
+
+cdcp2208PibPowerGood1v2and2v5 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 1.2v and 2.5v rails 1
+         = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 4 }
+
+cdcp2208PibPowerGood1v8and3v3 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 1.8v and 3.3v rails 1
+         = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 5 }
+
+cdcp2208PibPowerGood24vEXT OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 24v External 1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 6 }
+
+cdcp2208PibPowerGood24vSTBY OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 24v Standby. 1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcp2208Power 7 }
+
+cdcp2208Icp1v2 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 1.2v rail measurements or NA if in Standby"
+    ::= { cdcp2208Power 8 }
+
+cdcp2208Icp1v8 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 1.8v rail measurements or NA if in Standby"
+    ::= { cdcp2208Power 9 }
+
+cdcp2208Icp2v5 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 2.5v rail measurements or NA if in Standby"
+    ::= { cdcp2208Power 10 }
+
+cdcp2208Icp3v3 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 3.3v rail measurements or NA if in Standby"
+    ::= { cdcp2208Power 11 }
+
+cdcp2208IcpCommunicating OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns IPC State:
+         True = Communicating False = Not Communicating"
+    ::= { cdcp2208System 3 }
+
+cdcp2208LinkDecryptor OBJECT IDENTIFIER ::= { cdcp2208System 4 }
+
+cdcp2208LdCommunicating OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP connection state. True = Communicating False =
+         Not Communicating"
+    ::= { cdcp2208LinkDecryptor 1 }
+
+cdcp2208LdLink0 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcp2208LinkDecryptor 2 }
+
+cdcp2208LdLink1 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link1 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcp2208LinkDecryptor 3 }
+
+cdcp2208LdLink2 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link2 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcp2208LinkDecryptor 4 }
+
+cdcp2208LdLink3 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link3 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcp2208LinkDecryptor 5 }
+
+cdcp2208Icp OBJECT-IDENTITY
+    STATUS        current
+    DESCRIPTION
+        "ICP related objects"
+    ::= { cdcp2208System 5 }
+
+cdcp2208IcpDiskSpaceTotal OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available ICP Disk Space (KB)"
+    ::= { cdcp2208Icp 1 }
+
+cdcp2208IcpDiskSpaceFree OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP Disk Space, Free (KB)"
+    ::= { cdcp2208Icp 2 }
+
+cdcp2208StatusPeripherals OBJECT IDENTIFIER ::= { cdcp2208Status 6 }
+
+END
+
+

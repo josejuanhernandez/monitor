@@ -1,0 +1,13 @@
+[event]
+ts: $ts
+model: $model 
+ip: $ip
+theater: $theater
+city: $city
+region: $region
+country: $country
+screen: $screen
+
+[event.alert]
+label: Network connectivity
+issue: Connection Failure

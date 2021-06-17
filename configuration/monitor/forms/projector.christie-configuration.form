@@ -1,0 +1,78 @@
+[configuration.attribute]*14
+group: Serial Numbers
+label: 1.3.6.1.4.1.25766.1.12.1._.1.2.1.2.#:string
+value: 1.3.6.1.4.1.25766.1.12.1._.1.2.1.3.#:string
+
+[configuration.attribute]*2
+group: Lens
+label: 1.3.6.1.4.1.25766.1.12.1._.2.4.1.2.#:string
+value: 1.3.6.1.4.1.25766.1.12.1._.2.4.1.4.#:string
+type: 1.3.6.1.4.1.25766.1.12.1._.2.4.1.3.#:string
+
+[configuration.attribute]
+group: General
+label: Manufactured Date
+value: 1.3.6.1.4.1.25766.1.12.1.1.2.5.0:string
+
+[configuration.attribute]
+group: General
+label: Native Resolution
+value: 1.3.6.1.4.1.25766.1.12.1.1.2.6.0:string
+
+[configuration.attribute]
+group: General
+label: Software Version
+value: 1.3.6.1.4.1.25766.1.12.1.1.2.7.0:string
+
+[configuration.attribute]
+group: Components
+label: ICP
+value: 1.3.6.1.4.1.25766.1.12.1._.1.4.0:enumerate|1=Undefined|2=Series 2 mb8|3=Series 2 mb16|4=Series 2 Icp15 mb16
+
+[configuration.attribute]
+group: Components
+label: DMD
+value: 1.3.6.1.4.1.25766.1.12.1._.1.5.0:enumerate|1=Undefined|2=DC2k98|3=DC2k12|4=DC4k138|5=DC2k69
+
+[configuration.attribute]
+group: Components
+label: Red Satellite
+value: 1.3.6.1.4.1.25766.1.12.1._.1.6.1.0:enumerate|1=Undefined|2=DDR|3=LVDS|4=DDR 4k
+
+[configuration.attribute]
+group: Components
+label: Green Satellite
+value: 1.3.6.1.4.1.25766.1.12.1._.1.6.2.0:enumerate|1=Undefined|2=DDR|3=LVDS|4=DDR 4k
+
+[configuration.attribute]
+group: Components
+label: Blue Satellite
+value: 1.3.6.1.4.1.25766.1.12.1._.1.6.3.0:enumerate|1=Undefined|2=DDR|3=LVDS|4=DDR 4k
+
+[configuration.attribute]
+group: Components
+label: ILS Installed
+value: 1.3.6.1.4.1.25766.1.12.1._.1.7.1.0:boolean
+
+[configuration.attribute]
+group: Components
+label: LD Installed
+value: 1.3.6.1.4.1.25766.1.12.1._.1.7.2.0:boolean
+
+[configuration.attribute]
+group: Components
+label: Media Block Installed
+value: 1.3.6.1.4.1.25766.1.12.1._.1.7.3.0:boolean
+
+[configuration.attribute]
+group: Versions
+label: 1.3.6.1.4.1.25766.1.12.1._.2.5.1.1.0:string
+value: 1.3.6.1.4.1.25766.1.12.1._.2.5.1.2.0:string
+
+[configuration.attribute]*48
+group: Versions
+label: 1.3.6.1.4.1.25766.1.12.1._.1.1.1.2.#:string
+value: 1.3.6.1.4.1.25766.1.12.1._.1.1.1.3.#:string
+
+
+[configuration.attribute] | group: Serial Numbers | label: Projector | value: * =>

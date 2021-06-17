@@ -1,0 +1,38 @@
+﻿Base d'informations de gestion MIB SNMP du projecteur Solaria
+Conditions de licence du logiciel
+ 
+
+Les présentes conditions de licence forment l'accord conclu entre CHRISTIE DIGITAL SYSTEMS USA, INC., dont les bureaux sont situés à l'adresse suivante : 10550 Camden Drive, Cypress, CA 90630, États-Unis ("Christie"), et le destinataire du logiciel sous licence ("propriétaire"). 
+
+L'UTILISATION DU LOGICIEL VAUT POUR ACCEPTATION DES PRÉSENTES CONDITIONS. EN CAS DE REFUS DES CONDITIONS, LE PROPRIÉTAIRE NE DOIT PAS UTILISER LE LOGICIEL. SI LE PROPRIÉTAIRE RESPECTE LES PRÉSENTES CONDITIONS, IL DISPOSE DES DROITS CI-DESSOUS.
+
+
+   * * * * * *
+
+
+PRÉAMBULE
+
+A.	Christie possède (en licence) le logiciel de la query d'informations de gestion MIB SNMP du projecteur de cinéma numérique (le "logiciel sous licence"), utilisé pour la surveillance à distance des projecteurs de cinéma numériques CP2000 ("projecteurs de cinéma numériques Christie").
+
+B.	Conformément aux conditions de cette licence, le propriétaire souhaite obtenir une licence de Christie et Christie souhaite accorder au propriétaire une licence pour le logiciel sous licence utilisé par le propriétaire pour la surveillance à distance des projecteurs de cinéma numériques Christie.
+
+LICENCE
+
+1.	Concession de licence. Christie accorde par la présente au propriétaire, conformément aux conditions définies ci-dessous, une licence perpétuelle, non transférable, non exclusive et non soumise à redevance pour l'utilisation du logiciel sous licence dans le cadre de la surveillance à distance des projecteurs de cinéma numériques Christie. Si Christie fournit au propriétaire des mises à jour du logiciel sous licence, à son entière discrétion, ces mises à jour doivent être intégrées au logiciel sous licence dans le but indiqué par la licence.
+
+2.	Limitations. Le propriétaire ne doit pas (i) modifier, procéder à des opérations d'ingénierie inverse, décompiler ou démonter le logiciel sous licence, (ii) créer des copies du logiciel sous licence, autres que le nombre raisonnable de sauvegardes à l'usage du propriétaire, (iii) proposer le logiciel sous licence ou des copies du logiciel à des tiers ou (iv) supprimer les notifications concernant les droits d'auteur, les marques commerciales, les brevets et autres informations propriétaires du logiciel sous licence ou de sections du logiciel sous licence. 
+
+3.	Droits réservés. Hormis les autorisations et droits accordés dans le cadre de la présente licence, Christie conserve l'ensemble des droits, titres et intérêts sur l'ensemble de la propriété intellectuelle, du contenu, des données et des informations, éléments susmentionnés concernant le logiciel sous licence inclus. 
+
+4.	Licence "en l'état". LA LICENCE ACCORDÉE PAR CHRISTIE AU PROPRIÉTAIRE CONFORMÉMENT AUX PRÉSENTES CONDITIONS EST PROPOSÉE "EN L'ÉTAT" ET CHRISTIE NE GARANTIT D'AUCUNE MANIÈRE QUE CE SOIT, PAR ÉCRIT OU PAR ORAL, EXPLICITEMENT OU IMPLICITEMENT, LE LOGICIEL SOUS LICENCE, CE QUI INCLUT SANS LIMITATIONS LES GARANTIES DE COMMERCIABILITÉ, D'ADÉQUATION À UNE UTILISATION OU UN OBJECTIF SPÉCIFIQUE OU DE NON-VIOLATION, EXPRESSÉMENT REJETÉES. 
+
+5.	Avis de non-responsabilité. CHRISTIE NE PEUT ÊTRE TENU RESPONSABLE DE QUELQUE MANIÈRE QUE CE SOIT À L'ÉGARD DU PROPRIÉTAIRE EN CE QUI CONCERNE LE LOGICIEL SOUS LICENCE, CE QUI INCLUT SANS LIMITATIONS LES RESPONSABILITÉS EN CAS DE DOMMAGES CONSÉCUTIFS, DE PERTES DE PROFITS, DE REVENUS OU DE DONNÉES, OU DE VIOLATIONS, DANS LE CADRE D'UN DÉLIT, DU CONTRAT OU AUTRE, QUE CHRISTIE AIT ÉTÉ OU NON INFORMÉ DE L'ÉVENTUALITÉ DE TELS DOMMAGES.
+
+6.	Droit applicable. La présente licence est régie, interprétée et appliquée selon les lois de l'État de Californie, États-Unis, sans prendre en compte le principe de conflit des lois. 
+
+7.	Langue. La présente licence a été rédigée en anglais. Christie peut proposer une traduction de la licence dans d'autres langues. La version traduite est fournie pour 
+
+plus de commodité et ne peut être considérée comme exécutoire. Seule la version anglaise de la licence est exécutoire.
+
+8.	Contrat complet. La présente licence constitue l'intégralité du contrat passé entre les parties concernant l'objet des présentes. La licence ne peut être amendée ou modifiée que par écrit dûment exécuté par les deux parties. 
+

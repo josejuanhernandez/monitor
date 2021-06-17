@@ -1,0 +1,9 @@
+[event]
+ts: $ts
+type: $model [form not found]
+ip: $ip
+theater: $theater
+city: $city
+region: $region
+country: $country
+screen: $screen

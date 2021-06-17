@@ -1,0 +1,36 @@
+Solaria Projector SNMP Management Information Base (MIB)
+Software License Terms
+ 
+
+These license terms are an agreement between CHRISTIE DIGITAL SYSTEMS USA, INC., having offices at 10550 Camden Drive, Cypress, CA 90630, USA ("Christie") and the recipient of the Licensed Software ("Licensee").
+
+BY USING THE SOFTWARE, LICENSEE ACCEPTS THESE TERMS.  IF LICENSEE DOES NOT ACCEPT THEM, DO NOT USE THE SOFTWARE.  IF LICENSEE COMPLIES WITH THESE LICENSE TERMS, LICENSEE HAS THE RIGHTS BELOW.
+
+
+   * * * * * *
+
+ 
+RECITALS
+
+A.	Christie owns or licenses proprietary digital cinema projector SNMP management information query software (the "Licensed Software") which is used in connection with remote monitoring of CP2000 series digital cinema projectors ("Christie DC Projectors").
+
+B.	Subject to the terms and conditions of this License, Licensee desires to license from Christie, and Christie is willing to license to Licensee, the Licensed Software for use by Licensee in connection with remote monitoring of Christie DC Projectors.
+
+LICENSE
+
+1.	Grant of License.  On the terms and conditions set forth below, Christie hereby grants to Licensee a perpetual, non-transferable, non-exclusive, royalty-free license to use the Licensed Software in connection with remote monitoring of Christie DC Projectors.  In the event Christie, in its sole discretion, provides to Licensee any update to the Licensed Software, such update shall be included within Licensed Software for all purposes under this License.
+
+2.	Restrictions. Licensee shall not (i) modify, reverse engineer, decompile or disassemble the Licensed Software, (ii) make any copies of the Licensed Software, other than a reasonable number of back copies for Licensee's own use, (iii) provide the Licensed Software or any copy thereof to any third party, or (iv) remove any copyright, trademark, patent or other proprietary notice from the Licensed Software or any portion thereof. 
+
+3.	Reservation of Rights.  Except for the licenses and rights granted under this License, Christie retains all right, title and interest in and to all of its intellectual property, content, data or information, including any of the foregoing relating to the Licensed Software.
+
+4.	"As Is" License. THE LICENSE GRANTED BY CHRISTIE TO LICENSEE UNDER THESE TERMS IS ON AN "AS IS" BASIS, AND CHRISTIE MAKES NO REPRESENTATIONS, WARRANTIES OR CONDITIONS WHATSOEVER WITH RESPECT TO OR RELATING TO THE LICENSED SOFTWARE, WRITTEN OR ORAL, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTY OR CONDITION OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE OR PURPOSE OR OF NON-INFRINGEMENT, ALL OF WHICH ARE HEREBY EXPRESSLY DISCLAIMED.
+
+5.	Limitation of Liability. CHRISTIE SHALL HAVE NO LIABILITY WHATSOEVER TO LICENSEE IN RELATION TO THE LICENSED SOFTWARE, INCLUDING WITHOUT LIMITATION ANY LIABILITY FOR CONSEQUENTIAL DAMAGES, LOST PROFITS, LOST REVENUES, LOST DATA OR INFRINGEMENT, WHETHER ARISING IN TORT, CONTRACT OR OTHERWISE, AND WHETHER OR NOT CHRISTIE HAS BEEN ADVISED THAT SUCH DAMAGES MAY OCCUR.
+
+6.	Governing Law. This License shall be governed by and construed and enforced in accordance with the laws of the State of California, USA, without regard to conflicts of law principles.
+
+7.	Language.  This License is prepared in the English language.  Christie may provide a translation of this License into other languages and any such translated version is for convenience only and will not be binding.  Only the English language version of this License will be binding.
+
+8.	Entire Agreement. This License constitutes the entire contract between the parties with respect to the subject matter hereof. This License may not be amended, changed or modified except by a writing duly executed by both of the parties hereto.
+

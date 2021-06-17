@@ -1,0 +1,36 @@
+﻿Base de información gestionada (MIB, Management Information Base) de SNMP del proyector Solaria 
+Términos de la licencia del software
+ 
+
+Los términos de esta licencia representan un acuerdo entre CHRISTIE DIGITAL SYSTEMS USA, INC., con domicilio en 10550 Camden Drive, Cypress, CA 90630, EE. UU. ("Christie") y el destinatario del software con licencia ("titular de la licencia"). 
+
+AL USAR EL SOFTWARE, EL TITULAR DE LA LICENCIA ACEPTA ESTOS TÉRMINOS. SI EL TITULAR DE LA LICENCIA NO LOS ACEPTA, NO DEBE USAR EL SOFTWARE.  SI EL TITULAR DE LA LICENCIA ACEPTA LOS TÉRMINOS DE LA LICENCIA, TENDRÁ LOS DERECHOS QUE SE DETALLAN A CONTINUACIÓN.
+
+
+   * * * * * *
+
+ 
+ENUMERACIÓN
+
+A	Christie es propietaria o concede licencias de propiedad de software de query de información gestionada de SNMP de proyectores digitales cinematográficos (el "software con licencia") que se usa junto con el control remoto de los proyectores digitales cinematográficos de la serie CP2000 ("proyectores DC de Christie").
+
+B.	En virtud d los términos y las condiciones de esta Licencia, el titular de la licencia desea obtener una licencia de Christie, y Christie está dispuesta a otorgar la licencia al titular del software con licencia que usará el titular de licencia relacionado para el control remoto de los proyectores DC de Christie.
+
+LICENCIA
+
+1.	Otorgamiento de la licencia.  En los términos y las condiciones indicados a continuación, Christie otorga por la presente al titular de la licencia una licencia permanente, no transferible, no exclusiva y sin derechos de autor que permite el uso del software con licencia junto con el control remoto de los proyectores DC de Christie.  En el caso de que Christie, bajo su exclusivo criterio, ofrezca al titular de la licencia una actualización del software con licencia, tal actualización se considerará parte del software con licencia y estará sujeta a todo lo indicado en esta Licencia.
+
+2.	Restricciones. El titular de la licencia no debe (i) modificar, aplicar ingeniería inversa, descompilar o desensamblar el software con licencia, (ii) hacer copias del software con licencia (excepto un número razonable de copias de seguridad para uso del propio titular de la licencia), (iii) ofrecer el software con licencia o una de sus copias a un tercero o (iv) eliminar los derechos de autor, marcas comerciales, patentes u otros avisos de propiedad del software con licencia o de una de sus partes. 
+
+3.	Reserva de derechos.  Salvo en lo que se refiere a las licencias y derechos otorgados en esta Licencia, Christie se reserva todos los derechos, participaciones o intereses relativos a la propiedad intelectual, contenido, datos o información, incluidos los anteriores relativos al software con licencia. 
+
+4.	Licencia "tal cual". LA LICENCIA QUE CHRISTIE OTORGA AL TITULAR DE LA LICENCIA EN VIRTUD DE ESTOS TÉRMINOS ES UNA LICENCIA "TAL CUAL" Y CHRISTIE NO OFRECE DECLARACIONES, GARANTÍAS NI CONDICIONES DE NINGÚN TIPO CON RESPECTO O RELATIVAS AL SOFTWARE CON LICENCIA, ESCRITAS U ORALES, EXPRESAS O IMPLÍCITAS, INCLUIDAS SIN LIMITACIÓN LAS GARANTÍAS O CONDICIONES DE COMERCIABILIDAD O APTITUD PARA UN USO O PROPÓSITO ESPECÍFICO, O NO INFRACCIÓN, A TODAS LAS CUALES SE RENUNCIA AQUÍ DE FORMA EXPRESA. 
+
+5.	Limitación de responsabilidad. CHRISTIE NO SE RESPONSABILIZA FRENTE AL TITULAR DE LA LICENCIA CON RESPECTO AL SOFTWARE CON LICENCIA, INCLUIDOS SIN LIMITACIÓN LA RESPONSABILIDAD DE DAÑOS CONSECUENTES, LA PÉRDIDA DE BENEFICIOS, LA PÉRDIDA DE INGRESOS, LA PÉRDIDA DE DATOS O LA INFRACCIÓN, EXPRESADOS EXTRACONTRACTUALMENTE, CONTRACTUALMENTE O DE OTRO MODO, Y HABIÉNDOSE AVISADO A CHRISTIE O NO DE QUE TALES DAÑOS PODRÍAN PRODUCIRSE.
+
+6.	Derecho aplicable. Esta Licencia se interpretará y regirá conforme a las leyes del Estado de California, EE. UU., con independencia de los principios de conflicto entre leyes. 
+
+7.	Idioma. Esta Licencia se ha redactado en el idioma inglés. Christie proporcionará una traducción de esta Licencia a otros idiomas. Tal versión traducida tendrá únicamente fines prácticos y no será vinculante.  La versión en inglés de esta Licencia es la única versión vinculante.
+
+8.	Integridad del acuerdo. Esta Licencia constituye el contrato completo entre las partes con respecto al tema tratado en el presente documento. Esta Licencia no se puede corregir, cambiar ni modificar excepto por escrito en un documento debidamente autorizado por ambas partes. 
+

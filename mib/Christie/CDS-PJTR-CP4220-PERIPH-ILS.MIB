@@ -1,0 +1,233 @@
+CDS-PJTR-CP4220-PERIPH-ILS DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdcp4220StatusPeripherals
+        FROM CDS-PJTR-CP4220
+    MODULE-COMPLIANCE, NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION
+        FROM SNMPv2-TC
+    ;
+
+cdcp4220PeriphIls MODULE-IDENTITY
+    LAST-UPDATED  "201008111814Z" -- August 11, 2010
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:     10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:        +1 800 221-8025
+
+         E-mail:     support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions CP4220 Cinema
+         projector.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsProjector(5)"
+    ::= { cdcp4220StatusPeripherals 1 }
+
+cdcp4220PeriphIlsNotifications OBJECT IDENTIFIER ::= { cdcp4220StatusPeripherals 0 }
+
+cdcp4220PeriphIlsObjects OBJECT IDENTIFIER ::= { cdcp4220PeriphIls 1 }
+
+cdcp4220PeriphIlsStats OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsObjects 1 }
+
+cdcp4220PeriphIlsCommunicating OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if ILS board is communicating no, if ILS board is
+         communicating na, if board not installed"
+    ::= { cdcp4220PeriphIlsStats 1 }
+
+cdcp4220PeriphIlsBoardID OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Electronic board ID"
+    ::= { cdcp4220PeriphIlsStats 2 }
+
+cdcp4220PeriphIlsVersions OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsStats 3 }
+
+cdcp4220PeriphIlsBootVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Boot Loader version"
+    ::= { cdcp4220PeriphIlsVersions 1 }
+
+cdcp4220PeriphIlsMainVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Main Software version"
+    ::= { cdcp4220PeriphIlsVersions 2 }
+
+cdcp4220PeriphIlsHwVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(0..20))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Hardware version"
+    ::= { cdcp4220PeriphIlsVersions 3 }
+
+cdcp4220PeriphIlsTemperature OBJECT-TYPE
+    SYNTAX        INTEGER (-999..200)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the onboard temperature (or -999 if not avaliable)"
+    ::= { cdcp4220PeriphIlsStats 4 }
+
+cdcp4220PeriphIlsMainCrcOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Main software CRC is OK. no, if Main software CRC is
+         not OK. na, if board not installed or not communicating"
+    ::= { cdcp4220PeriphIlsStats 5 }
+
+cdcp4220PeriphIlsSensors OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsStats 6 }
+
+cdcp4220PeriphIlsXSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4220PeriphIlsSensors 1 }
+
+cdcp4220PeriphIlsYSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4220PeriphIlsSensors 2 }
+
+cdcp4220PeriphIlsZoomSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4220PeriphIlsSensors 3 }
+
+cdcp4220PeriphIlsFocusSensorOK OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns:
+         yes, if Sensor is OK. no, if Sensor is not OK. na, if board not
+         installed or not communicating"
+    ::= { cdcp4220PeriphIlsSensors 4 }
+
+cdcp4220PeriphIlsConfig OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsObjects 3 }
+
+cdcp4220PeriphIlsAutoEnabled OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns 'Auto ILS' is enable state."
+    ::= { cdcp4220PeriphIlsConfig 1 }
+
+cdcp4220PeriphIlsResetOnStartup OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns ILS 'Reset on Startup' state."
+    ::= { cdcp4220PeriphIlsConfig 2 }
+
+cdcp4220PeriphIlsResetOnBrownOut OBJECT-TYPE
+    SYNTAX        INTEGER {
+        yes(1),
+        no(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns ILS 'Reset on Brown Out' state."
+    ::= { cdcp4220PeriphIlsConfig 3 }
+
+cdcp4220PeriphIlsConformance OBJECT IDENTIFIER ::= { cdcp4220PeriphIls 2 }
+
+cdcp4220PeriphIlsCompliances OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsConformance 1 }
+
+cdcp4220PeriphIlsGroups OBJECT IDENTIFIER ::= { cdcp4220PeriphIlsConformance 2 }
+
+cdcp4220PeriphIlsGroupAll OBJECT-GROUP
+    OBJECTS
+        { cdcp4220PeriphIlsBoardID, cdcp4220PeriphIlsCommunicating,
+        cdcp4220PeriphIlsBootVersion, cdcp4220PeriphIlsMainVersion,
+        cdcp4220PeriphIlsHwVersion, cdcp4220PeriphIlsTemperature,
+        cdcp4220PeriphIlsMainCrcOK, cdcp4220PeriphIlsXSensorOK,
+        cdcp4220PeriphIlsYSensorOK, cdcp4220PeriphIlsZoomSensorOK,
+        cdcp4220PeriphIlsFocusSensorOK, cdcp4220PeriphIlsAutoEnabled,
+        cdcp4220PeriphIlsResetOnStartup, cdcp4220PeriphIlsResetOnBrownOut }
+    STATUS        current
+    DESCRIPTION
+        "Group of objects implemented in the projector peripherals (ILS
+         option) for reporting the status of ILS."
+    ::= { cdcp4220PeriphIlsGroups 1 }
+
+END
+
+

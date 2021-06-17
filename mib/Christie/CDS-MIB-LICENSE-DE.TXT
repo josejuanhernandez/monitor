@@ -1,0 +1,35 @@
+﻿Solaria Projektor - SNMP Management Information Base (MIB)
+Softwarelizenzbestimmungen
+ 
+
+Diese Lizenzbestimmungen stellen einen Vertrag dar zwischen CHRISTIE DIGITAL SYSTEMS USA, INC., mit Sitz 10550 Camden Drive, Cypress, CA 90630, USA, (nachstehend als "Christie" bezeichnet) und dem Empfänger der lizenzierten Software (nachstehend als "Lizenznehmer" bezeichnet). 
+
+DURCH NUTZUNG DER SOFTWARE AKZEPTIERT DER LIZENZNEHMER DIESE BESTIMMUNGEN. AKZEPTIERT DER LIZENZNEHMER DIE BESTIMMUNGEN NICHT, SO DARF ER DIE SOFTWARE NICHT VERWENDEN. WENN DER LIZENZNEHMER DIE LIZENZBESTIMMUNGEN EINHÄLT, HAT ER DIE IM FOLGENDEN AUFGEFÜHRTEN RECHTE.
+
+
+   * * * * * *
+
+ 
+PRÄAMBEL
+
+A.	Christie lizenziert die für digitale Kinoprojektoren verwendete eigene Software SNMP Management Information Base (nachstehend als "lizenzierte Software" bezeichnet), die in Verbindung mit der Fernüberwachung von digitalen Kinoprojektoren der Serie CP2000 (nachstehend als "DC-Projektoren von Christie" bezeichnet) eingesetzt wird.
+
+B.	Der Lizenznehmer möchte gemäß diesen Lizenzbestimmungen eine Lizenz von Christie erhalten. Christie ist mit der Lizenzierung an den Lizenznehmer gemäß diesen Lizenzbestimmungen einverstanden. Die lizenzierte Software darf vom Lizenznehmer in Verbindung mit einer Fernüberwachung für DC-Projektoren von Christie verwendet werden.
+
+LIZENZ
+
+1.	Lizenzgewährung. Gemäß den unten aufgeführten Bestimmungen gewährt Christie dem Lizenznehmer hiermit eine unbefristete und nicht übertragbare einfache (nicht ausschließliche), gebührenfreie Lizenz zur Nutzung der lizenzierten Software in Verbindung mit einer Fernüberwachung der DC-Projektoren von Christie. Entscheidet sich Christie nach eigenem Ermessen, dem Lizenznehmer eine aktualisierte Version (ein Update) der lizenzierten Software zur Verfügung zu stellen, gehört dieses Update gemäß dem vorliegenden Lizenzvertrag in jeder Hinsicht zur lizenzierten Software.
+
+2.	Einschränkungen. Dem Lizenznehmer ist Folgendes untersagt: (i) Modifizieren, Zurückentwickeln, Dekompilieren oder Disassemblieren der lizenzierten Software; (ii) Anlegen von Kopien der lizenzierten Software (ausgenommen als Sicherheitskopien in angemessener Anzahl für die alleinige Nutzung durch den Lizenznehmer); (iii) Bereitstellen der lizenzierten Software oder von Kopien der lizenzierten Software für Dritte; (iv) Entfernen jeglicher Hinweise auf Urheberrechte, Markenrechte oder Patentrechte oder anderweitig geschützte Rechte aus der lizenzierten Software oder aus einem Teil der lizenzierten Software. 
+
+3.	Rechtsvorbehalt. Mit Ausnahme der Lizenzen und Rechte, die mit diesem Lizenzvertrag eingeräumt werden, behält Christie - auch in Bezug auf die lizenzierte Software - alle Rechte, Rechtsansprüche und Rechtstitel im Zusammenhang mit jeglichem geistigen Eigentum von Christie sowie jeglichen Inhalten, Daten und Informationen von Christie. 
+
+4.	Lizenz ohne Mängelgewähr. CHRISTIE RÄUMT DEM LIZENZNEHMER DIE LIZENZ GEMÄSS DIESEN BESTIMMUNGEN OHNE MÄNGELGEWÄHR EIN; CHRISTIE SCHLIESST IM ZUSAMMENHANG MIT DER LIZENZIERTEN SOFTWARE JEGLICHE GEWÄHRLEISTUNG - VERTRAGLICHER EBENSO WIE GESETZLICHER ART, IN MÜNDLICHER EBENSO WIE IN SCHRIFTLICHER FORM - AUS. AUSGESCHLOSSEN SIND INSBESONDERE SÄMTLICHE GEWÄHRLEISTUNGEN IN BEZUG AUF MARKTGÄNGIGKEIT, EIGNUNG FÜR EINEN BESTIMMTEN ZWECK SOWIE NICHTVERLETZUNG VON RECHTEN. 
+
+5.	Haftungsbeschränkung. CHRISTIE ÜBERNIMMT DEM LIZENZNEHMER GEGENÜBER KEINERLEI HAFTUNG IN BEZUG AUF DIE LIZENZIERTE SOFTWARE; INSBESONDERE WIRD KEINE HAFTUNG ÜBERNOMMEN FÜR FOLGESCHÄDEN, FÜR ENTGANGENE GEWINNE BZW. UMSÄTZE, FÜR DATENVERLUSTE ODER FÜR DIE VERLETZUNG VON RECHTEN - SEI ES DURCH VERTRAGSVERLETZUNG, UNERLAUBTE HANDLUNG ODER AUS ANDEREM RECHTSGRUND -, SELBST WENN CHRISTIE ÜBER DIE MÖGLICHKEIT DES EINTRETENS SOLCHER SCHÄDEN UNTERRICHTET WURDE.
+
+6.	Anwendbares Recht. Dieser Lizenzvertrag unterliegt ungeachtet der Regelungen des internationalen Privatrechts den Gesetzen des US-Bundesstaates Kalifornien. 
+
+7.	Sprache. Dieser Lizenzvertrag basiert auf der Originalfassung in englischer Sprache. Sofern Christie in andere Sprachen übersetzte Fassungen dieses Lizenzvertrags zur Verfügung stellt, dienen die übersetzten Versionen ausschließlich Informationszwecken. Die übersetzten Versionen sind nicht rechtsverbindlich. Ausschließlich die englischsprachige Version dieses Lizenzvertrags ist rechtlich bindend.
+
+8.	Vollständige Vereinbarung. Dieser Lizenzvertrag stellt die vollständige und abschließende Vereinbarung der Parteien im Hinblick auf den Vertragsgegenstand dar. Der vorliegende Lizenzvertrag kann nur schriftlich und mit Unterschrift beider Partei abgewandelt, geändert oder modifiziert werden. 

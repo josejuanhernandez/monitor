@@ -1,0 +1,3769 @@
+
+-- *****************************************************************************
+-- 
+--  Copyright (c) 2005-2011, Doremi Labs, Inc.
+--    All rights reserved.
+-- 
+--  Redistribution in source or binary forms, with or without
+--  modification, are NOT permitted.
+-- 
+--    Doremi Labs, Inc.
+--    306 East Alameda Avenue
+--    Burbank, CA 91502
+--    Tel : (818) 562 1101
+--    Fax : (818) 562 1109
+-- 
+--  $Id$
+--  
+-- *****************************************************************************
+
+DOREMI-DC-DCPLAYER-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	NOTIFICATION-TYPE, OBJECT-TYPE, OBJECT-IDENTITY, MODULE-IDENTITY, Counter32, Integer32
+		FROM SNMPv2-SMI
+	NOTIFICATION-GROUP, OBJECT-GROUP
+		FROM SNMPv2-CONF
+	TEXTUAL-CONVENTION, RowPointer, TruthValue, 
+	DisplayString
+		FROM SNMPv2-TC
+	drmdcDCPlayerMib, DrmEventDescription, DrmEventSeverity, 
+	DrmTemperature, DrmPowerLowVoltage, DrmFanSpeed, DrmResourceName, DrmWorkingState, DrmGenericTableIndex
+		FROM DOREMI-HQ-REG-MIB;
+
+drmDCPlayerModule MODULE-IDENTITY
+	LAST-UPDATED "201512231042Z"
+	ORGANIZATION 
+		"Dolby Laboratories Inc."
+	CONTACT-INFO 
+		"1020 Chestnut St.
+		Burbank, CA 91506
+		U.S.A.
+		Tel.: +1 (818) 562-1101
+		http://www.dolby.com
+		
+		Maintainer: hmorillon@doremilabs.com"
+	DESCRIPTION 
+		"This MIB defines Nodes and Data Objects to support products from the
+		Digital cinema player product family: it includes the dcp2000, showvault or DC-Post
+		
+		Copyright 2008-2015 Dolby. Inc."
+
+	REVISION "201103070000Z"
+	DESCRIPTION 
+		"First public version for DCPLAYER MIB.
+		v 1.1, hmorillon@doremilabs.com"
+
+	REVISION "201103300000Z"
+	DESCRIPTION 
+		"v 1.2, hmorillon@doremilabs.com"
+
+	REVISION "201104190000Z"
+	DESCRIPTION 
+		"Projector Alarm table added
+		v1.3, hmorillon@doremilabs.com"
+	
+	REVISION "201512231042Z"
+	DESCRIPTION 
+		"v1.4, Nicolas.Goubaux@dolby.com
+		- dcpIFHDMIState added
+		- dcpChannelsPlayback added
+		- dcpPbCtrlShow added
+		- dcpStorageDeviceSerial added
+		- dcpStorageDeviceVersion added
+		- dcpStorageSMARTTemperatureRaw added
+		- dcpStorageSMARTScanDate added
+		- dcpStorageSMARTOverallHealth added
+		- dcpStorageSMARTPowerOnHoursRaw added"
+	
+	REVISION "201601141042Z"
+	DESCRIPTION 
+		"v1.5, Nicolas.Goubaux@dolby.com
+		- dcpIFHDMIStateEdid added"
+		
+	REVISION "201604061542Z"
+	DESCRIPTION 
+		"v1.6, Nicolas.Goubaux@dolby.com
+		- dcpIDBundleVersion added"
+::= { drmdcDCPlayerMib 1 }
+
+
+DcpSealStatus ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  INTEGER {
+		stateUnknown (1),
+		stateNotApplicable (2),
+		stateEngaged (3),
+		stateBroken (4)
+	}
+
+
+DcpServiceStatus ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  INTEGER {
+		svUnknown (1),
+		svNotApplicable (2),
+		svActive (3),
+		svNotActive (4)
+	}
+
+
+DcpTamperStatus ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  INTEGER {
+		stateUnknown (1),
+		stateNotApplicable (2),
+		stateClose (3),
+		stateOpen (4)
+	}
+
+
+DcpWorkingState ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  INTEGER {
+		stateUndefined (1),
+		stateNotApplicable (2),
+		stateNormal (3),
+		stateWarning (4),
+		stateError (5)
+	}
+
+
+DcpUUID ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"UUID in form urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+		for example: 
+		urn:uuid:05e39449-1df2-4129-9a81-575b0eb28b93"
+	SYNTAX  DisplayString
+
+
+dcpIdentity  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"All properties related to the unit's identity and quick identification
+		properties 
+		are organized under this node."
+	::= { drmdcDCPlayerMib 2 }
+
+dcpModulesRoot  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"All read-only modules are organized under this root node."
+	::= { drmdcDCPlayerMib 3 }
+
+dcpInventory  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"This node is used to store inventory tables. "
+	::= { dcpModulesRoot 1 }
+
+dcpStorage  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 2 }
+
+dcpStorageDevices  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorage 1 }
+
+dcpStorageModules  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorage 2 }
+
+dcpSensors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 3 }
+
+dcpSENprobes  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSensors 1 }
+
+dcpSENdetectors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSensors 2 }
+
+dcpSENStatus  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSensors 3 }
+
+dcpSystem  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 4 }
+
+dcpSYSDate  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSystem 1 }
+
+dcpSYSTimezone  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSDate 2 }
+
+dcpSYSntp  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSDate 3 }
+
+dcpChannels  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 5 }
+
+dcpChannelsOutbound  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpChannels 1 }
+
+dcpOutChannelsData  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Specific channel data are organized under this node "
+	::= { dcpChannelsOutbound 2 }
+
+dcpChannelsInbound  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpChannels 3 }
+
+dcpInStatus  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpChannelsInbound 2 }
+
+dcpInCapture  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInStatus 1 }
+
+dcpCaptureASITable  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCapture 4 }
+
+dcpInData  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInStatus 2 }
+
+dcpInSettings  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpChannelsInbound 3 }
+
+dcpInControl  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpChannelsInbound 4 }
+
+dcpChannelsPlayback  OBJECT IDENTIFIER ::= { dcpChannels 2 }
+
+dcpPlaybackInventory  OBJECT IDENTIFIER ::= { dcpChannelsPlayback 1 }
+dcpPlaybackConfig    OBJECT IDENTIFIER ::= { dcpChannelsPlayback 2 }
+dcpPlaybackControl   OBJECT IDENTIFIER ::= { dcpChannelsPlayback 3 }
+dcpPbCtrlShow        OBJECT IDENTIFIER ::= { dcpPlaybackControl 1 }
+dcpPlaybackStatus    OBJECT IDENTIFIER ::= { dcpChannelsPlayback 4 }
+
+dcpDevices  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 6 }
+
+dcpMediaDecoders  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpDevices 1 }
+
+dcpMDData  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpMediaDecoders 2 }
+
+dcpProjectors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpDevices 2 }
+
+dcpProjData  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectors 2 }
+
+dcpSecurityManagers  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpDevices 3 }
+
+dcpSMData  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSecurityManagers 2 }
+
+dcpAssets  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 7 }
+
+dcpDiagnostics  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpModulesRoot 8 }
+	
+dcpInterfaces        OBJECT IDENTIFIER ::= { dcpModulesRoot 9 }
+dcpIFHDMI            OBJECT IDENTIFIER ::= { dcpInterfaces 1 }
+
+dcpEvents  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"DC Player product Data and Trap definitions are organized under this node"
+	::= { drmdcDCPlayerMib 4 }
+
+dcpEventList  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Notification objects are organized under this node."
+	::= { dcpEvents 0 }
+
+dcpEventControl  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Node for data affecting Agent Trap Management semantics."
+	::= { dcpEvents 1 }
+
+dcpEventDescriptors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Event descriptors node."
+	::= { dcpEvents 2 }
+
+dcpEventGlobalDescriptors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventDescriptors 1 }
+
+dcpEventNameDescriptors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventDescriptors 2 }
+
+dcpEventTableDescriptors  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventDescriptors 3 }
+
+dcpConformance  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Organizational node for compliance objects."
+	::= { drmdcDCPlayerMib 5 }
+
+dcpConformanceGroups  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Organization node for Conformance groups."
+	::= { dcpConformance 1 }
+
+dcpConformanceTraps  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpConformance 2 }
+
+dcpConformanceAll  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpConformance 3 }
+
+dcpIDProductName  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"product name as displayed in about window. This MIB can server different 
+		but related product name.
+		Exemple: dcp2000, DCPost, Showvault...
+		"
+	::= { dcpIdentity 1 }
+
+dcpIDSerialNumber  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Serial number used to uniquely reference the product. The serial number is 
+		usually a seuqence of six digits, eventually followed by a revision number on two
+		digits separated by a dash.
+		Exemple: 201042-03, 205689
+		The serial number is attached to the media decoder. It is important for servers
+		where the media decoder is physically separated. (case for Showvault/IMB).
+		In this case, connecting the server to a new IMB will change the serial number.
+		It is sometimes referenced as Electronic serial number."
+	::= { dcpIdentity 2 }
+
+dcpIDSoftwareVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Server is operated by different software components. This value relates
+		to the most significant software part. It is in format major.minor.revision-build.
+		Exemple: 2.0.10-0."
+	::= { dcpIdentity 3 }
+
+dcpIDFirmwareVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This contains the primary media decoder firmware version. 
+		
+		If not applicable the returned version string is empty.
+		If the Media decoder is not plugged in, a cached value will
+		be returned."
+	::= { dcpIdentity 4 }
+
+dcpIDDecoderVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This contains the primary media decoder software version. 
+		
+		If not applicable the returned version string is empty.
+		If the Media decoder is not plugged in, a cached value will
+		be returned."
+	::= { dcpIdentity 5 }
+
+dcpIDProductNumber  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"When applicable, servers are assigned a distinct serial number attached to 
+		the chassis. It is usually indicated on a sticker on back of the chassis.
+		
+		It is also referenced as Chassis serial number in documentation.
+		If not available, the Number is empty."
+	::= { dcpIdentity 6 }
+
+dcpIDBundleVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Server is operated by different software components. This value relates
+		to the most significant software bundle part. It is in format major.minor.revision.
+		Exemple: 1.2.0."
+	::= { dcpIdentity 7 }
+
+dcpINVSoftwareTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpINVSoftwareEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"This table contains a list of all significant software components in the system.
+		Every entry in the table is assigned a fixed index value so that same property
+		is listed using the same index independantly of the server it is running on.
+		For instance index #3 is assigned to Video watermarking module. If this 
+		component is not applicable for a particular setup, the entry 3 will not be listed.
+		The possible entries are:
+		  #1 Main software suite
+		  #2 Host operating system
+		  #3 Video watermarking
+		  #4 Audio watermarking
+		  #5 MD firmware
+		  #6 MD software
+		  #7 BIOS
+		  #8 SNMP Agent
+		  #9 Auro
+		  #10 Kernel rescue
+		  #11 WebUI
+		  #12 IOBOARD firmware
+		"
+	::= { dcpInventory 1 }
+
+dcpINVSoftwareEntry  OBJECT-TYPE
+	SYNTAX 	DcpINVSoftwareEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpSWIndex }
+	::= { dcpINVSoftwareTable 1 }
+
+DcpINVSoftwareEntry ::= SEQUENCE {
+	dcpSWIndex
+		DrmGenericTableIndex,
+	dcpSWTitle
+		DisplayString,
+	dcpSWType
+		INTEGER,
+	dcpSWVersion
+		DisplayString
+}
+
+dcpSWIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the software inventory table."
+	::= { dcpINVSoftwareEntry 1 }
+
+dcpSWTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Title is a human friendly string to give indication about the referenced component.
+		"
+	::= { dcpINVSoftwareEntry 2 }
+
+dcpSWType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		swSoftware (1),
+		swFirmware (2),
+		swOperatingSystem (3),
+		swLibrary (4),
+		swPackage (5),
+		swKernel (6)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This enumeration value is used to give indication about what type the software
+		compoonent is. Possible values are:
+		 o regular software program suite
+		 o firmware used to operate hardware
+		 o operating system
+		 o library
+		 o optional package installed on the system
+		 o kernel"
+	::= { dcpINVSoftwareEntry 3 }
+
+dcpSWVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Version string attached to the software component. If not applicable or unknown
+		an empty string is returned."
+	::= { dcpINVSoftwareEntry 4 }
+
+dcpINVHardwareTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpINVHardwareEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"This table contains a list of all significant hardware components in the system.
+		Every entry in the table is assigned a fixed index value so that same property
+		is listed using the same index independantly of the server it is running on.
+		For instance index #3 is assigned to MD board component. If this 
+		component is not applicable for a particular setup, the entry 3 will not be listed.
+		The possible entries are:
+		 #1 Host motherboard
+		 #2 Host memory
+		 #3 MD board
+		 #4 Booting device
+		 #5 CPU
+		 #10 - #18 Data discs
+		 "
+	::= { dcpInventory 2 }
+
+dcpINVHardwareEntry  OBJECT-TYPE
+	SYNTAX 	DcpINVHardwareEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpHWIndex }
+	::= { dcpINVHardwareTable 1 }
+
+DcpINVHardwareEntry ::= SEQUENCE {
+	dcpHWIndex
+		DrmGenericTableIndex,
+	dcpHWTitle
+		DisplayString,
+	dcpHWType
+		INTEGER,
+	dcpHWModel
+		DisplayString,
+	dcpHWVersion
+		DisplayString,
+	dcpHWSerial
+		DisplayString,
+	dcpHWWorkingState
+		DrmWorkingState
+}
+
+dcpHWIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the hardware inventory table."
+	::= { dcpINVHardwareEntry 1 }
+
+dcpHWTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Title is a human friendly string to give indication about the referenced component."
+	::= { dcpINVHardwareEntry 2 }
+
+dcpHWType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		hwMotherboard (1),
+		hwHDD (2),
+		hwChassis (3),
+		hwCPU (4),
+		hwMemory (5),
+		hwAddonBoard (6),
+		hwUSBGeneric (7)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This enumeration value is used to give indication about what type the hardware
+		compoonent is. Possible values are:
+		o motherboard
+		o Hard disk (Storage)
+		o chassis
+		o CPU
+		o Memory
+		o AddOn board
+		o misc USB device
+		"
+	::= { dcpINVHardwareEntry 3 }
+
+dcpHWModel  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Gives indication about hardware component model and origin. Thsi entry 
+		usually includes the vendor string and model reference.
+		If not applicable or unknown an empty string is returned."
+	::= { dcpINVHardwareEntry 4 }
+
+dcpHWVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Version string attached to the hardware component. If not applicable or unknown
+		an empty string is returned."
+	::= { dcpINVHardwareEntry 5 }
+
+dcpHWSerial  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"If the component is assigned an uniq serial number, it is indicated here. 
+		If not applicable or unknown an empty string is returned."
+	::= { dcpINVHardwareEntry 6 }
+
+dcpHWWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working.
+		    "
+	::= { dcpINVHardwareEntry 7 }
+
+-- 
+-- 
+
+dcpINVFeatureTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpINVFeatureEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"This table lists the significant features or capacity for the system. Features
+		are often related to optional  software module, optional hardware module,
+		or optional features activated by a license.
+		Every entry in the table is assigned a fixed index value so that same property
+		is listed using the same index independantly of the server it is running on.
+		
+		The possible entries are:
+		 #1 Partial blackout
+		 #2 Dolby 3D
+		 #3 Reald 3D
+		 #4 Support 4K
+		 #5 Auro
+		 #6 Dolby 3D side-by-side
+		 #7 Reald 3D side-by-side
+		 #8 Sensio 3D
+		 #9 Dual IMB
+		 #10 Dolby Atmos
+		 #11 Subtitle
+		 #12 Closed Caption
+		 #13 Audiomark
+		 #14 MDA
+		 #15 HDMI Input
+		 #16 SDI Input
+		 #17 Intermission
+		 #18 Stream It
+		 #19 Standby
+		 #20 High Frame Rate
+		 #21 Doremi Deghost
+		 #22 Nas
+		 #23 SPL Validator"
+	::= { dcpInventory 3 }
+
+dcpINVFeatureEntry  OBJECT-TYPE
+	SYNTAX 	DcpINVFeatureEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpFEATIndex }
+	::= { dcpINVFeatureTable 1 }
+
+DcpINVFeatureEntry ::= SEQUENCE {
+	dcpFEATIndex
+		DrmGenericTableIndex,
+	dcpFEATTitle
+		DisplayString,
+	dcpFEATStatus
+		DcpServiceStatus
+}
+
+dcpFEATIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the feature table."
+	::= { dcpINVFeatureEntry 1 }
+
+dcpFEATTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpINVFeatureEntry 2 }
+
+dcpFEATStatus  OBJECT-TYPE
+	SYNTAX     DcpServiceStatus
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpINVFeatureEntry 3 }
+
+-- #1 Host primary boot device
+-- #10 first data drive (sda)
+-- #11 second data drive (sdb)
+-- #12 third data drive (sdc)
+-- #13 fourth data drive (sdd)
+-- #14 fifth data drive (sde)
+-- #15 sixth data drive (sdf)
+-- #16 seventh data drive
+-- #17 heighth data drive
+-- 
+
+dcpStorageDeviceTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpStorageDeviceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDevices 1 }
+
+dcpStorageDeviceEntry  OBJECT-TYPE
+	SYNTAX 	DcpStorageDeviceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpStorageDeviceIndex }
+	::= { dcpStorageDeviceTable 1 }
+
+DcpStorageDeviceEntry ::= SEQUENCE {
+	dcpStorageDeviceIndex
+		DrmGenericTableIndex,
+	dcpStorageDeviceTitle
+		DisplayString,
+	dcpStorageDeviceBus
+		INTEGER,
+	dcpStorageDeviceCapacity
+		Integer32,
+	dcpStorageDeviceType
+		INTEGER,
+	dcpStorageDeviceModel
+		DisplayString,
+	dcpStorageDeviceWorkingState
+		DrmWorkingState,
+	dcpStorageDeviceSerial
+		DisplayString,
+	dcpStorageDeviceVersion
+		DisplayString
+}
+
+dcpStorageDeviceIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the device table."
+	::= { dcpStorageDeviceEntry 1 }
+
+dcpStorageDeviceTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 2 }
+
+dcpStorageDeviceBus  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		busUnknown (1),
+		busIDE (2),
+		busUSB (3),
+		busSATA (4),
+		busSAS (5),
+		busFirewire (6)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 3 }
+
+dcpStorageDeviceCapacity  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"Megabyte"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 4 }
+
+dcpStorageDeviceType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		devUnknown (1),
+		devCF (2),
+		devSSD (3),
+		devHDD (4)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 5 }
+
+dcpStorageDeviceModel  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 6 }
+
+dcpStorageDeviceWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpStorageDeviceEntry 7 }
+
+dcpStorageDeviceSerial  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 8 }
+	
+dcpStorageDeviceVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDeviceEntry 9 }
+
+
+-- #1 Host primary boot device
+-- #10 first data drive (sda)
+-- #11 second data drive (sdb)
+-- #12 third data drive (sdc)
+-- #13 fourth data drive (sdd)
+-- #14 fifth data drive (sde)
+-- #15 sixth data drive (sdf)
+-- #16 seventh data drive
+-- #17 heighth data drive
+
+
+dcpStorageSMARTTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpStorageSMARTEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageDevices 2 }
+
+dcpStorageSMARTEntry  OBJECT-TYPE
+	SYNTAX 	DcpStorageSMARTEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpStorageDeviceIndex }
+	::= { dcpStorageSMARTTable 1 }
+
+DcpStorageSMARTEntry ::= SEQUENCE {
+	dcpStorageSMARTIndex
+		DrmGenericTableIndex,
+	dcpStorageSMARTSupport
+		TruthValue,
+	dcpStorageSMARTRawReadError
+		Integer32,
+	dcpStorageSMARTReallocatedSectorCount
+		Integer32,
+	dcpStorageSMARTReallocatedEvent
+		Integer32,
+	dcpStorageSMARTSeekErrorRate
+		Integer32,
+	dcpStorageSMARTUDMAError
+		Integer32,
+	dcpStorageSMARTTemperatureRaw
+		Integer32,
+	dcpStorageSMARTScanDate
+		DisplayString,
+	dcpStorageSMARTOverallHealth
+		DisplayString,
+	dcpStorageSMARTPowerOnHoursRaw
+		Integer32
+}
+
+dcpStorageSMARTIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the SMART device table. 
+		This OID is not accessible since the table uses index from device table."
+	::= { dcpStorageSMARTEntry 1 }
+
+dcpStorageSMARTSupport  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 2 }
+
+dcpStorageSMARTRawReadError  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 3 }
+
+dcpStorageSMARTReallocatedSectorCount  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 4 }
+
+dcpStorageSMARTReallocatedEvent  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 5 }
+
+dcpStorageSMARTSeekErrorRate  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 6 }
+
+dcpStorageSMARTUDMAError  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 7 }
+
+dcpStorageSMARTTemperatureRaw  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 8 }
+
+dcpStorageSMARTScanDate  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 9 }
+
+dcpStorageSMARTOverallHealth  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 10 }
+	
+dcpStorageSMARTPowerOnHoursRaw  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageSMARTEntry 11 }
+
+-- #1 /
+-- #2 /doremi
+-- #3 /var
+-- #4 /data
+-- #5 /opt
+-- 
+
+dcpStorageModulesTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpStorageModulesEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModules 1 }
+
+dcpStorageModulesEntry  OBJECT-TYPE
+	SYNTAX 	DcpStorageModulesEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpStorageModuleIndex }
+	::= { dcpStorageModulesTable 1 }
+
+DcpStorageModulesEntry ::= SEQUENCE {
+	dcpStorageModuleIndex
+		DrmGenericTableIndex,
+	dcpStorageModuleTitle
+		DisplayString,
+	dcpStorageModuleType
+		INTEGER,
+	dcpStorageModuleCapacity
+		Integer32,
+	dcpStorageModuleUsage
+		Integer32,
+	dcpStorageModuleWorkingState
+		DrmWorkingState
+}
+
+dcpStorageModuleIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the module table."
+	::= { dcpStorageModulesEntry 1 }
+
+dcpStorageModuleTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModulesEntry 2 }
+
+dcpStorageModuleType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		stSystem (1),
+		stData (2),
+		stExternal (3)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModulesEntry 3 }
+
+dcpStorageModuleCapacity  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"Megabyte"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModulesEntry 4 }
+
+dcpStorageModuleUsage  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"percent"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModulesEntry 5 }
+
+dcpStorageModuleWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpStorageModulesEntry 6 }
+
+-- #1 /
+-- #2 /doremi
+-- #3 /var
+-- #4 /data
+-- #5 /opt
+
+dcpStorageRAIDTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpStorageRAIDEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageModules 2 }
+
+dcpStorageRAIDEntry  OBJECT-TYPE
+	SYNTAX 	DcpStorageRAIDEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpStorageModuleIndex }
+	::= { dcpStorageRAIDTable 1 }
+
+DcpStorageRAIDEntry ::= SEQUENCE {
+	dcpStorageRAIDIndex
+		DrmGenericTableIndex,
+	dcpStorageRAIDModuleTitle
+		DisplayString,
+	dcpStorageRAIDType
+		INTEGER,
+	dcpStorageRAIDRecovery
+		Integer32,
+	dcpStorageRAIDWorkingState
+		DrmWorkingState,
+	dcpStorageRAIDSize
+		Integer32,
+	dcpStorageRAIDState
+		INTEGER,
+	dcpStorageRAIDuuid
+		DisplayString
+}
+
+dcpStorageRAIDIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the RAID module table. 
+		This OID is not accessible since the table uses index from module table."
+	::= { dcpStorageRAIDEntry 1 }
+
+dcpStorageRAIDModuleTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageRAIDEntry 2 }
+
+dcpStorageRAIDType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		raidUnknown (1),
+		raidNone (2),
+		raidStripping (3),
+		raidMirror (4),
+		raid5 (5),
+		raidLinear (6)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageRAIDEntry 3 }
+
+dcpStorageRAIDRecovery  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"Percent"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpStorageRAIDEntry 4 }
+
+dcpStorageRAIDWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpStorageRAIDEntry 5 }
+
+dcpStorageRAIDSize  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Number of devices in this RAID"
+	::= { dcpStorageRAIDEntry 6 }
+
+dcpStorageRAIDState  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		raidStateUnknown (1),
+		raidStateOffline (2),
+		raidStateFailOnline (3),
+		raidStateDegraded (4),
+		raidStateRecovery (5),
+		raidStateWorkingOnline (6)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"States description:
+		- raidStateOffline: module is not started, hence not operational
+		- raidStateFailOnline: module is started but NOT operational
+		- raidStateDegraded: module is started and operational; but one or more 
+		  devices are faulty and require to be fix. Performance may be degraded.
+		- raidStateRecovery: module is started and operational; and one or more
+		  devices are being corrected/initialized.
+		- raidStateWorkingOnline: module is started and fully operational
+		
+		Please note that a RAID module just initialized/created will be in stateRecovery
+		state.
+		"
+	::= { dcpStorageRAIDEntry 7 }
+
+dcpStorageRAIDuuid  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Unique identifier assigned to the RAID module. Empty string if not available"
+	::= { dcpStorageRAIDEntry 8 }
+
+-- #1 Host motherboard fan
+-- #2 Host CPU fan
+-- #3 Host Chipset fan
+-- #4 Host fan 4
+-- #5 Host fan 5
+-- #6 Host fan 6
+-- 
+
+dcpSENfansTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENfansEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Collection of sensors monitoring the fan speed"
+	::= { dcpSENprobes 1 }
+
+dcpSENfansEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENfansEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpFANIndex }
+	::= { dcpSENfansTable 1 }
+
+DcpSENfansEntry ::= SEQUENCE {
+	dcpFANIndex
+		DrmGenericTableIndex,
+	dcpFANTitle
+		DrmResourceName,
+	dcpFANWorkingState
+		DrmWorkingState,
+	dcpFANValue
+		DrmFanSpeed,
+	dcpFANLowThreshold
+		DrmFanSpeed,
+	dcpFANHighThreshold
+		DrmFanSpeed
+}
+
+dcpFANIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the fan table."
+	::= { dcpSENfansEntry 1 }
+
+dcpFANTitle  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Fan identifier string"
+	::= { dcpSENfansEntry 2 }
+
+dcpFANWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpSENfansEntry 3 }
+
+dcpFANValue  OBJECT-TYPE
+	SYNTAX     DrmFanSpeed
+	UNITS 	"rpm"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Current fan speed unit in Round Per Minute"
+	::= { dcpSENfansEntry 4 }
+
+dcpFANLowThreshold  OBJECT-TYPE
+	SYNTAX     DrmFanSpeed
+	UNITS 	"rpm"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicate the value under which the fan component is outside the
+		specification. This value is used by the associated trap entry.
+		Speed unit is Round Per Minute
+		Null value indicates no threshold "
+	::= { dcpSENfansEntry 5 }
+
+dcpFANHighThreshold  OBJECT-TYPE
+	SYNTAX     DrmFanSpeed
+	UNITS 	"rpm"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicate the value above which the fan component is outside the
+		specification. This value is used by the associated trap entry.
+		Speed unit is Round Per Minute
+		Null value indicates no threshold "
+	::= { dcpSENfansEntry 6 }
+
+-- #1 Host voltage 1
+-- #2 Host voltage 2
+-- #3 Host voltage 3
+-- #4 Host voltage 4
+-- #5 Host voltage 5
+-- #6 Host voltage 6
+-- #7 Host voltage 7
+-- #8 MD RTC battery
+-- 
+-- 
+
+dcpSENPowerTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENPowerEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENprobes 2 }
+
+dcpSENPowerEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENPowerEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpPOWIndex }
+	::= { dcpSENPowerTable 1 }
+
+DcpSENPowerEntry ::= SEQUENCE {
+	dcpPOWIndex
+		DrmGenericTableIndex,
+	dcpPOWTitle
+		DrmResourceName,
+	dcpPOWWorkingState
+		DrmWorkingState,
+	dcpPOWValue
+		DrmPowerLowVoltage,
+	dcpPOWLowThreshold
+		DrmPowerLowVoltage,
+	dcpPOWHighThreshold
+		DrmPowerLowVoltage
+}
+
+dcpPOWIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the power table."
+	::= { dcpSENPowerEntry 1 }
+
+dcpPOWTitle  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Power supply identifier string"
+	::= { dcpSENPowerEntry 2 }
+
+dcpPOWWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpSENPowerEntry 3 }
+
+dcpPOWValue  OBJECT-TYPE
+	SYNTAX     DrmPowerLowVoltage
+	UNITS 	"millivolts"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENPowerEntry 4 }
+
+dcpPOWLowThreshold  OBJECT-TYPE
+	SYNTAX     DrmPowerLowVoltage
+	UNITS 	"millivolts"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Null value indicates no threshold "
+	::= { dcpSENPowerEntry 5 }
+
+dcpPOWHighThreshold  OBJECT-TYPE
+	SYNTAX     DrmPowerLowVoltage
+	UNITS 	"millivolts"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Null value indicates no threshold "
+	::= { dcpSENPowerEntry 6 }
+
+-- #1 Host motherboard
+-- #2 Host CPU
+-- #3 Host chipset
+-- #4 MD FPGA #1
+-- #5 MD FPGA #2
+-- #6 MD RTC
+-- #10 First data drive
+-- #11 second data drive
+-- #12 third data drive
+-- #13 4th data drive
+-- #14 5th data drive
+-- #15 6th data drive
+-- #16 7th data drive
+-- #17 8th data drive
+-- #18 9th data drive
+-- 
+
+dcpSENHeatTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENHeatEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENprobes 3 }
+
+dcpSENHeatEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENHeatEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpHEATIndex }
+	::= { dcpSENHeatTable 1 }
+
+DcpSENHeatEntry ::= SEQUENCE {
+	dcpHEATIndex
+		DrmGenericTableIndex,
+	dcpHEATTitle
+		DisplayString,
+	dcpHEATWorkingState
+		DrmWorkingState,
+	dcpHEATValue
+		DrmTemperature,
+	dcpHEATLowThreshold
+		DrmTemperature,
+	dcpHEATHighThreshold
+		DrmTemperature
+}
+
+dcpHEATIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the heat table."
+	::= { dcpSENHeatEntry 1 }
+
+dcpHEATTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENHeatEntry 2 }
+
+dcpHEATWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpSENHeatEntry 3 }
+
+dcpHEATValue  OBJECT-TYPE
+	SYNTAX     DrmTemperature
+	UNITS 	"Celcius degree"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENHeatEntry 4 }
+
+dcpHEATLowThreshold  OBJECT-TYPE
+	SYNTAX     DrmTemperature
+	UNITS 	"Celcius degree"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Null value indicates no threshold "
+	::= { dcpSENHeatEntry 5 }
+
+dcpHEATHighThreshold  OBJECT-TYPE
+	SYNTAX     DrmTemperature
+	UNITS 	"Celcius degree"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Null value indicates no threshold "
+	::= { dcpSENHeatEntry 6 }
+
+-- #1 Service door
+
+dcpSENTampersTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENTampersEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENdetectors 1 }
+
+dcpSENTampersEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENTampersEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpTAMPIndex }
+	::= { dcpSENTampersTable 1 }
+
+DcpSENTampersEntry ::= SEQUENCE {
+	dcpTAMPIndex
+		DrmGenericTableIndex,
+	dcpTAMPTitle
+		DisplayString,
+	dcpTAMPStatus
+		DcpTamperStatus
+}
+
+dcpTAMPIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the tampers table."
+	::= { dcpSENTampersEntry 1 }
+
+dcpTAMPTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENTampersEntry 2 }
+
+dcpTAMPStatus  OBJECT-TYPE
+	SYNTAX     DcpTamperStatus
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENTampersEntry 3 }
+
+-- #1 Software integrity
+-- #2 Physical marriage
+-- #3 Logical marriage
+-- #4 Service door
+-- 
+
+dcpSENSealsTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENSealsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENdetectors 2 }
+
+dcpSENSealsEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENSealsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpSEALIndex }
+	::= { dcpSENSealsTable 1 }
+
+DcpSENSealsEntry ::= SEQUENCE {
+	dcpSEALIndex
+		DrmGenericTableIndex,
+	dcpSEALTitle
+		DisplayString,
+	dcpSEALStatus
+		DcpSealStatus
+}
+
+dcpSEALIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the seals table."
+	::= { dcpSENSealsEntry 1 }
+
+dcpSEALTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENSealsEntry 2 }
+
+dcpSEALStatus  OBJECT-TYPE
+	SYNTAX     DcpSealStatus
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENSealsEntry 3 }
+
+dcpSENServiceTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENServiceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENStatus 1 }
+
+dcpSENServiceEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENServiceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpSERVIndex }
+	::= { dcpSENServiceTable 1 }
+
+DcpSENServiceEntry ::= SEQUENCE {
+	dcpSERVIndex
+		DrmGenericTableIndex,
+	dcpSERVTitle
+		DisplayString,
+	dcpSERVStatus
+		DcpServiceStatus
+}
+
+dcpSERVIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the service table."
+	::= { dcpSENServiceEntry 1 }
+
+dcpSERVTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENServiceEntry 2 }
+
+dcpSERVStatus  OBJECT-TYPE
+	SYNTAX     DcpServiceStatus
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENServiceEntry 3 }
+
+-- #1 Host Memory
+-- 
+
+dcpSENAlarmTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSENAlarmEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENStatus 2 }
+
+dcpSENAlarmEntry  OBJECT-TYPE
+	SYNTAX 	DcpSENAlarmEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpAlarmTableIndex }
+	::= { dcpSENAlarmTable 1 }
+
+DcpSENAlarmEntry ::= SEQUENCE {
+	dcpAlarmTableIndex
+		DrmGenericTableIndex,
+	dcpAlarmTableTitle
+		DisplayString,
+	dcpAlarmTableWorkingState
+		DrmWorkingState
+}
+
+dcpAlarmTableIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the alarm table."
+	::= { dcpSENAlarmEntry 1 }
+
+dcpAlarmTableTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSENAlarmEntry 2 }
+
+dcpAlarmTableWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but reports some abnomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpSENAlarmEntry 3 }
+
+dcpSYSCurrentDate  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Current date in format as described in RFC 3339"
+	::= { dcpSYSDate 1 }
+
+dcpTZString  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSTimezone 1 }
+
+dcpTZGMTOffset  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"minute"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Current offset in minutes west from Greenwich"
+	::= { dcpSYSTimezone 2 }
+
+dcpTZNextDSTDate  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Date and tIme when the next scheduled Daylight saving time will occur"
+	::= { dcpSYSTimezone 3 }
+
+dcpNTPLastSyncServer  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSntp 1 }
+
+dcpNTPLastSyncDate  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSntp 2 }
+
+dcpNTPLastSyncOffset  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"seconds"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Time adjustment performed by the last NTP synchonrisatino operation.
+		The information is in seconds.
+		If not applicable (the NTP was never run on the unit, the value is 0. Hence
+		This value shall be confirmed by a not-empty value for last server or last
+		synchronization date."
+	::= { dcpSYSntp 3 }
+
+-- #1 Host master clock
+-- #2 MD security clock
+-- 
+
+dcpSYSClockTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpSYSClockEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSDate 4 }
+
+dcpSYSClockEntry  OBJECT-TYPE
+	SYNTAX 	DcpSYSClockEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpCLKIndex }
+	::= { dcpSYSClockTable 1 }
+
+DcpSYSClockEntry ::= SEQUENCE {
+	dcpCLKIndex
+		DrmGenericTableIndex,
+	dcpCLKTitle
+		DisplayString,
+	dcpCLKType
+		INTEGER,
+	dcpCLKDrift
+		Integer32,
+	dcpCLKWorkingState
+		DrmWorkingState,
+	dcpCLKConsumed
+		Integer32,
+	dcpCLKAuthorized
+		Integer32
+}
+
+dcpCLKIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the clock table."
+	::= { dcpSYSClockEntry 1 }
+
+dcpCLKTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSClockEntry 2 }
+
+dcpCLKType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		typeVirtual (1),
+		typePermanent (2),
+		typeSecured (3)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSYSClockEntry 3 }
+
+dcpCLKDrift  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Number of seconds drift compared to the master clock"
+	::= { dcpSYSClockEntry 4 }
+
+dcpCLKWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpSYSClockEntry 5 }
+
+dcpCLKConsumed  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Number of seconds the clock has been adjusted"
+	::= { dcpSYSClockEntry 6 }
+
+dcpCLKAuthorized  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Maximum number of seconds that device can be adjusted. 0 means that there is no limit.
+		The number of seconds that the device can be adjusted is then
+		dcpCLKAuthorized - dcpCLKConsumed
+		"
+	::= { dcpSYSClockEntry 7 }
+
+dcpOutChannelsCount  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpChannelsOutbound 1 }
+
+dcpOutChannelsListTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpOutChannelsListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpChannelsOutbound 3 }
+
+dcpOutChannelsListEntry  OBJECT-TYPE
+	SYNTAX 	DcpOutChannelsListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpOutChannelsListIndex }
+	::= { dcpOutChannelsListTable 1 }
+
+DcpOutChannelsListEntry ::= SEQUENCE {
+	dcpOutChannelsListIndex
+		DrmGenericTableIndex,
+	dcpOutChannelsListTitle
+		DisplayString,
+	dcpOutChannelsListType
+		INTEGER,
+	dcpOutChannelsListWorkingState
+		DrmWorkingState
+}
+
+dcpOutChannelsListIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the channel list table."
+	::= { dcpOutChannelsListEntry 1 }
+
+dcpOutChannelsListTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpOutChannelsListEntry 2 }
+
+dcpOutChannelsListType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		chPlayOnly (1)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpOutChannelsListEntry 3 }
+
+dcpOutChannelsListWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpOutChannelsListEntry 4 }
+
+dcpOutChannelStatusTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpOutChannelStatusEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpChannelsOutbound 4 }
+
+dcpOutChannelStatusEntry  OBJECT-TYPE
+	SYNTAX 	DcpOutChannelStatusEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpOutChannelsListIndex }
+	::= { dcpOutChannelStatusTable 1 }
+
+DcpOutChannelStatusEntry ::= SEQUENCE {
+	dcpOutChannelStatusIndex
+		DrmGenericTableIndex,
+	dcpOutChannelStatusOperation
+		INTEGER,
+	dcpOutChannelPlayUnderflowsCounter
+		Counter32,
+	dcpOutChannelPlayCrashCounter
+		Counter32
+}
+
+dcpOutChannelStatusIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the channel status table. 
+		This OID is not accessible since the table uses index from channel list table."
+	::= { dcpOutChannelStatusEntry 1 }
+
+dcpOutChannelStatusOperation  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		stUnknown (1),
+		stIdle (2),
+		stPaused (3),
+		stPlaying (4)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpOutChannelStatusEntry 2 }
+
+dcpOutChannelPlayUnderflowsCounter  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpOutChannelStatusEntry 3 }
+
+dcpOutChannelPlayCrashCounter  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpOutChannelStatusEntry 4 }
+
+dcpOutChannelSecurityTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpOutChannelSecurityEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpChannelsOutbound 5 }
+
+dcpOutChannelSecurityEntry  OBJECT-TYPE
+	SYNTAX 	DcpOutChannelSecurityEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpOutChannelsListIndex }
+	::= { dcpOutChannelSecurityTable 1 }
+
+DcpOutChannelSecurityEntry ::= SEQUENCE {
+	dcpOutChannelSecurityIndex
+		DrmGenericTableIndex,
+	dcpOutChannelSecurityMarriage
+		DrmWorkingState,
+	dcpOutChannelSecurityServiceDoor
+		DrmWorkingState,
+	dcpOutChannelSecurityClearance
+		DrmWorkingState
+}
+
+dcpOutChannelSecurityIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the channel security table. 
+		This OID is not accessible since the table uses index from channel list table."
+	::= { dcpOutChannelSecurityEntry 1 }
+
+dcpOutChannelSecurityMarriage  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This setting indicates if the marriage state will break playback.
+		Possible values are:
+		o underfined: the state is not determined yet.
+		o not applicable: the referenced component does not apply to this system
+		o normal: marriage is working fine
+		o warning: marriage is not working fine but it won't prevent playback
+		o error: marriage is broken and will prevent playback"
+	::= { dcpOutChannelSecurityEntry 2 }
+
+dcpOutChannelSecurityServiceDoor  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This setting indicates if the service door state will break playback.
+		Possible values are:
+		o underfined: the state is not determined yet.
+		o not applicable: the referenced component does not apply to this system
+		o normal: service door is armed
+		o warning: service door is not working fine but it won't prevent playback
+		o error: service door is broken and will prevent playback"
+	::= { dcpOutChannelSecurityEntry 3 }
+
+dcpOutChannelSecurityClearance  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This setting indicates if the system is operational security wise.
+		Possible values are:
+		o underfined: the state is not determined yet.
+		o not applicable: the referenced component does not apply to this system
+		o normal: there are no security related issues detected
+		o warning: security related issues have been detected that will not prevent playback
+		o error: security related issues have been detected that will prevent playback"
+	::= { dcpOutChannelSecurityEntry 4 }
+
+
+dcpInChannelsTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpInChannelsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpChannelsInbound 1 }
+
+dcpInChannelsEntry  OBJECT-TYPE
+	SYNTAX 	DcpInChannelsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpInChannelsIndex }
+	::= { dcpInChannelsTable 1 }
+
+DcpInChannelsEntry ::= SEQUENCE {
+	dcpInChannelsIndex
+		DrmGenericTableIndex,
+	dcpInChannelsTitle
+		DisplayString,
+	dcpInChannelsCaptureIndex
+		DrmGenericTableIndex,
+	dcpInChannelsState
+		INTEGER,
+	dcpInChannelsVideodescriptor
+		DisplayString,
+	dcpInChannelsVideoMediaID
+		DisplayString,
+	dcpInChannelsAudiodescriptor
+		DisplayString,
+	dcpInChannelsAudioMediaID
+		DisplayString
+}
+
+dcpInChannelsIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 1 }
+
+dcpInChannelsTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 2 }
+
+dcpInChannelsCaptureIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 3 }
+
+dcpInChannelsState  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		statinUndefined (1),
+		statinIdling (2),
+		statinAcquiring (3),
+		statinSynching (4),
+		statinRunning (5)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 4 }
+
+dcpInChannelsVideodescriptor  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 5 }
+
+dcpInChannelsVideoMediaID  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 6 }
+
+dcpInChannelsAudiodescriptor  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 7 }
+
+dcpInChannelsAudioMediaID  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInChannelsEntry 8 }
+
+dcpCaptureDeviceTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF StmCaptureDeviceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCapture 1 }
+
+dcpCaptureDeviceEntry  OBJECT-TYPE
+	SYNTAX 	StmCaptureDeviceEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpCaptureDeviceIndex }
+	::= { dcpCaptureDeviceTable 1 }
+
+StmCaptureDeviceEntry ::= SEQUENCE {
+	dcpCaptureDeviceIndex
+		DrmGenericTableIndex,
+	dcpCaptureDeviceTitle
+		DisplayString,
+	dcpCaptureDeviceType
+		INTEGER,
+	dcpCaptureDeviceWorkingState
+		DrmWorkingState,
+	dcpCaptureDeviceState
+		INTEGER,
+	dcpCaptureDeviceRecvCount
+		Counter32,
+	dcpCaptureDeviceRecvFullness
+		Integer32
+}
+
+dcpCaptureDeviceIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureDeviceEntry 1 }
+
+dcpCaptureDeviceTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureDeviceEntry 2 }
+
+dcpCaptureDeviceType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		chEthernet (1),
+		chASI (2)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureDeviceEntry 3 }
+
+dcpCaptureDeviceWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureDeviceEntry 4 }
+
+dcpCaptureDeviceState  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		capUndefined (1),
+		capWaiting (2),
+		capReceiving (3)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureDeviceEntry 5 }
+
+dcpCaptureDeviceRecvCount  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		"Number of bytes received since the service was started."
+	::= { dcpCaptureDeviceEntry 6 }
+
+dcpCaptureDeviceRecvFullness  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"percent"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		"Receive buffer fullness."
+	::= { dcpCaptureDeviceEntry 7 }
+
+dcpCaptureNetworkTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF StmCaptureNetworkEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCapture 2 }
+
+dcpCaptureNetworkEntry  OBJECT-TYPE
+	SYNTAX 	StmCaptureNetworkEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpCaptureDeviceIndex }
+	::= { dcpCaptureNetworkTable 1 }
+
+StmCaptureNetworkEntry ::= SEQUENCE {
+	dcpCaptureNetworkIndex
+		DrmGenericTableIndex,
+	dcpCaptureNetworkIP
+		IpAddress,
+	dcpCaptureNetworkPort
+		Integer32,
+	dcpCaptureNetworkInterface
+		DisplayString
+}
+
+dcpCaptureNetworkIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureNetworkEntry 1 }
+
+dcpCaptureNetworkIP  OBJECT-TYPE
+	SYNTAX     IpAddress
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureNetworkEntry 2 }
+
+dcpCaptureNetworkPort  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureNetworkEntry 3 }
+
+dcpCaptureNetworkInterface  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpCaptureNetworkEntry 4 }
+
+dcpScanMediaTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpScanMediaEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInData 1 }
+
+dcpScanMediaEntry  OBJECT-TYPE
+	SYNTAX 	DcpScanMediaEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpScanMediaIndex }
+	::= { dcpScanMediaTable 1 }
+
+DcpScanMediaEntry ::= SEQUENCE {
+	dcpScanMediaIndex
+		DrmGenericTableIndex,
+	dcpScanMediaCaptureDeviceIndex
+		DrmGenericTableIndex,
+	dcpScanMediaType
+		INTEGER,
+	dcpScanMediaDescription
+		DisplayString,
+	dcpScanMediaID
+		DisplayString,
+	dcpScanMediaGroup
+		DisplayString
+}
+
+dcpScanMediaIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 1 }
+
+dcpScanMediaCaptureDeviceIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 2 }
+
+dcpScanMediaType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		mediaUndefined (1),
+		mediaVideo (2),
+		mediaAudio (3)
+	}
+	UNITS 	"kbps"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 3 }
+
+dcpScanMediaDescription  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 4 }
+
+dcpScanMediaID  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 5 }
+
+dcpScanMediaGroup  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpScanMediaEntry 6 }
+
+dcpInAudioSettingsTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpInAudioSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInSettings 1 }
+
+dcpInAudioSettingsEntry  OBJECT-TYPE
+	SYNTAX 	DcpInAudioSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpInChannelsIndex }
+	::= { dcpInAudioSettingsTable 1 }
+
+DcpInAudioSettingsEntry ::= SEQUENCE {
+	dcpInAudioSettingsIndex
+		DrmGenericTableIndex,
+	dcpInAudioSettingsChannelSelect
+		Integer32,
+	dcpInAudioSettingsDelay
+		Integer32
+}
+
+dcpInAudioSettingsIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInAudioSettingsEntry 1 }
+
+dcpInAudioSettingsChannelSelect  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInAudioSettingsEntry 2 }
+
+dcpInAudioSettingsDelay  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS 	"frames"
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		"Extra delay in frames to adjust lip sync. Value can be positive or negative."
+	::= { dcpInAudioSettingsEntry 3 }
+
+dcpInVideoSettingsTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpInVideoSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInSettings 2 }
+
+dcpInVideoSettingsEntry  OBJECT-TYPE
+	SYNTAX 	DcpInVideoSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpInChannelsIndex }
+	::= { dcpInVideoSettingsTable 1 }
+
+DcpInVideoSettingsEntry ::= SEQUENCE {
+	dcpInVideoSettingsIndex
+		DrmGenericTableIndex,
+	dcpInVideoSettingsChannelSelect
+		Integer32
+}
+
+dcpInVideoSettingsIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInVideoSettingsEntry 1 }
+
+dcpInVideoSettingsChannelSelect  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInVideoSettingsEntry 2 }
+
+dcpInCaptureNetworkSettingsTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpInCaptureNetworkSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInSettings 3 }
+
+dcpInCaptureNetworkSettingsEntry  OBJECT-TYPE
+	SYNTAX 	DcpInCaptureNetworkSettingsEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpCaptureDeviceIndex }
+	::= { dcpInCaptureNetworkSettingsTable 1 }
+
+DcpInCaptureNetworkSettingsEntry ::= SEQUENCE {
+	dcpInNetworkSettingsIndex
+		DrmGenericTableIndex,
+	dcpInNetworkSettingsIP
+		DisplayString,
+	dcpInNetworkSettingsPort
+		DisplayString,
+	dcpInNetworkSettingsInterface
+		DisplayString
+}
+
+dcpInNetworkSettingsIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCaptureNetworkSettingsEntry 1 }
+
+dcpInNetworkSettingsIP  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCaptureNetworkSettingsEntry 2 }
+
+dcpInNetworkSettingsPort  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCaptureNetworkSettingsEntry 3 }
+
+dcpInNetworkSettingsInterface  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInCaptureNetworkSettingsEntry 4 }
+
+dcpInOperationTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpInOperationEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInControl 1 }
+
+dcpInOperationEntry  OBJECT-TYPE
+	SYNTAX 	DcpInOperationEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION
+		""
+	INDEX { dcpInOperationIndex }
+	::= { dcpInOperationTable 1 }
+
+DcpInOperationEntry ::= SEQUENCE {
+	dcpInOperationIndex
+		DrmGenericTableIndex,
+	dcpInOperationRestart
+		TruthValue
+}
+
+dcpInOperationIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+		""
+	::= { dcpInOperationEntry 1 }
+
+dcpInOperationRestart  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION
+		"Write 1 to force a restart for all inbound channels related services."
+	::= { dcpInOperationEntry 2 }
+
+dcpMDCount  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpMediaDecoders 1 }
+
+dcpProjectorsCount  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectors 1 }
+
+dcpProjectorListTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpProjectorListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectors 3 }
+
+dcpProjectorListEntry  OBJECT-TYPE
+	SYNTAX 	DcpProjectorListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpProjectorListIndex }
+	::= { dcpProjectorListTable 1 }
+
+DcpProjectorListEntry ::= SEQUENCE {
+	dcpProjectorListIndex
+		DrmGenericTableIndex,
+	dcpProjectorTitle
+		DisplayString,
+	dcpProjectorModel
+		DisplayString,
+	dcpProjectorConnected
+		TruthValue,
+	dcpProjectorAddress
+		DisplayString,
+	dcpProjectorCertificateThumbprint
+		DisplayString,
+	dcpProjectorPrimary
+		TruthValue
+}
+
+dcpProjectorListIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the projector table."
+	::= { dcpProjectorListEntry 1 }
+
+dcpProjectorTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorListEntry 2 }
+
+dcpProjectorModel  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorListEntry 3 }
+
+dcpProjectorConnected  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Gives indication if the projector is connected or not."
+	::= { dcpProjectorListEntry 4 }
+
+dcpProjectorAddress  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorListEntry 5 }
+
+dcpProjectorCertificateThumbprint  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorListEntry 6 }
+
+dcpProjectorPrimary  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Gives indication if the projector is primary or not."
+	::= { dcpProjectorListEntry 7 }
+
+dcpProjectorsStatusTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpProjectorsStatusEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectors 4 }
+
+dcpProjectorsStatusEntry  OBJECT-TYPE
+	SYNTAX 	DcpProjectorsStatusEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpProjectorListIndex }
+	::= { dcpProjectorsStatusTable 1 }
+
+DcpProjectorsStatusEntry ::= SEQUENCE {
+	dcpProjectorsStatusIndex
+		DrmGenericTableIndex,
+	dcpProjectorsStatusLamp
+		INTEGER,
+	dcpProjectorsStatusDowser
+		INTEGER
+}
+
+dcpProjectorsStatusIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the projector status table. 
+		This OID is not accessible since the table uses index from projector list table."
+	::= { dcpProjectorsStatusEntry 1 }
+
+dcpProjectorsStatusLamp  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		pjLampUnknown (1),
+		pjLampOn (2),
+		pjLampOff (3)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsStatusEntry 2 }
+
+dcpProjectorsStatusDowser  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		dowserUnknown (1),
+		dowserOpen (2),
+		dowserClosed (3)
+	}
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsStatusEntry 3 }
+
+dcpProjectorsAlarmTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpProjectorsAlarmEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"This table collects alarm reported by  connected projectors. Some alarm sensors
+		may not be available or applicable depending on the underlying hardware.
+		Every sensor is reported as a WorkingState status for the associated modules:
+		- unknwon
+		- not-applicable
+		- ok (no_alarm)
+		- warning (warning alarm)
+		- error (alert)
+		"
+	::= { dcpProjectors 5 }
+
+dcpProjectorsAlarmEntry  OBJECT-TYPE
+	SYNTAX 	DcpProjectorsAlarmEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpProjectorListIndex }
+	::= { dcpProjectorsAlarmTable 1 }
+
+DcpProjectorsAlarmEntry ::= SEQUENCE {
+	dcpProjectorsAlarmIndex
+		DrmGenericTableIndex,
+	dcpProjectorsAlarmLampTimer
+		DrmWorkingState,
+	dcpProjectorsAlarmFilterTimer
+		DrmWorkingState,
+	dcpProjectorsAlarmFan
+		DrmWorkingState,
+	dcpProjectorsAlarmTemperature
+		DrmWorkingState,
+	dcpProjectorsAlarmBattery
+		DrmWorkingState,
+	dcpProjectorsAlarmSecurity
+		DrmWorkingState,
+	dcpProjectorsAlarmSecurityLog
+		DrmWorkingState
+}
+
+dcpProjectorsAlarmIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 1 }
+
+dcpProjectorsAlarmLampTimer  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 2 }
+
+dcpProjectorsAlarmFilterTimer  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 3 }
+
+dcpProjectorsAlarmFan  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 4 }
+
+dcpProjectorsAlarmTemperature  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 5 }
+
+dcpProjectorsAlarmBattery  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 6 }
+
+dcpProjectorsAlarmSecurity  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 7 }
+
+dcpProjectorsAlarmSecurityLog  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpProjectorsAlarmEntry 8 }
+
+dcpSecurityManagersCount  OBJECT-TYPE
+	SYNTAX     Counter32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpSecurityManagers 1 }
+
+dcpPbCtrlShowTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpPbCtrlShowEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShow 1 }
+
+dcpPbCtrlShowEntry  OBJECT-TYPE
+	SYNTAX 	DcpPbCtrlShowEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpPbCtrlShowIndex }
+	::= { dcpPbCtrlShowTable 1 }
+
+DcpPbCtrlShowEntry ::= SEQUENCE {
+	dcpPbCtrlShowIndex
+		DrmGenericTableIndex,
+	dcpPbCtrlShowPlay
+		TruthValue,
+	dcpPbCtrlShowPause
+		TruthValue,
+	dcpPbCtrlShowEject
+		TruthValue,
+	dcpPbCtrlShowLoad
+		DcpUUID,
+	dcpPbCtrlShowChase
+		INTEGER
+}
+
+dcpPbCtrlShowIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShowEntry 1 }
+
+dcpPbCtrlShowPlay  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShowEntry 2 }
+
+dcpPbCtrlShowPause  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShowEntry 3 }
+
+dcpPbCtrlShowEject  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShowEntry 4 }
+
+dcpPbCtrlShowLoad  OBJECT-TYPE
+	SYNTAX     DcpUUID
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpPbCtrlShowEntry 5 }
+
+dcpPbCtrlShowChase  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		dcpPbCtrlShowChaseOff (0),
+		dcpPbCtrlShowChaseOn (2),
+		dcpPbCtrlShowChaseLimited (3)
+	}
+	MAX-ACCESS read-write
+	STATUS     current
+	DESCRIPTION 
+		"Indicates or control the current chase mode. 
+		Chase is used to control the system to lock the curent playback timecode to the incoming timecode on LTC interface."
+	::= { dcpPbCtrlShowEntry 6 }
+
+-- #1 NTP sync.
+-- 
+
+dcpCheckListTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpCheckListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpDiagnostics 1 }
+
+dcpCheckListEntry  OBJECT-TYPE
+	SYNTAX 	DcpCheckListEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpCheckListIndex }
+	::= { dcpCheckListTable 1 }
+
+DcpCheckListEntry ::= SEQUENCE {
+	dcpCheckListIndex
+		DrmGenericTableIndex,
+	dcpCheckListTitle
+		DisplayString,
+	dcpCheckListWorkingState
+		DrmWorkingState,
+	dcpCheckListDescription
+		DisplayString
+}
+
+dcpCheckListIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Main index used to reference entries in the check list table."
+	::= { dcpCheckListEntry 1 }
+
+dcpCheckListTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpCheckListEntry 2 }
+
+dcpCheckListWorkingState  OBJECT-TYPE
+	SYNTAX     DrmWorkingState
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"This property gives an overview of the current working status for the referenced
+		component. 
+		Possible values are:
+		o undefined: the state is not known. It is not an error; it indicates the system can't
+		report accurate status for the component. It can't be precluded that component is
+		failing or not.
+		o not applicable: the referenced component doesn't have a working state for good,
+		expected reason. It may be used for instance for an optional  component that is 
+		missing.
+		o normal: the referenced component is running normally
+		o warning: the referenced resource is operational but is report some anomalies.
+		System is still operational; but the case shall be investigated, and eventually the 
+		resource replaced or fixed.
+		o error: the component doesn't work reliably. The system may still be operational or
+		not but it is expected that some features are no longer working."
+	::= { dcpCheckListEntry 3 }
+
+dcpCheckListDescription  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpCheckListEntry 4 }
+
+dcpIFHDMIStateTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DcpIFHDMIStateEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMI 1 }
+
+dcpIFHDMIStateEntry  OBJECT-TYPE
+	SYNTAX 	DcpIFHDMIStateEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	INDEX { dcpIFHDMIStateIndex }
+	::= { dcpIFHDMIStateTable 1 }
+
+DcpIFHDMIStateEntry ::= SEQUENCE {
+	dcpIFHDMIStateIndex
+		DrmGenericTableIndex,
+	dcpIFHDMIStateName
+		DisplayString,
+	dcpIFHDMIStateValid
+		TruthValue,
+	dcpIFHDMIStateConnected
+		TruthValue,
+	dcpIFHDMIStateAudio
+		TruthValue,
+	dcpIFHDMIStateHDCP
+		TruthValue,
+	dcpIFHDMIStateEdid
+		OCTET STRING
+}
+
+dcpIFHDMIStateIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMIStateEntry 1 }
+
+dcpIFHDMIStateName  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMIStateEntry 2 }
+
+dcpIFHDMIStateValid  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMIStateEntry 3 }
+
+dcpIFHDMIStateConnected  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMIStateEntry 4 }
+
+dcpIFHDMIStateAudio  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpIFHDMIStateEntry 5 }
+
+dcpIFHDMIStateHDCP  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicates if the HDCP is active for the interface"
+	::= { dcpIFHDMIStateEntry 6 }
+
+dcpIFHDMIStateEdid OBJECT-TYPE
+    SYNTAX      OCTET STRING (SIZE(1..512))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+            "EDID blob. A 0x00 
+            should be returned if an EDID is 
+            not available."
+    ::= { dcpIFHDMIStateEntry 7 }
+
+
+dcpEvtDiskStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvDiskName, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"Trap sent for events related to disk devices."
+	::= { dcpEventList 1 }
+
+dcpEvtStorageStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvStorageName, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"Trap sent for events related to storage modules."
+	::= { dcpEventList 2 }
+
+dcpEvtFanStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENfansTable."
+	::= { dcpEventList 3 }
+
+dcpEvtPowerStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENPowerTable."
+	::= { dcpEventList 4 }
+
+dcpEvtHeatStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENHeatTable."
+	::= { dcpEventList 5 }
+
+dcpEvtTamperStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENTampersTable."
+	::= { dcpEventList 6 }
+
+dcpEvtSealStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENSealsTable."
+	::= { dcpEventList 7 }
+
+dcpEvtAlarmStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpSENAlarmTable."
+	::= { dcpEventList 8 }
+
+dcpEvtChecklistStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvResourceIndex, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references a checklist item from the dcpCheckListTable."
+	::= { dcpEventList 9 }
+
+dcpEvtProjectorAlarmStatus  NOTIFICATION-TYPE
+	OBJECTS { dcpEvSeverity, 
+		dcpEvType, 
+		dcpEvResourceName, 
+		dcpEvDescription }
+	STATUS     current
+	DESCRIPTION 
+		"This event references an item from the dcpProjectorsAlarmTable."
+	::= { dcpEventList 10 }
+
+dcpEvtRTCStatus  NOTIFICATION-TYPE
+  OBJECTS { dcpEvSeverity,
+    dcpEvType,
+    dcpEvResourceName,
+    dcpEvDescription }
+  STATUS     current
+  DESCRIPTION
+    "This event references an item from the dcpSYSClockTable."
+  ::= { dcpEventList 11 }
+
+dcpEvSeverity  OBJECT-TYPE
+	SYNTAX     DrmEventSeverity
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		"Severity level assigned to an event:
+		  normalinformational message without any alarm condition.
+		  warning:potential problem but is not conclusive to trigger a failure shortly.
+		  minor:identified problem without any degradation of function.
+		  major:identified problem with possible degradation of function.
+		  critical:serious failure that leads to broken functions.
+		 "
+	::= { dcpEventGlobalDescriptors 1 }
+
+dcpEvDescription  OBJECT-TYPE
+	SYNTAX     DrmEventDescription
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventGlobalDescriptors 2 }
+
+dcpEvType  OBJECT-TYPE
+	SYNTAX     INTEGER {
+		healthCondition (1),
+		statusChange (2),
+		lowThreshold (3),
+		highThreshold (4),
+		propertyChange (5)
+	}
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventGlobalDescriptors 3 }
+
+dcpEvResourceName  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		"This property is used to name resource. It is used when there is no possible 
+		mistake about the referenced resource."
+	::= { dcpEventGlobalDescriptors 4 }
+
+dcpEvTitle  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventGlobalDescriptors 5 }
+
+dcpEvResourceIndex  OBJECT-TYPE
+	SYNTAX     DrmGenericTableIndex
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventGlobalDescriptors 6 }
+
+dcpEvDiskName  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		"Human friendly identifier for hard disk resource."
+	::= { dcpEventNameDescriptors 1 }
+
+dcpEvStorageName  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		"Human friendly identifier for a storage resource."
+	::= { dcpEventNameDescriptors 2 }
+
+dcpEvChannelName  OBJECT-TYPE
+	SYNTAX     DrmResourceName
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		"Human friendly identifier for the channel for wich the event is being generated."
+	::= { dcpEventNameDescriptors 3 }
+
+dcpEvRawPointer  OBJECT-TYPE
+	SYNTAX     RowPointer
+	MAX-ACCESS accessible-for-notify
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpEventTableDescriptors 1 }
+
+dcpDataGroupAll  OBJECT-GROUP
+	OBJECTS { dcpCheckListDescription, 
+		dcpCheckListIndex, 
+		dcpCheckListTitle, 
+		dcpCheckListWorkingState, 
+		dcpCLKAuthorized, 
+		dcpCLKConsumed, 
+		dcpCLKDrift, 
+		dcpCLKIndex, 
+		dcpCLKTitle, 
+		dcpCLKType, 
+		dcpCLKWorkingState, 
+		dcpFANHighThreshold, 
+		dcpFANIndex, 
+		dcpFANLowThreshold, 
+		dcpFANTitle, 
+		dcpFANValue, 
+		dcpFANWorkingState, 
+		dcpFEATIndex, 
+		dcpFEATStatus, 
+		dcpFEATTitle, 
+		dcpAlarmTableIndex, 
+		dcpAlarmTableTitle, 
+		dcpAlarmTableWorkingState, 
+		dcpHEATHighThreshold, 
+		dcpHEATIndex, 
+		dcpHEATLowThreshold, 
+		dcpHEATTitle, 
+		dcpHEATValue, 
+		dcpHEATWorkingState, 
+		dcpHWIndex, 
+		dcpHWModel, 
+		dcpHWSerial, 
+		dcpHWTitle, 
+		dcpHWType, 
+		dcpHWVersion, 
+		dcpHWWorkingState, 
+		dcpIDDecoderVersion, 
+		dcpIDFirmwareVersion, 
+		dcpIDProductName, 
+		dcpIDSerialNumber, 
+		dcpIDSoftwareVersion, 
+		dcpMDCount, 
+		dcpNTPLastSyncDate, 
+		dcpNTPLastSyncOffset, 
+		dcpNTPLastSyncServer, 
+		dcpOutChannelPlayCrashCounter, 
+		dcpOutChannelPlayUnderflowsCounter, 
+		dcpOutChannelsCount, 
+		dcpOutChannelSecurityClearance, 
+		dcpOutChannelSecurityMarriage, 
+		dcpOutChannelSecurityServiceDoor, 
+		dcpOutChannelsListIndex, 
+		dcpOutChannelsListTitle, 
+		dcpOutChannelsListType, 
+		dcpOutChannelsListWorkingState, 
+		dcpOutChannelStatusOperation, 
+		dcpPOWHighThreshold, 
+		dcpPOWIndex, 
+		dcpPOWLowThreshold, 
+		dcpPOWTitle, 
+		dcpPOWValue, 
+		dcpPOWWorkingState, 
+		dcpProjectorAddress, 
+		dcpProjectorCertificateThumbprint, 
+		dcpProjectorPrimary,
+		dcpProjectorModel, 
+		dcpProjectorsCount, 
+		dcpProjectorsStatusDowser, 
+		dcpProjectorsStatusLamp, 
+		dcpProjectorTitle, 
+		dcpProjectorConnected, 
+		dcpSEALIndex, 
+		dcpSEALStatus, 
+		dcpSEALTitle, 
+		dcpSecurityManagersCount, 
+		dcpSERVIndex, 
+		dcpSERVStatus, 
+		dcpSERVTitle, 
+		dcpStorageDeviceBus, 
+		dcpStorageDeviceCapacity, 
+		dcpStorageDeviceIndex, 
+		dcpStorageDeviceModel, 
+		dcpStorageDeviceTitle, 
+		dcpStorageDeviceType, 
+		dcpStorageDeviceWorkingState, 
+		dcpStorageModuleCapacity, 
+		dcpStorageModuleIndex, 
+		dcpStorageModuleTitle, 
+		dcpStorageModuleType, 
+		dcpStorageModuleUsage, 
+		dcpStorageModuleWorkingState, 
+		dcpStorageRAIDIndex, 
+		dcpStorageRAIDModuleTitle, 
+		dcpStorageRAIDRecovery, 
+		dcpStorageRAIDSize, 
+		dcpStorageRAIDType, 
+		dcpStorageRAIDWorkingState, 
+		dcpStorageSMARTIndex, 
+		dcpStorageSMARTRawReadError, 
+		dcpStorageSMARTReallocatedEvent, 
+		dcpStorageSMARTReallocatedSectorCount, 
+		dcpStorageSMARTSeekErrorRate, 
+		dcpStorageSMARTSupport, 
+		dcpStorageSMARTUDMAError, 
+		dcpSWIndex, 
+		dcpSWTitle, 
+		dcpSWType, 
+		dcpSWVersion, 
+		dcpSYSCurrentDate, 
+		dcpTAMPIndex, 
+		dcpTAMPStatus, 
+		dcpTAMPTitle, 
+		dcpTZGMTOffset, 
+		dcpTZNextDSTDate, 
+		dcpTZString }
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpConformanceGroups 1 }
+
+dcpDataGroupNotifyOnly  OBJECT-GROUP
+	OBJECTS { dcpEvChannelName, 
+		dcpEvDescription, 
+		dcpEvDiskName, 
+		dcpEvRawPointer, 
+		dcpEvResourceIndex, 
+		dcpEvResourceName, 
+		dcpEvSeverity, 
+		dcpEvStorageName, 
+		dcpEvTitle, 
+		dcpEvType }
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpConformanceGroups 2 }
+
+dcpTrapGroupAll  NOTIFICATION-GROUP
+	NOTIFICATIONS { dcpEvtDiskStatus, 
+		dcpEvtStorageStatus, 
+		dcpEvtFanStatus, 
+		dcpEvtPowerStatus, 
+		dcpEvtHeatStatus }
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { dcpConformanceTraps 1 }
+END
+
+
+-- This MIB was created using NuDesign Team's Visual MIBuilder (Ver 4.6).
+

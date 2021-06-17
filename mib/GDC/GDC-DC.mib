@@ -1,0 +1,1006 @@
+GDC-DC-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	gdc, gdcObjectGroups, gdcNotifications
+		FROM GDC-MIB
+	OBJECT-GROUP
+		FROM SNMPv2-CONF
+	MODULE-IDENTITY, OBJECT-TYPE,
+	Integer32
+		FROM SNMPv2-SMI
+	TruthValue, DisplayString
+		FROM SNMPv2-TC;
+
+gdcDC MODULE-IDENTITY
+	LAST-UPDATED "201608110400Z"
+	ORGANIZATION 
+		"GDC Technology Ltd"
+	CONTACT-INFO 
+		"          GDC Support
+
+          Email:  support@gdc-tech.com"
+	DESCRIPTION 
+		"The MIB module for all information related to GDC D-cinema servers"
+::= { gdc 1 }
+
+serverInfo           OBJECT IDENTIFIER ::= { gdcDC 1 }
+systemProps          OBJECT IDENTIFIER ::= { gdcDC 2 }
+disks                OBJECT IDENTIFIER ::= { gdcDC 3 }
+ethInfo              OBJECT IDENTIFIER ::= { gdcDC 4 }
+mounts               OBJECT IDENTIFIER ::= { gdcDC 5 }
+raid                 OBJECT IDENTIFIER ::= { gdcDC 6 }
+sensors              OBJECT IDENTIFIER ::= { gdcDC 7 }
+notifications        OBJECT IDENTIFIER ::= { gdcDC 8 }
+pci                  OBJECT IDENTIFIER ::= { gdcDC 9 }
+
+manufacturer  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The manufacturer of the server."
+	::= { serverInfo 7 }
+
+model  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The model number of the server."
+	::= { serverInfo 1 }
+
+serial  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The serial number of the server."
+	::= { serverInfo 2 }
+
+osVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The version of the installed OS image."
+	::= { serverInfo 3 }
+
+softwareVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The version of the playback software."
+	::= { serverInfo 4 }
+
+snmpAgentVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The version of the snmp agent."
+	::= { serverInfo 5 }
+
+sysUpTime  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The uptime of the server."
+	::= { serverInfo 8 }
+
+auditoriumNo  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Auditorium Number."
+	::= { serverInfo 9 }
+
+systemTime  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The system time of the server."
+	::= { serverInfo 10 }
+
+videoDevicesTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF VideoDevicesEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the video output devices present in the server and their details."
+	::= { serverInfo 6 }
+
+videoDevicesEntry  OBJECT-TYPE
+	SYNTAX 	VideoDevicesEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the videoDevicesTable."
+	INDEX { videoDeviceIndex }
+	::= { videoDevicesTable 1 }
+
+VideoDevicesEntry ::= SEQUENCE {
+	videoDeviceIndex
+		Integer32,
+	videoDeviceName
+		DisplayString,
+	videoDriverVersion
+		DisplayString,
+	videoDeviceBoardTemp
+		Integer32,
+	videoDeviceFPGATemp
+		Integer32
+}
+
+videoDeviceIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the videoDevicesTable."
+	::= { videoDevicesEntry 1 }
+
+videoDeviceName  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The name of the video output device."
+	::= { videoDevicesEntry 2 }
+
+videoDriverVersion  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The version of firmware/driver used by the video device."
+	::= { videoDevicesEntry 3 }
+
+videoDeviceBoardTemp  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The board temperature of the video device."
+	::= { videoDevicesEntry 4 }
+
+videoDeviceFPGATemp  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The FPGA temperature of the video device."
+	::= { videoDevicesEntry 5 }
+
+memTotal  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "KB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The total amount of memory in the server (in KB)."
+	::= { systemProps 1 }
+
+memFree  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "KB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The amount of free memory in the server (in KB)."
+	::= { systemProps 2 }
+
+processorTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF ProcessorEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the processors on the server and their details."
+	::= { systemProps 3 }
+
+processorEntry  OBJECT-TYPE
+	SYNTAX 	ProcessorEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the processorTable."
+	INDEX { processorIndex }
+	::= { processorTable 1 }
+
+ProcessorEntry ::= SEQUENCE {
+	processorIndex
+		Integer32,
+	processorSpeed
+		Integer32,
+	processorType
+		DisplayString
+}
+
+processorIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the processorTable."
+	::= { processorEntry 1 }
+
+processorSpeed  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "MHz"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The speed of the processor (in MHz)."
+	::= { processorEntry 2 }
+
+processorType OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The type of the processor."
+	::= { processorEntry 3 }
+
+motherboardVendor OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The motherboard vendor."
+	::= { systemProps 4 }
+
+motherboardProduct OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The motherboard product."
+	::= { systemProps 5 }
+
+biosVendor OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The BIOS vendor."
+	::= { systemProps 6 }
+
+biosVersion OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The BIOS version."
+	::= { systemProps 7 }
+
+biosReleaseDate OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The BIOS release date."
+	::= { systemProps 8 }
+
+diskTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF DiskEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the hard disks used in the server."
+	::= { disks 1 }
+
+diskEntry  OBJECT-TYPE
+	SYNTAX 	DiskEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the diskTable."
+	INDEX { diskIndex }
+	::= { diskTable 1 }
+
+DiskEntry ::= SEQUENCE {
+	diskIndex
+		Integer32,
+	diskDevice
+		DisplayString,
+	diskCapacity
+		Integer32,
+	diskModel
+		DisplayString,
+	diskSerial
+		DisplayString,
+	diskSmartErrors
+		TruthValue,
+	diskTemperature
+		Integer32,
+	diskSmartRawReadError
+		DisplayString,
+  diskSmartReallocatedSector
+		DisplayString,
+  diskSmartSeekErrorRate
+		DisplayString,
+  diskSmartReallocatedEvent
+		DisplayString,
+  diskSmartCurrentPendingSector
+		DisplayString,
+  diskSmartOfflineUncorrectable
+		DisplayString,
+  diskSmartUDMACRCError
+		DisplayString	
+}
+
+diskIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the diskTable."
+	::= { diskEntry 1 }
+
+diskDevice  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The system name for the hard disk."
+	::= { diskEntry 2 }
+
+diskCapacity  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "MB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The capacity of the hard disk drive (in MB)."
+	::= { diskEntry 3 }
+
+diskModel  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The model name of the hard disk drive."
+	::= { diskEntry 4 }
+
+diskSmartErrors  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicates whether the hard disk has any errors recorded by S.M.A.R.T."
+	::= { diskEntry 5 }
+
+diskSerial  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The Serial no. of the hard disk drive."
+	::= { diskEntry 6 }
+
+diskTemperature  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The Temperature of the hard disk drive."
+	::= { diskEntry 7 }
+
+diskSmartRawReadError  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 1: Raw_Read_Error_Rate"
+	::= { diskEntry 8 }
+
+diskSmartReallocatedSector  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 5: Reallocated_Sector_Ct"
+	::= { diskEntry 9 }
+
+diskSmartSeekErrorRate  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 7: Seek_Error_Rate"
+	::= { diskEntry 10 }
+
+diskSmartReallocatedEvent  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 196: Reallocated_Event_Count"
+	::= { diskEntry 11 }
+
+diskSmartCurrentPendingSector  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 197: Current_Pending_Sector"
+	::= { diskEntry 12 }
+
+diskSmartOfflineUncorrectable  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 198: Offline_Uncorrectable"
+	::= { diskEntry 13 }
+
+diskSmartUDMACRCError  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"S.M.A.R.T. Attribute: 199: UDMA_CRC_Error_Count"
+	::= { diskEntry 14 }
+
+ethInfoTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF EthInfoEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the ethernet interfaces available on the server and their details."
+	::= { ethInfo 1 }
+
+ethInfoEntry  OBJECT-TYPE
+	SYNTAX 	EthInfoEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the ethInfoTable."
+	INDEX { ethIndex }
+	::= { ethInfoTable 1 }
+
+EthInfoEntry ::= SEQUENCE {
+	ethIndex
+		Integer32,
+	ethMac
+		DisplayString,
+	ethAddress
+		DisplayString,
+	ethSpeed
+		Integer32,
+	ethUp
+		TruthValue
+}
+
+ethIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the ethInfoTable."
+	::= { ethInfoEntry 1 }
+
+ethMac  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The MAC address of the ethernet interface."
+	::= { ethInfoEntry 2 }
+
+ethAddress  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The IP address assigned to the ethernet interface."
+	::= { ethInfoEntry 3 }
+
+ethSpeed  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "Mbps"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The speed of the ethernet connection (in Mbps)."
+	::= { ethInfoEntry 4 }
+
+ethUp  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicates whether the ethernet interface is connected to a network or not."
+	::= { ethInfoEntry 5 }
+
+mountTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF MountEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the mounted filesystems on the server."
+	::= { mounts 1 }
+
+mountEntry  OBJECT-TYPE
+	SYNTAX 	MountEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the mountTable."
+	INDEX { mountIndex }
+	::= { mountTable 1 }
+
+MountEntry ::= SEQUENCE {
+	mountIndex
+		Integer32,
+	mountLocation
+		DisplayString,
+	mountTotalSpace
+		Integer32,
+	mountFreeSpace
+		Integer32,
+	mountUsePercent
+		Integer32,
+	mountAccess
+		DisplayString 
+}
+
+mountIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the mountTable."
+	::= { mountEntry 1 }
+
+mountLocation  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The local directory on the server where the filesystem is mounted."
+	::= { mountEntry 2 }
+
+mountTotalSpace  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "MB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The total capacity of the mounted filesystem (in MB)."
+	::= { mountEntry 3 }
+
+mountFreeSpace  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "MB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The amount of available space on the mounted filesystem (in MB)."
+	::= { mountEntry 4 }
+
+mountUsePercent  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "%"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Used percentage space on the mounted filesystem (in %)."
+	::= { mountEntry 5 }
+
+mountAccess  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The access Permission of the filesystem mounted."
+	::= { mountEntry 6 }
+
+raidTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF RaidEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the raid filesystems on the server and their details."
+	::= { raid 1 }
+
+raidEntry  OBJECT-TYPE
+	SYNTAX 	RaidEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the raidTable."
+	INDEX { raidIndex }
+	::= { raidTable 1 }
+
+RaidEntry ::= SEQUENCE {
+	raidIndex
+		Integer32,
+	raidDevice
+		DisplayString,
+	raidUUID
+		DisplayString,
+	raidType
+		Integer32,
+	raidCapacity
+		Integer32,
+	raidDegraded
+		TruthValue
+}
+
+raidIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the raidTable."
+	::= { raidEntry 1 }
+
+raidDevice  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The system name for the raid device."
+	::= { raidEntry 2 }
+
+raidUUID  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The unique identifier for the raid device."
+	::= { raidEntry 3 }
+
+raidType  OBJECT-TYPE
+	SYNTAX     Integer32
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The raid level of the raid device."
+	::= { raidEntry 4 }
+
+raidCapacity  OBJECT-TYPE
+	SYNTAX     Integer32
+	UNITS      "MB"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The total capacity of the raid device (in MB)."
+	::= { raidEntry 5 }
+
+raidDegraded  OBJECT-TYPE
+	SYNTAX     TruthValue
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"Indicates whether the raid is in a degraded state or not."
+	::= { raidEntry 6 }
+
+cpuFanSpeed  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	UNITS      "RPM"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { sensors 1 }
+
+cpuTemperature  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	UNITS      "degrees C"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { sensors 2 }
+
+sysTemperature1  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	UNITS      "degrees C"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { sensors 3 }
+
+sysTemperature2  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	UNITS      "degrees C"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { sensors 4 }
+
+sysTemperature3  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	UNITS      "degrees C"
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { sensors 5 }
+
+videoDeviceNotFound NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the video device is missing"
+	::= { notifications 1 }
+
+videoDriverNotLoaded NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the video driver was not loaded"
+	::= { notifications 2 }
+
+serverTemperatureHigh NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the server temperature has gove above the specified limit"
+	::= { notifications 3 }
+
+fanSpeedLow NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the CPU fan speed has gone below the specified limit"
+	::= { notifications 4 }
+
+diskNotFound NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription }
+	STATUS current
+	DESCRIPTION
+		"The notificataion to indicate that a disk has not been detected"
+	::= { notifications 5 }
+
+mountNotFound NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that a mount location has not been found"
+	::= { notifications 6 }
+
+raidNotFound NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that a raid device was not found"
+	::= { notifications 7 }
+
+pciDeviceNotFound NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that a PCI device was not found"
+	::= { notifications 8 }
+
+raidStatusDegraded NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the RAID device is degraded"
+	::= { notifications 9 }
+
+diskErrorDetected NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the disk device has S.M.A.R.T errors"
+	::= { notifications 10 }
+
+diskSpaceErrorDetected NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the disk space has reached threshold"
+	::= { notifications 11 }
+
+diskTemperatureHigh NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that the disk temperature has gove above the specified limit"
+	::= { notifications 12 }
+
+ingestionStarted NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that server started Ingestion"
+	::= { notifications 13 }
+
+ingestionCompleted NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that server completed Ingestion"
+	::= { notifications 14 }
+
+ingestionFailed NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that Ingestion has failed"
+	::= { notifications 15 }
+
+droppedFrame NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate Dropped Frame"
+	::= { notifications 16 }
+
+systemUpDays NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate that system is up for more than defined nunber of days"
+	::= { notifications 17 }
+
+SNMPAgentStarted NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate SNMP Agent is started"
+	::= { notifications 18 }
+
+KDMMissing NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate KDM is missing"
+	::= { notifications 19 }
+
+SNMPAgentStopped NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate SNMP Agent is stopped"
+	::= { notifications 20 }
+
+fireAlarm NOTIFICATION-TYPE
+  OBJECTS { eventType, eventDescription, eventReference }
+  STATUS current
+  DESCRIPTION
+    "The notification to indicate Fire Alarm has reached threshold"
+  ::= { notifications 21 }
+
+ethernetDown NOTIFICATION-TYPE
+  OBJECTS { eventType, eventDescription, eventReference }
+  STATUS current
+  DESCRIPTION
+    "The notification to indicate network is down"
+  ::= { notifications 22 }
+
+HDDSMARTAttributeChanged NOTIFICATION-TYPE
+	OBJECTS { eventType, eventDescription, eventReference }
+	STATUS current
+	DESCRIPTION
+		"The notification to indicate a hard disk's SMART attribute value has changed"
+	::= { notifications 23 }
+
+pciTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF PCIEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The table listing the PCI devices on the server and their details."
+	::= { pci 1 }
+
+pciEntry  OBJECT-TYPE
+	SYNTAX 	PCIEntry
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"An entry in the pciTable."
+	INDEX { pciIndex }
+	::= { pciTable 1 }
+
+PCIEntry ::= SEQUENCE {
+	pciIndex
+		Integer32,
+	pciBusID
+		DisplayString,
+	pciDescription
+		DisplayString
+}
+
+pciIndex  OBJECT-TYPE
+	SYNTAX     Integer32 (0..2147483647)
+	MAX-ACCESS not-accessible
+	STATUS     current
+	DESCRIPTION 
+		"The auxillary variable used for identifying instances of the columnar objects in the pciTable."
+	::= { pciEntry 1 }
+
+pciBusID  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The PCI bus ID for the PCI device."
+	::= { pciEntry 2 }
+
+pciDescription  OBJECT-TYPE
+	SYNTAX     DisplayString
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION 
+		"The PCI description for the PCI device."
+	::= { pciEntry 3 }
+
+gdcDCObjectGroups    OBJECT IDENTIFIER ::= { gdcObjectGroups 1 }
+
+serverInfoGroup OBJECT-GROUP
+	OBJECTS { manufacturer, model, serial, osVersion, softwareVersion, snmpAgentVersion, videoDeviceName, videoDriverVersion, videoDeviceBoardTemp, videoDeviceFPGATemp, sysUpTime, auditoriumNo, systemTime }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide server information"
+	::= { gdcDCObjectGroups 1 }
+
+systemPropsGroup OBJECT-GROUP
+	OBJECTS { memTotal, memFree, processorSpeed, processorType, motherboardVendor, motherboardProduct, biosVendor, biosVersion, biosReleaseDate }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide system information"
+	::= { gdcDCObjectGroups 2 }
+
+disksGroup OBJECT-GROUP
+	OBJECTS { diskDevice, diskCapacity, diskModel, diskSerial, diskSmartErrors, diskTemperature, diskSmartRawReadError, diskSmartReallocatedSector, diskSmartSeekErrorRate, diskSmartReallocatedEvent, diskSmartCurrentPendingSector, diskSmartOfflineUncorrectable, diskSmartUDMACRCError }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide disk related information"
+	::= { gdcDCObjectGroups 3 }
+
+ethGroup OBJECT-GROUP
+	OBJECTS { ethMac, ethAddress, ethSpeed, ethUp }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide ethernet related information"
+	::= { gdcDCObjectGroups 4 }
+
+mountsGroup OBJECT-GROUP
+	OBJECTS { mountLocation, mountTotalSpace, mountFreeSpace, mountUsePercent, mountAccess }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide information related to mounted filesystems"
+	::= { gdcDCObjectGroups 5 }
+
+raidGroup OBJECT-GROUP
+	OBJECTS { raidDevice, raidUUID, raidType, raidCapacity, raidDegraded }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide information related to mounted filesystems"
+	::= { gdcDCObjectGroups 6 }
+
+sensorsGroup OBJECT-GROUP
+	OBJECTS { cpuFanSpeed, cpuTemperature, sysTemperature1, sysTemperature2, sysTemperature3 }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide information collected from the motherboard sensors"
+	::= { gdcDCObjectGroups 7 }
+
+pciGroup OBJECT-GROUP
+	OBJECTS { pciBusID, pciDescription }
+	STATUS current
+	DESCRIPTION
+		"The collection of objects that provide information related to PCI devices"
+	::= { gdcDCObjectGroups 9 }
+
+dcNotificationsGroup NOTIFICATION-GROUP
+	NOTIFICATIONS { videoDeviceNotFound, videoDriverNotLoaded, serverTemperatureHigh, fanSpeedLow, diskNotFound, mountNotFound, raidNotFound, pciDeviceNotFound, raidStatusDegraded, diskErrorDetected, diskSpaceErrorDetected, diskTemperatureHigh, ingestionStarted, ingestionCompleted, ingestionFailed, droppedFrame, systemUpDays, SNMPAgentStarted, KDMMissing, SNMPAgentStopped, fireAlarm, ethernetDown, HDDSMARTAttributeChanged }
+	STATUS current
+	DESCRIPTION
+		"The collection of notifications that provide warnings about the server's state"
+	::= { gdcNotifications 3 }
+
+END
+
+

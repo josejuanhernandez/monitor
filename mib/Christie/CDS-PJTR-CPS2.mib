@@ -1,0 +1,535 @@
+CDS-PJTR-CPS2-COMMON DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdEsProjector
+        FROM CDS-SMI
+    Integer32, MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString, MacAddress, TruthValue
+        FROM SNMPv2-TC
+    ;
+
+-- Changed software package version from integer to string.
+
+cdcpS2MIB MODULE-IDENTITY
+    LAST-UPDATED  "201210051625Z" -- October 05, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal: 10550 Camden Drive
+         Cypress, CA 90630
+         USA
+
+         Tel: +1 800 221-8025
+
+         E-mail: support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions CP2220 Cinema
+         projector.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsProjector(1)"
+    REVISION      "201008031936Z" -- August 03, 2010
+    DESCRIPTION
+        "Added: MacAddress, IpAddress, SubnetMask,Gateway,
+         SnmpTrapIpAddress, InputStatusDataFormat"
+    REVISION      "201003051417Z" -- March 05, 2010
+    DESCRIPTION
+        "Changed InputStatusSelected port: Added IMB port selection and
+         changed 292T to 292D"
+    REVISION      "201210051625Z" -- October 05, 2012
+    DESCRIPTION
+        "Added the Standby IMB power state to SystemStatusPowerState"
+    REVISION      "201306251325Z" -- June 25, 2103
+    DESCRIPTION
+        "Added NTPConnectionStatus, SnmpTrapIPAddress2"
+    ::= { cdEsProjector 1 }
+
+-- ====================================================================
+-- 
+-- Lamp history - a table of history entries
+-- 
+-- DESCRIPTION
+-- 
+-- A value used to index lamp history.
+
+CdcpS2LampHistoryIdx ::= Integer32 (1..10)
+
+cdcpS2Notifications OBJECT IDENTIFIER ::= { cdcpS2MIB 0 }
+
+cdcpS2Conformance OBJECT IDENTIFIER ::= { cdcpS2MIB 1 }
+
+cdcpS2Compliances OBJECT IDENTIFIER ::= { cdcpS2Conformance 1 }
+
+cdcpS2Groups OBJECT IDENTIFIER ::= { cdcpS2Conformance 2 }
+
+cdcpS2Config OBJECT IDENTIFIER ::= { cdcpS2MIB 2 }
+
+-- ==================================================================
+-- 
+-- General projector managment variables
+-- 
+-- ==================================================================
+
+cdcpS2Model OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The projector model."
+    ::= { cdcpS2Config 1 }
+
+cdcpS2ModelSubType OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The model subtype of this projector."
+    ::= { cdcpS2Config 2 }
+
+cdcpS2ModelSubTypeId OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The model subtype id of this projector."
+    ::= { cdcpS2Config 3 }
+
+cdcpS2SerialNumber OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the projector."
+    ::= { cdcpS2Config 4 }
+
+cdcpS2ManufacturedDate OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..31))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the date the projector was manufactured. Format
+         yyyy-mm-dd hh:mm:ss"
+    ::= { cdcpS2Config 5 }
+
+cdcpS2NativeResolution OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..31))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Native resolution of this projector."
+    ::= { cdcpS2Config 6 }
+
+cdcpS2SoftwareVersion OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..31))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the software package version"
+    ::= { cdcpS2Config 7 }
+
+cdcpS2NTPConnectionStatus OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(1..4))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the current state of the NTP server"
+    ::= { cdcpS2Config 8 }
+cdcpS2Networking OBJECT IDENTIFIER ::= { cdcpS2Config 8 }
+
+cdcpS2MacAddress OBJECT-TYPE
+    SYNTAX        OCTET STRING
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 1 }
+
+cdcpS2IpAddress OBJECT-TYPE
+    SYNTAX        IpAddress
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 2 }
+
+cdcpS2SubNetMask OBJECT-TYPE
+    SYNTAX        IpAddress
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 3 }
+
+cdcpS2Gateway OBJECT-TYPE
+    SYNTAX        IpAddress
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 4 }
+
+cdcpS2SnmpTrapIpAddress OBJECT-TYPE
+    SYNTAX        IpAddress
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 5 }
+    
+cdcpS2SnmpTrapIpAddress2 OBJECT-TYPE
+    SYNTAX        IpAddress
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        ""
+    ::= { cdcpS2Networking 6 }
+
+cdcpS2Status OBJECT IDENTIFIER ::= { cdcpS2MIB 3 }
+
+cdcpS2SystemStatus OBJECT IDENTIFIER ::= { cdcpS2Status 1 }
+
+cdcpS2SystemStatusHours OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The number of hours the projector has operated."
+    ::= { cdcpS2SystemStatus 1 }
+
+cdcpS2SystemStatusRentalHours OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The total number of lamp ON hours for this projector."
+    ::= { cdcpS2SystemStatus 2 }
+
+cdcpS2SystemStatusPowerState OBJECT-TYPE
+    SYNTAX        INTEGER {
+        warmingUp(1),
+        powerOn(2),
+        coolingDown(3),
+        powerOff(4),
+        lampOn(5),
+        standbyIMB(6)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Current state of the ballast:
+         warming-up (1), power-on (2), cooling-down (3), power-off (4)
+         lamp-on (5) standby-imb (6)"
+    ::= { cdcpS2SystemStatus 3 }
+
+cdcpS2SystemStatusShutterOpen OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the shutter is open."
+    ::= { cdcpS2SystemStatus 4 }
+
+cdcpS2SystemStatusLampError OBJECT-TYPE
+    SYNTAX        INTEGER {
+        on(1),
+        unexpectedOff(2),
+        ignitionFailure(3),
+        off(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lamp error status:
+         on (1), unexpected-off(2), ignition-failure(3), off (4)"
+    ::= { cdcpS2SystemStatus 5 }
+
+cdcpS2SystemStatusLampLuminosity OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(1..31))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies the luminosity of this lamp, in foot/lamberts. The
+         value is formatted as a float."
+    ::= { cdcpS2SystemStatus 6 }
+
+cdcpS2SystemStatusLampLiteLoc OBJECT-TYPE
+    SYNTAX        INTEGER {
+        off(1),
+        on(2),
+        maxPower(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reads true if LiteLoc is ON"
+    ::= { cdcpS2SystemStatus 7 }
+    
+cdcpS2SystemStatusLampLiteLocOverDrive OBJECT-TYPE
+    SYNTAX        INTEGER {
+        off(1),
+        on(2),
+        maxPower(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reads true if LiteLOC OverDrive is ON"
+    ::= { cdcpS2SystemStatus 8 }
+
+cdcpS2BallastStatus OBJECT IDENTIFIER ::= { cdcpS2Status 2 }
+
+cdcpS2BallastDescription OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the currently installed and active
+         lamp."
+    ::= { cdcpS2BallastStatus 1 }
+
+cdcpS2BallastId OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Ballast hardware identifier."
+    ::= { cdcpS2BallastStatus 2 }
+
+cdcpS2BallastIsRemote OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the ballast is remote."
+    ::= { cdcpS2BallastStatus 3 }
+
+-- ====================================================================
+-- 
+-- Input auto-detection, format, and frequency
+
+cdcpS2InputStatus OBJECT IDENTIFIER ::= { cdcpS2Status 3 }
+
+cdcpS2InputStatusSelectedPort OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- 292 port 'A'
+        port292A(1),
+        -- 292 port 'B'
+        port292B(2),
+        -- 292 Dual
+        port292D(3),
+        -- DVI port 'A'
+        portDVIA(4),
+        -- DVI Port 'B'
+        portDVIB(5),
+        -- Twin DVI
+        portDVIT(6),
+        -- Generic MediaBlock
+        portIMB(7),
+        -- Internal MediaBlock
+        portIMBI(8),
+        -- IMB HDMI
+        portIMBHDMI(9),
+        -- IMB SDI
+        portIMBSDI(10),
+        -- Was HDMI Twin, now HDMI-3D L/R
+        portHDMI3DLR(11),
+        -- 3G SDI Port A Level A
+        port3GSDIALevelA(12),
+        -- 3G SDI Port A Level B
+        port3GSDIALevelB(13),
+        -- 3G SDI Port B Level A
+        port3GSDIBLevelA(14),
+        -- 3G SDI Port B Level B
+        port3GSDIBLevelB(15),
+        -- 3G SDI Quad
+        port3GSDIQuad(16),
+        -- 3G SDI 3D-L/R
+        port3GSDI3DLR(17)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The currently active input port.
+         port292A (1), port292B (2), port292D (3) (dual),
+         portDVIA (4), portDVIB (5), portDVIT (6) (twin),
+         portIMB (7), portIMBI (8), portIMBHDMI (9), portIMBSDI (10),
+         portHDMI3DLR (11), port3GSDIA[LevelA] (12), port3GSDIA[LevelB] (13),
+         port3GSDIB[LevelA] (14), port3GSDIB[LevelB] (15), port3GSDIQuad (16)
+         port3GSDI3DLR (17)"
+    ::= { cdcpS2InputStatus 1 }
+
+cdcpS2InputStatusVertFreq OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The vertical frequency, in Hz * 100, of the current input
+         source."
+    ::= { cdcpS2InputStatus 2 }
+
+cdcpS2InputStatusDataFormat OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..100))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the input data format selected."
+    ::= { cdcpS2InputStatus 3 }
+
+-- ====================================================================
+-- 
+-- Lamp status group
+
+cdcpS2LampStatus OBJECT IDENTIFIER ::= { cdcpS2Status 4 }
+
+cdcpS2LampStatusSerialNumber OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the currently installed and active
+         lamp."
+    ::= { cdcpS2LampStatus 1 }
+
+cdcpS2LampStatusCumulativeHours OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Cumulative hours lamp has been active."
+    ::= { cdcpS2LampStatus 2 }
+
+cdcpS2LampStatusWatts OBJECT-TYPE
+    SYNTAX        Integer32 (350..6000)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies power output applied to the lamp, in Watts."
+    ::= { cdcpS2LampStatus 3 }
+
+cdcpS2LampStatusAmperes OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies the current applied to the lamp in amps."
+    ::= { cdcpS2LampStatus 4 }
+
+cdcpS2LampStatusVoltage OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(1..31))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies the lamp voltage, the value is formatted as a
+         float."
+    ::= { cdcpS2LampStatus 5 }
+
+cdcpS2LampStatusTypeInstalled OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(1..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies the type of this lamp"
+    ::= { cdcpS2LampStatus 6 }
+
+cdcpS2LampStatusExpired OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Specifies if this lamp is passed normal life"
+    ::= { cdcpS2LampStatus 7 }
+
+cdcpS2LampHistoryTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpS2LampHistoryEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing lamp history entries."
+    ::= { cdcpS2Status 5 }
+
+cdcpS2LampHistoryEntry OBJECT-TYPE
+    SYNTAX        CdcpS2LampHistoryEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        ""
+    INDEX
+        { cdcpS2LampHistoryIdx }
+    ::= { cdcpS2LampHistoryTable 1 }
+
+CdcpS2LampHistoryEntry ::= SEQUENCE
+{
+    cdcpS2LampHistoryIdx           CdcpS2LampHistoryIdx,
+    cdcpS2LampHistoryDate          DisplayString,
+    cdcpS2LampHistoryType          DisplayString,
+    cdcpS2LampHistoryPowerRange    Integer32,
+    cdcpS2LampHistorySerialNumber  DisplayString,
+    cdcpS2LampHistoryHours         Integer32,
+    cdcpS2LampHistoryRotationState TruthValue
+}
+
+cdcpS2LampHistoryIdx OBJECT-TYPE
+    SYNTAX        CdcpS2LampHistoryIdx
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector lamp history index."
+    ::= { cdcpS2LampHistoryEntry 1 }
+
+cdcpS2LampHistoryDate OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Timestamp for this history entry, corresponds to the date/time
+         the lamp in this row was installed."
+    ::= { cdcpS2LampHistoryEntry 2 }
+
+cdcpS2LampHistoryType OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(1..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lamp type"
+    ::= { cdcpS2LampHistoryEntry 3 }
+
+cdcpS2LampHistoryPowerRange OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lamp power range"
+    ::= { cdcpS2LampHistoryEntry 4 }
+
+cdcpS2LampHistorySerialNumber OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the lamp represented by this row."
+    ::= { cdcpS2LampHistoryEntry 5 }
+
+cdcpS2LampHistoryHours OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Total hours lamp was active in projector."
+    ::= { cdcpS2LampHistoryEntry 6 }
+
+cdcpS2LampHistoryRotationState OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lamp rotation state"
+    ::= { cdcpS2LampHistoryEntry 7 }
+
+END
+
+

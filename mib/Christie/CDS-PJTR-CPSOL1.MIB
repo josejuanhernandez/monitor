@@ -1,0 +1,1277 @@
+CDS-PJTR-CPSOL1 DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdEsProjector
+        FROM CDS-SMI
+    Gauge32, Integer32, MODULE-IDENTITY, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString, TEXTUAL-CONVENTION, TruthValue
+        FROM SNMPv2-TC
+    ;
+
+cpSOL1 MODULE-IDENTITY
+    LAST-UPDATED  "201209131910Z" -- September 13, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:     10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:        +1 800 221-8025
+
+         E-mail:     support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions Solaria One Cinema
+         projector.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsProjector(1)"
+         
+    ::= { cdEsProjector 7 }
+
+-- ====================================================================
+-- 
+-- Lens Table - a table of lens entries
+
+CdcpSOL1LensIndex ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index the Lens table."
+    SYNTAX        Integer32
+
+-- ====================================================================
+-- 
+-- Versions - a table of serial numbers of install sw/hw components
+
+CdcpSOL1SerialNumberIdx ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index projector serial numbers."
+    SYNTAX        Integer32 (1..64)
+
+-- ====================================================================
+-- 
+-- Versions - a table of versions of install sw/hw components
+
+CdcpSOL1VersionsIdx ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "A value used to index projector versions."
+    SYNTAX        Integer32 (1..64)
+
+-- ====================================================================
+-- 
+-- Admin only
+
+X509Certificate ::= TEXTUAL-CONVENTION
+    STATUS        current
+    DESCRIPTION
+        "An X509 digital certificate encoded as an ASN.1 DER object."
+    SYNTAX        OCTET STRING (SIZE(0..4096))
+
+cdcpSOL1Config OBJECT IDENTIFIER ::= { cpSOL1 1 }
+
+cdcpSOL1VersionsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1VersionsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the versions of the projectors hardware and
+         software components."
+    ::= { cdcpSOL1Config 1 }
+
+cdcpSOL1VersionsEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1VersionsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The projector component description and version."
+    INDEX
+        { cdcpSOL1VersionsIndex }
+    ::= { cdcpSOL1VersionsTable 1 }
+
+CdcpSOL1VersionsEntry ::= SEQUENCE
+{
+    cdcpSOL1VersionsIndex       CdcpSOL1VersionsIdx,
+    cdcpSOL1VersionsDescription DisplayString,
+    cdcpSOL1VersionsVersion     DisplayString
+}
+
+cdcpSOL1VersionsIndex OBJECT-TYPE
+    SYNTAX        CdcpSOL1VersionsIdx
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Configuration index to which the parameters in this
+         row apply."
+    ::= { cdcpSOL1VersionsEntry 1 }
+
+cdcpSOL1VersionsDescription OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Component which this version entry maps to."
+    ::= { cdcpSOL1VersionsEntry 2 }
+
+cdcpSOL1VersionsVersion OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The version or serial number of the component this row
+         represents.
+         ."
+    ::= { cdcpSOL1VersionsEntry 3 }
+
+cdcpSOL1SerialNumberTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1SerialNumberEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the serial numbers of the projectors hardware
+         and software components."
+    ::= { cdcpSOL1Config 2 }
+
+cdcpSOL1SerialNumberEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1SerialNumberEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The projector component description and serial number."
+    INDEX
+        { cdcpSOL1SerialNumberIndex }
+    ::= { cdcpSOL1SerialNumberTable 1 }
+
+CdcpSOL1SerialNumberEntry ::= SEQUENCE
+{
+    cdcpSOL1SerialNumberIndex       CdcpSOL1SerialNumberIdx,
+    cdcpSOL1SerialNumberDescription DisplayString,
+    cdcpSOL1SerialNumberVersion     DisplayString
+}
+
+cdcpSOL1SerialNumberIndex OBJECT-TYPE
+    SYNTAX        CdcpSOL1SerialNumberIdx
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Configuration index to which the parameters in this
+         row apply."
+    ::= { cdcpSOL1SerialNumberEntry 1 }
+
+cdcpSOL1SerialNumberDescription OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Component which this serial number entry maps to."
+    ::= { cdcpSOL1SerialNumberEntry 2 }
+
+cdcpSOL1SerialNumberVersion OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The serial number of the component this row represents. ."
+    ::= { cdcpSOL1SerialNumberEntry 3 }
+
+cdcpSOL1Priv OBJECT IDENTIFIER ::= { cdcpSOL1Config 3 }
+
+cdcpSOL1CertificateIcp OBJECT-TYPE
+    SYNTAX        X509Certificate
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "This object contains the Interface Certificate.  The object
+         value must be the ASN.1 DER encoding of the MTA manufacturer's
+         X.509 public key certificate. ,contains the MTA's MAC  address.
+         It The MTA Manufacturer Certificate is issued to each MTA
+         manufacturer and is installed into each MTA at the time of
+         manufacture or with a secure code download. The specific
+         requirements related to this certificate are defined in  the
+         Security specification."
+    REFERENCE
+        "Security Specification."
+    ::= { cdcpSOL1Priv 1 }
+
+cdcpSOL1CertificateLD OBJECT-TYPE
+    SYNTAX        X509Certificate
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "ASN.1 DER encoding of the MTA's X.509 public-key  certificate
+         issued by the manufacturer and installed  into the embedded-MTA
+         in the factory. This certificate,  called Certificate, cannot
+         be updated by the provisioning server."
+    ::= { cdcpSOL1Priv 2 }
+
+cdcpSOL1IcpType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown
+        na(1),
+        -- 8 MegaByte flash
+        series2mb8(2),
+        -- 16 MegaByte flash
+        series2mb16(3),
+        -- ICP 1.5 - 16 MegaByte flash
+        series2Icp15mb16(4)
+
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP type:
+         Series2 - 8 MB flash 
+         Series2 - 16 MB flash
+         Series2 - ICP 1.5 - 16 MB flash"
+    ::= { cdcpSOL1Config 4 }
+
+cdcpSOL1DmdType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Not attached or unknown
+        na(1),
+        -- .98 inch DMD
+        dc2k98(2),
+        -- 2k 1.2 inch DMD
+        dc2k12(3),
+        -- 4k 1.38 inch DMD
+        dc4k138(4),
+        -- 2K .69 inch DMD
+        dc2k69(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the DMD Type:
+         2K - 0.98 inch DMD
+         2K - 1.2 inch DMD
+         4K - 1.38 inch DMD
+         2K - 0.69 inch DMD"
+    ::= { cdcpSOL1Config 5 }
+
+cdcpSOL1SatelliteType OBJECT IDENTIFIER ::= { cdcpSOL1Config 6 }
+
+cdcpSOL1RedSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcpSOL1SatelliteType 1 }
+
+cdcpSOL1GreenSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcpSOL1SatelliteType 2 }
+
+cdcpSOL1BlueSatelliteType OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- Unknown or not attached
+        na(1),
+        -- DDR formatter
+        ddr(2),
+        -- LVDS Formatter
+        lvds(3),
+        -- DDR 4K formatter
+        ddr4k(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Formatter type None/Unknown DDR LVDS DDR 4K"
+    ::= { cdcpSOL1SatelliteType 3 }
+
+cdcpSOL1Peripherals OBJECT IDENTIFIER ::= { cdcpSOL1Config 7 }
+
+cdcpSOL1IlsInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if ILS is installed otherwise returns false."
+    ::= { cdcpSOL1Peripherals 1 }
+
+cdcpSOL1LdInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if LD is installed otherwise returns false."
+    ::= { cdcpSOL1Peripherals 2 }
+
+cdcpSOL1MediaBlockInstalled OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns true if MediaBlock is installed otherwise returns
+         false."
+    ::= { cdcpSOL1Peripherals 3 }
+
+cdcpSOL1Status OBJECT IDENTIFIER ::= { cpSOL1 2 }
+
+-- ====================================================================
+-- 
+-- Security status group
+
+cdcpSOL1SecurityStatus OBJECT IDENTIFIER ::= { cdcpSOL1Status 1 }
+
+cdcpSOL1SecurityArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        notArmed(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure armed."
+    ::= { cdcpSOL1SecurityStatus 1 }
+
+cdcpSOL1SecurityTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure tamper."
+    ::= { cdcpSOL1SecurityStatus 2 }
+
+cdcpSOL1MarriageActive OBJECT-TYPE
+    SYNTAX        INTEGER {
+        married(1),
+        marriageBroken(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Marriage State,  When marriage is broken, no encrypted content
+         can be played."
+    ::= { cdcpSOL1SecurityStatus 3 }
+
+cdcpSOL1PhysicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Physical Marriage State, Removal of any board within the card
+         cage will cause a Physical tamper."
+    ::= { cdcpSOL1SecurityStatus 4 }
+
+cdcpSOL1LogicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Local Marriage State, The cryptographic exchange which
+         establishes/verifies a FIPS logical marriage with the ICP and
+         the LD board or Image Media Block."
+    ::= { cdcpSOL1SecurityStatus 5 }
+
+cdcpSOL1SoftwareCertZeroization OBJECT-TYPE
+    SYNTAX        INTEGER {
+        zeroed(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Certificate State, A zeroed certificate state indicates  that
+         a tamper has occurred on the LD board."
+    ::= { cdcpSOL1SecurityStatus 6 }
+
+cdcpSOL1ServiceDoorTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Service door to light engine compartment"
+    ::= { cdcpSOL1SecurityStatus 7 }
+
+cdcpSOL1TopEnclosureOpen OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure state, top side."
+    ::= { cdcpSOL1SecurityStatus 8 }
+
+cdcpSOL1BottomEnclosureOpen OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Security enclosure state, top side."
+    ::= { cdcpSOL1SecurityStatus 9 }
+
+cdcpSOL1SecurityBatteryEvent OBJECT-TYPE
+    SYNTAX        INTEGER {
+        failed(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Battery failed"
+    ::= { cdcpSOL1SecurityStatus 10 }
+
+cdcpSOL1BatteryLow OBJECT-TYPE
+    SYNTAX        INTEGER {
+        low(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Battery state."
+    ::= { cdcpSOL1SecurityStatus 11 }
+
+cdcpSOL1SecurityLog OBJECT-TYPE
+    SYNTAX        INTEGER {
+        ok(1),
+        warning(2),
+        error(3),
+        na(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The Security Log Warning indicates that there are  less than
+         100 log entry locations available before  unread log entries
+         will be overwritten.
+
+         The Security Log Error indicates that there is no  more room to
+         write log entries.
+
+         When this warning/error is active, the Server needs  to extract
+         the log data (via ASM/TLS session) from  the LD Security Log.
+         Reads of the security log by any other entity/means will not
+         impact this warning."
+    ::= { cdcpSOL1SecurityStatus 12 }
+    
+cdcpSOL1IMBSecurityArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        notArmed(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Security enclosure armed."
+    ::= { cdcpSOL1SecurityStatus 13 }
+
+cdcpSOL1IMBSecurityTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Security enclosure tamper."
+    ::= { cdcpSOL1SecurityStatus 14 }
+
+cdcpSOL1IMBMarriageActive OBJECT-TYPE
+    SYNTAX        INTEGER {
+        married(1),
+        marriageBroken(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Marriage State,  When marriage is broken, no encrypted content
+         can be played."
+    ::= { cdcpSOL1SecurityStatus 15 }
+
+cdcpSOL1IMBPhysicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Physical Marriage State, Removal of any board within the card
+         cage will cause a Physical tamper."
+    ::= { cdcpSOL1SecurityStatus 16 }
+
+cdcpSOL1IMBLogicalMarriageTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tampered(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Local Marriage State, The cryptographic exchange which
+         establishes/verifies a FIPS logical marriage with the ICP and
+         the Image Media Block."
+    ::= { cdcpSOL1SecurityStatus 17 }
+    
+cdcpSOL1IMBServiceDoorArmed OBJECT-TYPE
+    SYNTAX        INTEGER {
+        armed(1),
+        tamper(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Service door to light engine compartment"
+    ::= { cdcpSOL1SecurityStatus 18 }
+
+cdcpSOL1IMBServiceDoorTamper OBJECT-TYPE
+    SYNTAX        INTEGER {
+        tamper(1),
+        secure(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Service door to light engine compartment"
+    ::= { cdcpSOL1SecurityStatus 19 }
+
+cdcpSOL1IMBBatteryLow OBJECT-TYPE
+    SYNTAX        INTEGER {
+        low(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Battery state."
+    ::= { cdcpSOL1SecurityStatus 20 }
+    
+cdcpSOL1IMBICPCommunicationError OBJECT-TYPE
+    SYNTAX        INTEGER {
+        error(1),
+        ok(2),
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "IMB Battery state."
+    ::= { cdcpSOL1SecurityStatus 21 }
+
+-- ====================================================================
+-- 
+-- Sensor tables
+
+cdcpSOL1Sensors OBJECT IDENTIFIER ::= { cdcpSOL1Status 2 }
+
+cdcpSOL1TempSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1TempSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of temperature sensors and their values."
+    ::= { cdcpSOL1Sensors 1 }
+
+cdcpSOL1TempSensorsEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1TempSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcpSOL1TempSensorsIndex }
+    ::= { cdcpSOL1TempSensorsTable 1 }
+
+CdcpSOL1TempSensorsEntry ::= SEQUENCE
+{
+    cdcpSOL1TempSensorsIndex      Integer32,
+    cdcpSOL1TempSensorsDevice     DisplayString,
+    cdcpSOL1TempSensorsDiodeError TruthValue,
+    cdcpSOL1TempSensorsLowerLimit TruthValue,
+    cdcpSOL1TempSensorsUpperLimit TruthValue,
+    cdcpSOL1TempSensorsValue      Gauge32
+}
+
+cdcpSOL1TempSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcpSOL1TempSensorsEntry 1 }
+
+cdcpSOL1TempSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the temperature sensor we are reading."
+    ::= { cdcpSOL1TempSensorsEntry 2 }
+
+cdcpSOL1TempSensorsDiodeError OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if a diode error has occured."
+    ::= { cdcpSOL1TempSensorsEntry 3 }
+
+cdcpSOL1TempSensorsLowerLimit OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the sensor has breached it's lower limit."
+    ::= { cdcpSOL1TempSensorsEntry 4 }
+
+cdcpSOL1TempSensorsUpperLimit OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the sensor has breached it's upper limit."
+    ::= { cdcpSOL1TempSensorsEntry 5 }
+
+cdcpSOL1TempSensorsValue OBJECT-TYPE
+    SYNTAX        Gauge32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The temperature of this sensor in Celsius"
+    ::= { cdcpSOL1TempSensorsEntry 6 }
+
+cdcpSOL1FanSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1FanSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of fan sensors and their values."
+    ::= { cdcpSOL1Sensors 2 }
+
+cdcpSOL1FanSensorsEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1FanSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcpSOL1FanSensorsIndex }
+    ::= { cdcpSOL1FanSensorsTable 1 }
+
+CdcpSOL1FanSensorsEntry ::= SEQUENCE
+{
+    cdcpSOL1FanSensorsIndex   Integer32,
+    cdcpSOL1FanSensorsDevice  DisplayString,
+    cdcpSOL1FanSensorsFault   TruthValue,
+    cdcpSOL1FanSensorsTooSlow TruthValue,
+    cdcpSOL1FanSensorsValue   Gauge32
+}
+
+cdcpSOL1FanSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcpSOL1FanSensorsEntry 1 }
+
+cdcpSOL1FanSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the fan sensor we are reading."
+    ::= { cdcpSOL1FanSensorsEntry 2 }
+
+cdcpSOL1FanSensorsFault OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if the fan has faulted."
+    ::= { cdcpSOL1FanSensorsEntry 3 }
+
+cdcpSOL1FanSensorsTooSlow OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "True if a fan speed error has occured with this fan."
+    ::= { cdcpSOL1FanSensorsEntry 4 }
+
+cdcpSOL1FanSensorsValue OBJECT-TYPE
+    SYNTAX        Gauge32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The rotation speed of the fan in RPM."
+    ::= { cdcpSOL1FanSensorsEntry 5 }
+
+cdcpSOL1InterlockSensorsTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1InterlockSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of interlock sensors and their value."
+    ::= { cdcpSOL1Sensors 3 }
+
+cdcpSOL1InterlockSensorsEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1InterlockSensorsEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing a device and its statistics."
+    INDEX
+        { cdcpSOL1InterlockSensorsIndex }
+    ::= { cdcpSOL1InterlockSensorsTable 1 }
+
+CdcpSOL1InterlockSensorsEntry ::= SEQUENCE
+{
+    cdcpSOL1InterlockSensorsIndex  Integer32,
+    cdcpSOL1InterlockSensorsDevice DisplayString,
+    cdcpSOL1InterlockSensorsValue  INTEGER
+}
+
+cdcpSOL1InterlockSensorsIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed device."
+    ::= { cdcpSOL1InterlockSensorsEntry 1 }
+
+cdcpSOL1InterlockSensorsDevice OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..63))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The name of the interlock sensor we are reading."
+    ::= { cdcpSOL1InterlockSensorsEntry 2 }
+
+cdcpSOL1InterlockSensorsValue OBJECT-TYPE
+    SYNTAX        INTEGER {
+        open(1),
+        closed(2),
+        troubleOpen(3),
+        troubleClosed(4)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "The status of this interlock."
+    ::= { cdcpSOL1InterlockSensorsEntry 3 }
+
+-- ====================================================================
+-- 
+-- System health table, reports diagnostic test results.
+
+cdcpSOL1SystemHealthTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1SystemHealthEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Table of diagnostic tests and their results"
+    ::= { cdcpSOL1Status 3 }
+
+cdcpSOL1SystemHealthEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1SystemHealthEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Each row respresents a diagnostic test and the result."
+    INDEX
+        { cdcpSOL1SystemHealthIndex }
+    ::= { cdcpSOL1SystemHealthTable 1 }
+
+CdcpSOL1SystemHealthEntry ::= SEQUENCE
+{
+    cdcpSOL1SystemHealthIndex  Integer32,
+    cdcpSOL1SystemHealthName   DisplayString,
+    cdcpSOL1SystemHealthResult DisplayString
+}
+
+cdcpSOL1SystemHealthIndex OBJECT-TYPE
+    SYNTAX        Integer32 (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Reference index for each observed test."
+    ::= { cdcpSOL1SystemHealthEntry 1 }
+
+cdcpSOL1SystemHealthName OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Name of the diagnostic being reported."
+    ::= { cdcpSOL1SystemHealthEntry 2 }
+
+cdcpSOL1SystemHealthResult OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..127))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Result of diagnostic."
+    ::= { cdcpSOL1SystemHealthEntry 3 }
+
+cdcpSOL1LensTable OBJECT-TYPE
+    SYNTAX        SEQUENCE OF CdcpSOL1LensEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "A table listing the lens entries."
+    ::= { cdcpSOL1Status 4 }
+
+cdcpSOL1LensEntry OBJECT-TYPE
+    SYNTAX        CdcpSOL1LensEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "The number of hours the projector has operated."
+    INDEX
+        { cdcpSOL1LensIdx }
+    ::= { cdcpSOL1LensTable 1 }
+
+CdcpSOL1LensEntry ::= SEQUENCE
+{
+    cdcpSOL1LensIdx          CdcpSOL1LensIndex,
+    cdcpSOL1LensClass        DisplayString,
+    cdcpSOL1LensType         DisplayString,
+    cdcpSOL1LensSerialNumber DisplayString,
+    cdcpSOL1LensStatus       INTEGER
+}
+
+cdcpSOL1LensIdx OBJECT-TYPE
+    SYNTAX        CdcpSOL1LensIndex (0..65535)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Projector Lens index.  Each entry represents a various
+         attributes of the Lens"
+    ::= { cdcpSOL1LensEntry 1 }
+
+cdcpSOL1LensClass OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Class (Primary, Secondry...)"
+    ::= { cdcpSOL1LensEntry 2 }
+
+cdcpSOL1LensType OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Type"
+    ::= { cdcpSOL1LensEntry 3 }
+
+cdcpSOL1LensSerialNumber OBJECT-TYPE
+    SYNTAX        DisplayString (SIZE(0..255))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Serial Number"
+    ::= { cdcpSOL1LensEntry 4 }
+
+cdcpSOL1LensStatus OBJECT-TYPE
+    SYNTAX        INTEGER {
+        in(1),
+        out(2)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Lens Status"
+    ::= { cdcpSOL1LensEntry 5 }
+
+cdcpSOL1System OBJECT IDENTIFIER ::= { cdcpSOL1Status 5 }
+
+cdcpSOL1Tpc OBJECT IDENTIFIER ::= { cdcpSOL1System 1 }
+
+cdcpSOL1TpcType OBJECT-TYPE
+    SYNTAX        OCTET STRING
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC Type:
+         TPC-660E TPC-650H"
+    ::= { cdcpSOL1Tpc 1 }
+
+cdcpSOL1TpcOs OBJECT-TYPE
+    SYNTAX        OCTET STRING
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC OS Image"
+    ::= { cdcpSOL1Tpc 2 }
+
+cdcpSOL1TpcDiskSpaceAvailable OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available TPC Disk Space"
+    ::= { cdcpSOL1Tpc 3 }
+
+cdcpSOL1TpcDiskSpaceUsed OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the TPC Disk Space, Used (MB)"
+    ::= { cdcpSOL1Tpc 4 }
+
+cdcpSOL1TpcMemorySpaceAvailable OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available TPC Memory RAM (KB)"
+    ::= { cdcpSOL1Tpc 5 }
+
+cdcpSOL1Power OBJECT IDENTIFIER ::= { cdcpSOL1System 2 }
+
+cdcpSOL1LvpsACok OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the AC OK signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 1 }
+
+cdcpSOL1LvpsDCok OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the CC OK signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 2 }
+
+cdcpSOL1PibPowerGoodVid OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the Power Good Vid signal state
+         1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 3 }
+
+cdcpSOL1PibPowerGood1v2and2v5 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 1.2v and 2.5v rails 1
+         = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 4 }
+
+cdcpSOL1PibPowerGood1v8and3v3 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 1.8v and 3.3v rails 1
+         = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 5 }
+
+cdcpSOL1PibPowerGood24vEXT OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 24v External 1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 6 }
+
+cdcpSOL1PibPowerGood24vSTBY OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- OK
+        yes(1),
+        -- Fail
+        no(2),
+        -- Not available
+        na(3)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the PIB PowerGood signal for the 24v Standby. 1 = yes
+         2 = no
+         3 = Not available"
+    ::= { cdcpSOL1Power 7 }
+
+cdcpSOL1Icp1v2 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 1.2v rail measurements or NA if in Standby"
+    ::= { cdcpSOL1Power 8 }
+
+cdcpSOL1Icp1v8 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 1.8v rail measurements or NA if in Standby"
+    ::= { cdcpSOL1Power 9 }
+
+cdcpSOL1Icp2v5 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 2.5v rail measurements or NA if in Standby"
+    ::= { cdcpSOL1Power 10 }
+
+cdcpSOL1Icp3v3 OBJECT-TYPE
+    SYNTAX        OCTET STRING (SIZE(1..10))
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP 3.3v rail measurements or NA if in Standby"
+    ::= { cdcpSOL1Power 11 }
+
+cdcpSOL1IcpCommunicating OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns IPC State:
+         True = Communicating False = Not Communicating"
+    ::= { cdcpSOL1System 3 }
+
+cdcpSOL1LinkDecryptor OBJECT IDENTIFIER ::= { cdcpSOL1System 4 }
+
+cdcpSOL1LdCommunicating OBJECT-TYPE
+    SYNTAX        TruthValue
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP connection state. True = Communicating False =
+         Not Communicating"
+    ::= { cdcpSOL1LinkDecryptor 1 }
+
+cdcpSOL1LdLink0 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcpSOL1LinkDecryptor 2 }
+
+cdcpSOL1LdLink1 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link1 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcpSOL1LinkDecryptor 3 }
+
+cdcpSOL1LdLink2 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link2 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcpSOL1LinkDecryptor 4 }
+
+cdcpSOL1LdLink3 OBJECT-TYPE
+    SYNTAX        INTEGER {
+        -- No source
+        noSource(1),
+        -- Decryption Not Actice
+        decryptionNotActive(2),
+        -- Decryption Active
+        decryptionActive(3),
+        -- Decryption Error
+        decryptionError(4),
+        -- Unknown
+        unknown(5)
+    }
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the LD Link3 states:
+         No Source Decryption Not Active Decryption Active Decryption
+         Error Unknown"
+    ::= { cdcpSOL1LinkDecryptor 5 }
+
+cdcpSOL1Icp OBJECT-IDENTITY
+    STATUS        current
+    DESCRIPTION
+        "ICP related objects"
+    ::= { cdcpSOL1System 5 }
+
+cdcpSOL1IcpDiskSpaceTotal OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the available ICP Disk Space (KB)"
+    ::= { cdcpSOL1Icp 1 }
+
+cdcpSOL1IcpDiskSpaceFree OBJECT-TYPE
+    SYNTAX        Integer32
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "Returns the ICP Disk Space, Free (KB)"
+    ::= { cdcpSOL1Icp 2 }
+
+cdcpSOL1StatusPeripherals OBJECT IDENTIFIER ::= { cdcpSOL1Status 6 }
+
+END
+
+

@@ -1,0 +1,1187 @@
+CDS-SRVR-MEDIA-BLOCK DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdEs
+        FROM CDS-SMI
+    MODULE-COMPLIANCE, NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    IpAddress, Integer32, Gauge32, MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-IDENTITY, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString, TEXTUAL-CONVENTION
+        FROM SNMPv2-TC
+    ;
+
+cdmb MODULE-IDENTITY
+    LAST-UPDATED "201201031021Z" -- January 3, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:     10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:        +1 800 221-8025
+
+         E-mail:     support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS Entertainment Solutions Media Block for Series 2 Cinema Projectors.
+         iso(1).org(3).dod(6).internet(1).private(4).enterprises(1)
+         .christiedigital(25766)
+         .christieDigitalProduct(1)
+         .cdEs(12).cdEsServer(4)"
+    ::= { cdEsServer 1 }
+
+cdEsServer OBJECT IDENTIFIER ::= { cdEs 4 }
+
+-- ********** Config **********
+
+cdmbConfig OBJECT IDENTIFIER ::= { cdmb 1 }
+
+-- ********** Config.Versions **********
+
+cdmbVersions OBJECT IDENTIFIER ::= { cdmbConfig 1 }
+
+cdmbVersionsIMB OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"IMB Version"
+    ::= { cdmbVersions 1 }
+
+cdmbVersionsSMS OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SMS Version"
+    ::= { cdmbVersions 2 }
+
+cdmbVersionsSM OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Version"
+    ::= { cdmbVersions 3 }
+
+cdmbVersionsSMX86 OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SMX86 Version"
+    ::= { cdmbVersions 4 }
+
+cdmbVersionsRouterKernel OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Router Kernel Version"
+    ::= { cdmbVersions 5 }
+
+cdmbVersionsRouterConfig OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Router Config Version"
+    ::= { cdmbVersions 6 }
+
+cdmbVersionsRouterUBoot OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Router U-Boot Version"
+    ::= { cdmbVersions 7 }
+
+cdmbVersionsUI OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"UI Version"
+    ::= { cdmbVersions 8 }
+
+cdmbVersionsOS OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"OS Version"
+    ::= { cdmbVersions 9 }
+
+
+-- ********** Config.Network **********
+
+cdmbNetworkTable OBJECT-TYPE
+    SYNTAX	SEQUENCE OF CdmbNetworkEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"Table for network information"
+    ::= { cdmbConfig 2 }
+
+cdmbNetworkEntry  OBJECT-TYPE
+    SYNTAX	CdmbNetworkEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"An entry in the network information table"
+    INDEX
+        { cdmbNetworkIndex }
+    ::= { cdmbNetworkTable 1 }
+
+CdmbNetworkEntry ::= SEQUENCE
+{
+    cdmbNetworkIndex	Integer32,
+    cdmbNetworkConfig	DisplayString,
+    cdmbNetworkIP	IpAddress,
+    cdmbNetworkNetMask	IpAddress,
+    cdmbNetworkMAC	OCTET STRING(SIZE(6))
+}
+
+cdmbNetworkIndex OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Index for network table"
+    ::= { cdmbNetworkEntry 1 }
+
+cdmbNetworkConfig OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Network config type:
+	   DHCP
+	   Static
+	   NA"
+    ::= { cdmbNetworkEntry 2 }
+
+cdmbNetworkIP OBJECT-TYPE
+    SYNTAX	IpAddress
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Network IP Address"
+    ::= { cdmbNetworkEntry 3 }
+
+cdmbNetworkNetMask OBJECT-TYPE
+    SYNTAX	IpAddress
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Network Netmask"
+    ::= { cdmbNetworkEntry 4 }
+
+cdmbNetworkMAC OBJECT-TYPE
+    SYNTAX	OCTET STRING (SIZE(6))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Network MAC Address"
+    ::= { cdmbNetworkEntry 5 }
+
+-- ********** Status **********
+
+cdmbStatus OBJECT IDENTIFIER ::= { cdmb 2 }
+
+-- ********** Status.System **********
+
+cdmbSystem OBJECT IDENTIFIER ::= { cdmbStatus 1 }
+
+cdmbSystemModelName OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Model Name"
+    ::= { cdmbSystem 1 }
+
+cdmbSystemModelId OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Model Id"
+    ::= { cdmbSystem 2 }
+
+
+cdmbSystemModelSubType OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Model Subtype"
+    ::= { cdmbSystem 3 }
+
+cdmbSystemModelSubTypeId OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Model Subtype Id"
+    ::= { cdmbSystem 4 }
+
+cdmbSystemManufactureDate OBJECT-TYPE
+    SYNTAX	OCTET STRING (SIZE(0..31))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Manufacture date"
+    ::= { cdmbSystem 5 }
+
+cdmbSystemSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Serial Number"
+    ::= { cdmbSystem 6 }
+
+cdmbSystemSMSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System SM Serial Number"
+    ::= { cdmbSystem 7 }
+
+cdmbSystemIntopixSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Intopix Serial Number"
+    ::= { cdmbSystem 8 }
+
+cdmbSystemCivolutionSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Civolution Serial Number"
+    ::= { cdmbSystem 9 }
+
+cdmbSystemEPMSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System EPM Serial Number"
+    ::= { cdmbSystem 10 }
+
+cdmbSystemDSTEnabled OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- enabled
+        enabled(1),
+	-- disabled
+	disabled(0),
+	-- Not available
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Timezone enabled"
+    ::= { cdmbSystem 11 }
+
+cdmbSystemTimezone OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Timezone"
+    ::= { cdmbSystem 12 }
+
+cdmbSystemTimeUTC OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"System Time in UTC"
+    ::= { cdmbSystem 13 }
+
+cdmbSystemUpgradeState OBJECT-TYPE
+    SYNTAX	INTEGER {
+        pending(0),
+	upgrading(1),
+	finishedsuccess(2),
+	finishedfail(3),
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Upgrade State"
+    ::= { cdmbSystem 14 }
+
+cdmbSystemFPGA1TempC OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"FPGA 1 temperature in celcius"
+    ::= { cdmbSystem 15 }
+
+cdmbSystemFPGA2TempC OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"FPGA 2 temperature in celcius"
+    ::= { cdmbSystem 16 }
+
+cdmbSystemBoardTempC OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Board temperature in celcius"
+    ::= { cdmbSystem 17 }
+
+cdmbSystemSMSTotalMemMBytes OBJECT-TYPE
+    SYNTAX	Integer32 (1..64)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SMS Total Memory in megabytes"
+    ::= { cdmbSystem 18 }
+
+cdmbSystemSMSFreeMemMBytes OBJECT-TYPE
+    SYNTAX	Integer32 (1..64)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SMS Free Memory Metric in megabytes"
+    ::= { cdmbSystem 19 }
+
+cdmbSystemCPULoadPercent OBJECT-TYPE
+    SYNTAX	Integer32 (1..64)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"CPU Load Metric in percent"
+    ::= { cdmbSystem 20 }
+
+cdmbSystemNumConnectedClients OBJECT-TYPE
+    SYNTAX	Integer32 (1..64)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Connected Clients Metric"
+    ::= { cdmbSystem 21 }
+
+cdmbSystemDolbyEnabled OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- true
+        yes(1),
+	-- false
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Dolby 3D System Enabled"
+    ::= { cdmbSystem 22 }
+
+cdmbSystemRealD3DEQEnabled OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- true
+        yes(1),
+	-- false
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RealD 3D EQ Enabled"
+    ::= { cdmbSystem 23 }
+
+-- ********** Status.Security **********
+
+cdmbSecurity OBJECT IDENTIFIER ::= { cdmbStatus 2 }
+
+cdmbSecuritySMSecureConnection OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- OK
+        yes(1),
+	-- Not OK
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Secure Connection"
+    ::= { cdmbSecurity 1 }
+
+cdmbSecuritySMStatusConnection OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- OK
+        yes(1),
+	-- Not OK
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Status Connection"
+    ::= { cdmbSecurity 2 }
+
+cdmbSecuritySMCryptoState OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- OK
+        yes(1),
+	-- Not OK
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Crypt State OK"
+    ::= { cdmbSecurity 3 }
+
+cdmbSecuritySMTamper OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Tamper"
+    ::= { cdmbSecurity 4 }
+
+cdmbSecuritySMMarriageOk OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Marriage OK"
+    ::= { cdmbSecurity 5 }
+
+cdmbSecuritySMImageIntegrityOk OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Image Integrity OK"
+    ::= { cdmbSecurity 6 }
+
+cdmbSecuritySMAlgoIntegrityOk OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Algorithm Integrity OK"
+    ::= { cdmbSecurity 7 }
+
+cdmbSecurityZeroization OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"'True' means zeroization has occurred"
+    ::= { cdmbSecurity 8 }
+
+cdmbSecurityLogSpaceWarning OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"'True' means running out of log space"
+    ::= { cdmbSecurity 9 }
+
+cdmbSecurityTamperEnclosurePhysical OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Security Enclosure Tamper (Physical): TRUE = tamper, False = Ok"
+    ::= { cdmbSecurity 10 }
+
+cdmbSecurityTamperMarriageRing OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Marriage Ring Tamper: TRUE = tamper, FALSE = Ok"
+    ::= { cdmbSecurity 11 }
+
+cdmbSecurityTamperServiceDoor OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Service Door Tamper: TRUE = tamper, FALSE = Ok"
+    ::= { cdmbSecurity 12 }
+
+cdmbSecuritySMSecurity OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"SM Security Error: TRUE = tamper, FALSE = Ok"
+    ::= { cdmbSecurity 13 }
+
+-- ********** Status.Playback **********
+
+cdmbPlayback OBJECT IDENTIFIER ::= { cdmbStatus 3 }
+
+-- enum: 0 = stopped, 1 = playing, 2 = paused
+
+cdmbPlaybackState OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- stopped
+        stopped(0),
+	-- playing
+	playing(1),
+	-- Paused
+	paused(2),
+	-- Not available
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback State, values:
+         stopped
+	 playing
+	 paused
+	 NA"
+    ::= { cdmbPlayback 1 }
+
+cdmbPlaybackLoadedContentUUID OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Loaded"
+    ::= { cdmbPlayback 2 }
+
+cdmbPlaybackTimeCodeSec OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Time Code in seconds"
+    ::= { cdmbPlayback 3 }
+
+cdmbPlaybackDurationSec OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Duration in seconds"
+    ::= { cdmbPlayback 4 }
+
+cdmbPlaybackVidBufferFullPercent OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Video Buffer Full Percent"
+    ::= { cdmbPlayback 5 }
+
+cdmbPlaybackAudBufferFullPercent OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Audio Buffer full percent"
+    ::= { cdmbPlayback 6 }
+
+cdmbPlaybackLoadedState OBJECT-TYPE
+    SYNTAX	INTEGER {
+        ok(0),
+	idNotFoundError(1),
+	keyNotFoundError(2),
+	playbackError(3),
+	cplError(4),
+	cplValidateError(5),
+	kdmValidateError(6),
+	contentError(7),
+	smFatalError(8),
+	smError(9),
+	validationError(10),
+	prepSuiteError(11),
+	missingAssets(12),
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Loaded State:
+	 ok
+	 idNotFoundError
+         keyNotFoundError
+         playbackError
+	 cplError
+         cplValiateError
+         kdmValidateError
+         contentError
+	 smFatalError
+	 smError
+	 validationError
+	 prepSuiteError
+	 missingAssets
+	 NA"
+    ::= { cdmbPlayback 7 }
+
+cdmbPlaybackLoadedStage OBJECT-TYPE
+    SYNTAX	INTEGER {
+        none(0),
+	prepAssets(1),
+	security(2),
+	prepSubtitles(3),
+	loaded(4),
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Loaded Stage:
+	   none
+	   prepAssets
+	   security
+	   prepSubtitles
+	   loaded
+	   NA"
+    ::= { cdmbPlayback 8 }
+
+cdmbPlaybackLoopMode OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- OK
+        yes(1),
+	-- Not OK
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Playback Loop Mode:
+	  yes
+	  no
+	  NA"
+    ::= { cdmbPlayback 9 }
+
+cdmbPlaybackAudioDelayMS OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Audio delay in milliseconds"
+    ::= { cdmbPlayback 10 }
+
+cdmbPlaybackAudioSampleRate OBJECT-TYPE
+    SYNTAX	INTEGER {
+        auto(0),
+        48k(1),
+	96k(2),
+	-- Not available
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Audio sample rate: auto, 48k or 96k"
+    ::= { cdmbPlayback 11 }
+
+cdmbPlaybackBufferUnderrunError OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- true
+        yes(1),
+	-- false
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Buffer underrun error state exists:
+	  yes
+	  no
+	  NA"
+    ::= { cdmbPlayback 12 }
+
+cdmbPlaybackICPCommsError OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- true
+        yes(1),
+	-- false
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"ICP comms error state exists:
+	  yes
+	  no
+	  NA"
+    ::= { cdmbPlayback 13 }
+
+cdmbPlaybackContentProcessingError OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- true
+        yes(1),
+	-- false
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Content processing error state exists:
+	  yes
+	  no
+	  NA"
+    ::= { cdmbPlayback 14 }
+
+cdmbPlaybackScheduleActive OBJECT-TYPE
+    SYNTAX	INTEGER {
+        -- OK
+        yes(1),
+	-- Not OK
+	no(2),
+	-- Not available
+	NA(3)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Schedule active:
+	  yes
+	  no
+	  NA"
+    ::= { cdmbPlayback 15 }
+
+cdmbPlaybackScheduleNextItemUUID OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"UUID of next item scheduled"
+    ::= { cdmbPlayback 16 }
+
+cdmbPlaybackScheduleNextTime OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Time of next item scheduled"
+    ::= { cdmbPlayback 17 }
+
+cdmbPlaybackRealDConfigFile OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"File name of RealD config file"
+    ::= { cdmbPlayback 18 }
+	
+cdmbPlaybackDolbyConfigFile OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"File name of Dolby config file"
+    ::= { cdmbPlayback 19 }
+	
+cdmbPlaybackCurrentCPLUUID OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Current CPL UUID"
+    ::= { cdmbPlayback 20 }
+
+cdmbPlaybackCurrentCPLOffsetSec OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Current CPL offset in seconds"
+    ::= { cdmbPlayback 21 }
+
+
+
+-- ********** Status.Storage **********
+
+cdmbStorage OBJECT IDENTIFIER ::= { cdmbStatus 4 }
+
+cdmbStoragePrimaryDiskTotalMBytes OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Storage Primary Disk Total in mega bytes"
+    ::= { cdmbStorage 1 }
+
+cdmbStoragePrimaryDiskFreeMBytes OBJECT-TYPE
+    SYNTAX	Integer32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Storage Primary Disk Free in mega bytes"
+    ::= { cdmbStorage 2 }
+
+cdmbStorageActivePath OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Storage Active Path"
+    ::= { cdmbStorage 3 }
+
+cdmbStoragePrimaryDriveAvailable OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Primary Drive Available yes/no"
+    ::= { cdmbStorage 4 }
+
+cdmbStorageNewDriveDetected OBJECT-TYPE
+    SYNTAX	INTEGER {
+        nochange(0),
+	statechange(1),
+	removed(2),
+	NA(-999)
+    }
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"New Drive Detected: nochange/statechange/removed"
+    ::= { cdmbStorage 5 }
+
+cdmbStorageNumConfiguredNASDevices OBJECT-TYPE
+    SYNTAX	Gauge32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Number of configured NAS devices"
+    ::= { cdmbStorage 6 }
+
+cdmbStorageNumConfiguredDASDevices OBJECT-TYPE
+    SYNTAX	Gauge32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Number of configured DAS devices"
+    ::= { cdmbStorage 7 }
+
+cdmbStorageNumContentDrives OBJECT-TYPE
+    SYNTAX	Gauge32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Number of content devices"
+    ::= { cdmbStorage 8 }
+
+cdmbStorageNumIngestDrives OBJECT-TYPE
+    SYNTAX	Gauge32
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Number of ingest drives"
+    ::= { cdmbStorage 9 }
+
+-- ********** Status.NAS **********
+
+cdmbNASTable OBJECT-TYPE
+    SYNTAX	SEQUENCE OF CdmbNASEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"A table of NAS Devices"
+    ::= { cdmbStatus 6 }
+
+cdmbNASEntry OBJECT-TYPE
+    SYNTAX	CdmbNASEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"An entry in the table of NAS devices"
+    INDEX	
+        { cdmbNASIndex }
+    ::= { cdmbNASTable 1}
+
+CdmbNASEntry ::= SEQUENCE
+{
+    cdmbNASIndex	Integer32,
+    cdmbNASModel	DisplayString,
+    cdmbNASDesc		DisplayString,
+    cdmbNASSerial	DisplayString,
+    cdmbNASFirmware	DisplayString,
+    cdmbNASTemp		DisplayString,
+    cdmbNASAlive	DisplayString,
+    cdmbNASHDCount	DisplayString,
+    cdmbNASCPUUsage	DisplayString
+}
+
+cdmbNASIndex OBJECT-TYPE
+    SYNTAX	Integer32 (1..6)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Index for NASes"
+    ::= { cdmbNASEntry 1 }
+
+cdmbNASModel OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Model"
+    ::= { cdmbNASEntry 2 }
+
+cdmbNASDesc OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Description"
+    ::= { cdmbNASEntry 3 }
+
+cdmbNASSerial OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Serial Number"
+    ::= { cdmbNASEntry 4 }
+
+cdmbNASFirmware OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Firmware"
+    ::= { cdmbNASEntry 5 }
+
+cdmbNASTemp OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Temperature"
+    ::= { cdmbNASEntry 6 }
+
+cdmbNASAlive OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS Alive"
+    ::= { cdmbNASEntry 7 }
+
+cdmbNASHDCount OBJECT-TYPE
+    SYNTAX      DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS harddisk count"
+    ::= { cdmbNASEntry 8 }
+
+cdmbNASCPUUsage OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"NAS CPU Usage"
+    ::= { cdmbNASEntry 9 }
+
+-- ********** Status.NAS.HD **********
+
+cdmbHDTable OBJECT-TYPE
+    SYNTAX	SEQUENCE OF CdmbHDEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"A table of harddisks that are part of a NAS"
+    ::= { cdmbStatus 7 }
+
+cdmbHDEntry OBJECT-TYPE
+    SYNTAX	CdmbHDEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"An entry in the table of harddisks"
+    INDEX	{ cdmbNASIndex, cdmbHDIndex }
+    ::= { cdmbHDTable 1}
+
+CdmbHDEntry ::= SEQUENCE
+{
+    cdmbHDIndex		Integer32,
+    cdmbHDModel		DisplayString,
+    cdmbHDDesc		DisplayString,
+    cdmbHDCapacity	DisplayString,
+    cdmbHDTemp		DisplayString,
+    cdmbHDStatus	DisplayString,
+    cdmbHDSmartStatus	DisplayString
+}
+
+cdmbHDIndex OBJECT-TYPE
+    SYNTAX	Integer32 (1..24)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Index of hard disk for NAS"
+    ::= { cdmbHDEntry 1 }
+
+cdmbHDModel OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk model"
+    ::= { cdmbHDEntry 2 }
+
+cdmbHDDesc OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk description"
+    ::= { cdmbHDEntry 3 }
+
+cdmbHDCapacity OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk capacity"
+    ::= { cdmbHDEntry 4 }
+
+cdmbHDTemp OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk temperature"
+    ::= { cdmbHDEntry 5 }
+
+cdmbHDStatus OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk Status"
+    ::= { cdmbHDEntry 6 }
+
+cdmbHDSmartStatus OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Hard disk Smart Status"
+    ::= { cdmbHDEntry 7 }
+
+-- ********** Status.NAS.RAID **********
+
+cdmbRAIDTable OBJECT-TYPE
+    SYNTAX	SEQUENCE OF CdmbRAIDEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"A table of RAIDs for a NAS"
+    ::= { cdmbStatus 8 }
+
+cdmbRAIDEntry OBJECT-TYPE
+    SYNTAX	CdmbRAIDEntry
+    MAX-ACCESS	not-accessible
+    STATUS	current
+    DESCRIPTION
+	"An entry in the table of RAIDs"
+    INDEX	{ cdmbNASIndex, cdmbRAIDIndex }
+    ::= { cdmbRAIDTable 1}
+
+CdmbRAIDEntry ::= SEQUENCE
+{
+    cdmbRAIDIndex	Integer32,
+    cdmbRAIDDesc	DisplayString,
+    cdmbRAIDLevel	DisplayString,
+    cdmbRAIDFS		DisplayString,
+    cdmbRAIDTotalSize	DisplayString,
+    cdmbRAIDFreeSize	DisplayString,
+    cdmbRAIDStatus	DisplayString
+}
+
+cdmbRAIDIndex OBJECT-TYPE
+    SYNTAX	Integer32 (1..24)
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID index"
+    ::= { cdmbRAIDEntry 1 }
+
+cdmbRAIDDesc OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID Description"
+    ::= { cdmbRAIDEntry 2 }
+
+cdmbRAIDLevel OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID Level"
+    ::= { cdmbRAIDEntry 3 }
+
+cdmbRAIDFS OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID File System"
+    ::= { cdmbRAIDEntry 4 }
+
+cdmbRAIDTotalSize OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID Total Size"
+    ::= { cdmbRAIDEntry 5 }
+
+cdmbRAIDFreeSize OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"RAID Free Size"
+    ::= { cdmbRAIDEntry 6 }
+
+cdmbRAIDStatus OBJECT-TYPE
+    SYNTAX	DisplayString (SIZE(0..63))
+    MAX-ACCESS	read-only
+    STATUS	current
+    DESCRIPTION
+	"Current status of RAID"
+    ::= { cdmbRAIDEntry 7 }
+
+
+END

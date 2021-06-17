@@ -1,0 +1,10 @@
+[status.attribute]
+group: Operation
+label: Constant Light Output Active
+value: 1.3.6.1.4.1.12612.220.11.2.2.4.4.0:enumerate|01=Yes|00=No
+
+[status.measurement]
+group: Operation
+label: Strikes
+value: 1.3.6.1.4.1.12612.220.11.2.2.4.5.0:int
+

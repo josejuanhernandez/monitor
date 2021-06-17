@@ -1,0 +1,512 @@
+CDS-SRVR-MEDIA-BLOCK-NOTIFY DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cdmb
+        FROM CDS-SRVR-MEDIA-BLOCK
+    NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    ;
+
+cdmbNotification MODULE-IDENTITY
+    LAST-UPDATED "201201031039Z" -- January 3, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:  10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:  +1 800 221-8025
+
+         E-mail:  support@christiedigital.com"
+    DESCRIPTION
+        "The MIB module for CDS media block notifications. Alarms
+         correspond to those generated within the media block and are
+         documented in the manual."
+    ::= { cdmb 100 }
+
+cdmbNotificationGroups OBJECT IDENTIFIER ::= { cdmbNotification 1 }
+
+-- ====================================================================
+-- 
+-- Object groups
+
+cdmbNotificationObjectsGroup OBJECT-GROUP
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Notification objects"
+    ::= { cdmbNotificationGroups 1 }
+
+cdmbNotificationGroup NOTIFICATION-GROUP
+    NOTIFICATIONS
+        { cdmbNotifySecuritySMSecureConnectionError, cdmbNotifySecuritySMSecureConnectionErrorCleared,
+	  cdmbNotifySecuritySMStatusConnectionError, cdmbNotifySecuritySMStatusConnectionErrorCleared,
+          cdmbNotifySecuritySMCryptStateError, cdmbNotifySecuritySMCryptStateErrorCleared,
+          cdmbNotifySystemUpgradeFailed, cdmbNotifySystemUpgradeFailedCleared,
+          cdmbNotifySystemFPGA1TempHigh, cdmbNotifySystemFPGA1TempHighCleared,
+          cdmbNotifySystemFPGA2TempHigh, cdmbNotifySystemFPGA2TempHighCleared,
+          cdmbNotifySystemBoardTempHigh, cdmbNotifySystemBoardTempHighCleared,
+          cdmbNotifySecuritySMTamperError, cdmbNotifySecuritySMTamperErrorCleared,
+          cdmbNotifySecuritySMMarriageError, cdmbNotifySecuritySMMarriageErrorCleared,
+          cdmbNotifySecuritySMImageIntegrityError, cdmbNotifySecuritySMImageIntegrityErrorCleared,
+          cdmbNotifySecuritySMAlgoIntegrityError, cdmbNotifySecuritySMAlgoIntegrityErrorCleared,
+	  cdmbNotifySecurityZeroizationWarning, cdmbNotifySecurityZeroizationWarningCleared,
+	  cdmbNotifySecurityLogSpaceWarning, cdmbNotifySecurityLogSpaceWarningCleared,
+          cdmbNotifyPlaybackLoadedStateError, cdmbNotifyPlaybackLoadedStateErrorCleared,
+          cdmbNotifyPlaybackBufferUnderrunError, cdmbNotifyPlaybackBufferUnderrunErrorCleared,
+          cdmbNotifyPlaybackICPCommsError, cdmbNotifyPlaybackICPCommsErrorCleared,
+          cdmbNotifyPlaybackContentProcessingError, cdmbNotifyPlaybackContentProcessingErrorCleared,
+          cdmbNotifyStoragePrimaryDiskLow, cdmbNotifyStoragePrimaryDiskLowCleared,
+          cdmbNotifyStoragePrimaryDriveNotAvailable, cdmbNotifyStoragePrimaryDriveNotAvailableCleared,
+          cdmbNotifySystemFreeMemLow, cdmbNotifySystemFreeMemLowCleared,
+          cdmbNotifySystemCPULoadHigh, cdmbNotifySystemCPULoadHighCleared,
+	  cdmbNotifySecurityTamperEnclosurePhysicalError, cdmbNotifySecurityTamperEnclosurePhysicalErrorCleared,
+	  cdmbNotifySecurityTamperMarriageRingError, cdmbNotifySecurityTamperMarriageRingErrorCleared,
+	  cdmbNotifySecurityTamperServiceDoorError, cdmbNotifySecurityTamperServiceDoorErrorCleared,
+	  cdmbNotifySecuritySMSecurityError, cdmbNotifySecuritySMSecurityErrorCleared }
+    STATUS        current
+    DESCRIPTION
+        "Media Block Notifications"
+    ::= { cdmbNotificationGroups 2 }
+
+cdmbNotificationObjects OBJECT IDENTIFIER ::= { cdmbNotification 2 }
+
+-- ====================================================================
+-- 
+-- Notification objects
+
+cdmbNotifyDescription OBJECT-TYPE
+    SYNTAX	DisplayString
+    MAX-ACCESS	accessible-for-notify
+    STATUS	current
+    DESCRIPTION
+    	"Description of notification"
+    ::= { cdmbNotificationObjects 1 }
+
+
+cdmbNotifyStatusLevel OBJECT-TYPE
+    SYNTAX	DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "General status level of this notification"
+    ::= { cdmbNotificationObjects 2 }
+
+cdmbNotifications OBJECT IDENTIFIER ::= { cdmbNotification 3 }
+
+cdmbNotificationsPrefix OBJECT IDENTIFIER ::= { cdmbNotifications 0 }
+
+-- ====================================================================
+-- 
+-- Media Block notifications
+
+cdmbNotifySecuritySMSecureConnectionError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Secure Connection Error"
+    ::= { cdmbNotificationsPrefix 1 }
+
+cdmbNotifySecuritySMSecureConnectionErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Secure Connection Error Cleared"
+    ::= { cdmbNotificationsPrefix 2 }
+
+cdmbNotifySecuritySMStatusConnectionError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Connection Status Error"
+    ::= { cdmbNotificationsPrefix 3 }
+
+cdmbNotifySecuritySMStatusConnectionErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Connection Status Error Cleared"
+    ::= { cdmbNotificationsPrefix 4 }
+
+cdmbNotifySecuritySMCryptStateError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Crypt State Error"
+    ::= { cdmbNotificationsPrefix 5 }
+
+cdmbNotifySecuritySMCryptStateErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Crypt State Error Cleared"
+    ::= { cdmbNotificationsPrefix 6 }
+
+cdmbNotifySystemUpgradeFailed NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System Upgrade Failed"
+    ::= { cdmbNotificationsPrefix 7 }
+
+cdmbNotifySystemUpgradeFailedCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System Upgrade Failed Cleared"
+    ::= { cdmbNotificationsPrefix 8 }
+
+cdmbNotifySystemFPGA1TempHigh NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System FPGA1 Temp High"
+    ::= { cdmbNotificationsPrefix 9 }
+
+cdmbNotifySystemFPGA1TempHighCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System FPGA1 Temp High Cleared"
+    ::= { cdmbNotificationsPrefix 10 }
+
+cdmbNotifySystemFPGA2TempHigh NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System FPGA2 Temp High"
+    ::= { cdmbNotificationsPrefix 11 }
+
+cdmbNotifySystemFPGA2TempHighCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System FPGA2 Temp High Cleared"
+    ::= { cdmbNotificationsPrefix 12 }
+
+cdmbNotifySystemBoardTempHigh NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System Board Temp High"
+    ::= { cdmbNotificationsPrefix 13 }
+
+cdmbNotifySystemBoardTempHighCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "System Board Temp High Cleared"
+    ::= { cdmbNotificationsPrefix 14 }
+
+cdmbNotifySecuritySMTamperError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Tamper Error"
+    ::= { cdmbNotificationsPrefix 15 }
+
+cdmbNotifySecuritySMTamperErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Tamper Error Cleared"
+    ::= { cdmbNotificationsPrefix 16 }
+
+cdmbNotifySecuritySMMarriageError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Marriage Error"
+    ::= { cdmbNotificationsPrefix 17 }
+
+cdmbNotifySecuritySMMarriageErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Marriage Error Cleared"
+    ::= { cdmbNotificationsPrefix 18 }
+
+cdmbNotifySecuritySMImageIntegrityError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Image Integrity Error"
+    ::= { cdmbNotificationsPrefix 19 }
+
+cdmbNotifySecuritySMImageIntegrityErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Image Integrity Error Cleared"
+    ::= { cdmbNotificationsPrefix 20 }
+
+cdmbNotifySecuritySMAlgoIntegrityError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Algo Integrity Error"
+    ::= { cdmbNotificationsPrefix 21 }
+
+cdmbNotifySecuritySMAlgoIntegrityErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Algo Integrity Error Cleared"
+    ::= { cdmbNotificationsPrefix 22 }
+
+cdmbNotifySecurityZeroizationWarning NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Zeroization warning"
+    ::= { cdmbNotificationsPrefix 23 }
+
+cdmbNotifySecurityZeroizationWarningCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Zeroization Warning Cleared"
+    ::= { cdmbNotificationsPrefix 24 }
+
+cdmbNotifySecurityLogSpaceWarning NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Log Space Warning"
+    ::= { cdmbNotificationsPrefix 25 }
+
+cdmbNotifySecurityLogSpaceWarningCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Log Space Warning Cleared"
+    ::= { cdmbNotificationsPrefix 26 }
+
+cdmbNotifyPlaybackLoadedStateError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Loaded State Error"
+    ::= { cdmbNotificationsPrefix 27 }
+
+cdmbNotifyPlaybackLoadedStateErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Loaded State Error Cleared"
+    ::= { cdmbNotificationsPrefix 28 }
+
+cdmbNotifyPlaybackBufferUnderrunError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Buffer Underrun Error"
+    ::= { cdmbNotificationsPrefix 29 }
+
+cdmbNotifyPlaybackBufferUnderrunErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Buffer Underrun Error Cleared"
+    ::= { cdmbNotificationsPrefix 30 }
+
+cdmbNotifyPlaybackICPCommsError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback ICP Comms Error"
+    ::= { cdmbNotificationsPrefix 31 }
+
+cdmbNotifyPlaybackICPCommsErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback ICP Comms Error Cleared"
+    ::= { cdmbNotificationsPrefix 32 }
+
+cdmbNotifyPlaybackContentProcessingError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Content Processing Error"
+    ::= { cdmbNotificationsPrefix 33 }
+
+cdmbNotifyPlaybackContentProcessingErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Playback Content Processing Error Cleared"
+    ::= { cdmbNotificationsPrefix 34 }
+
+cdmbNotifyStoragePrimaryDiskLow NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Content Primary Disk Low"
+    ::= { cdmbNotificationsPrefix 35 }
+
+cdmbNotifyStoragePrimaryDiskLowCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Content Primary Disk Low Cleared"
+    ::= { cdmbNotificationsPrefix 36 }
+
+cdmbNotifyStoragePrimaryDriveNotAvailable NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Primary Drive Not Available"
+    ::= { cdmbNotificationsPrefix 37 }
+
+cdmbNotifyStoragePrimaryDriveNotAvailableCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Primary Drive Not Available Cleared"
+    ::= { cdmbNotificationsPrefix 38 }
+
+cdmbNotifySystemFreeMemLow NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Free Mem Low"
+    ::= { cdmbNotificationsPrefix 39 }
+
+cdmbNotifySystemFreeMemLowCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Free Mem Low Cleared"
+    ::= { cdmbNotificationsPrefix 40 }
+
+cdmbNotifySystemCPULoadHigh NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "CPU Load High"
+    ::= { cdmbNotificationsPrefix 41 }
+
+cdmbNotifySystemCPULoadHighCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "CPU Load High Cleared"
+    ::= { cdmbNotificationsPrefix 42 }
+
+cdmbNotifySecurityTamperEnclosurePhysicalError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Security Tamper Enclosure (Physical) occurred"
+    ::= { cdmbNotificationsPrefix 43 }
+
+cdmbNotifySecurityTamperEnclosurePhysicalErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Security Tamper Enclosure (Physical) cleared"
+    ::= { cdmbNotificationsPrefix 44 }
+
+cdmbNotifySecurityTamperMarriageRingError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Security Marriage Ring tamper occurred"
+    ::= { cdmbNotificationsPrefix 45 }
+
+cdmbNotifySecurityTamperMarriageRingErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Security Marriage Ring tamper cleared"
+    ::= { cdmbNotificationsPrefix 46 }
+
+cdmbNotifySecurityTamperServiceDoorError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Service Door tamper occurred"
+    ::= { cdmbNotificationsPrefix 47 }
+
+cdmbNotifySecurityTamperServiceDoorErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "Service Door tamper cleared"
+    ::= { cdmbNotificationsPrefix 48 }
+
+cdmbNotifySecuritySMSecurityError NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Security Error occurred"
+    ::= { cdmbNotificationsPrefix 49 }
+
+cdmbNotifySecuritySMSecurityErrorCleared NOTIFICATION-TYPE
+    OBJECTS
+        { cdmbNotifyDescription, cdmbNotifyStatusLevel }
+    STATUS        current
+    DESCRIPTION
+        "SM Security Error cleared"
+    ::= { cdmbNotificationsPrefix 50 }
+
+END

@@ -1,0 +1,216 @@
+CDS-PJTR-CPSOL1-NOTIFY DEFINITIONS ::= BEGIN
+
+IMPORTS
+    cpSOL1
+        FROM CDS-PJTR-CPSOL1
+    NOTIFICATION-GROUP, OBJECT-GROUP
+        FROM SNMPv2-CONF
+    MODULE-IDENTITY, NOTIFICATION-TYPE, OBJECT-TYPE
+        FROM SNMPv2-SMI
+    DisplayString
+        FROM SNMPv2-TC
+    ;
+
+cdcpSOL1Notification MODULE-IDENTITY
+    LAST-UPDATED  "201212191650Z" -- December 19, 2012
+    ORGANIZATION
+        "Christie Digital Systems, Inc."
+    CONTACT-INFO
+        "Christie Digital Systems
+         Customer Service
+
+         Postal:  10550 Camden Drive
+         Cypress, Ca 90630
+         USA
+
+         Tel:  +1 800 221-8025
+
+         E-mail:  support@cds.com"
+    DESCRIPTION
+        "The MIB module for CDS cinema projector notifications. Alarms
+         correspond to those generated within the TPC  and are
+         documented in the manual."
+    REVISION      "201212191650Z" -- December 19, 2012
+    DESCRIPTION
+        "Replaced LampLifeRotation with the LampHalfLife notification."
+
+    ::= { cpSOL1 100 }
+
+cdcpSOL1NotificationGroups OBJECT IDENTIFIER ::= { cdcpSOL1Notification 1 }
+
+-- ====================================================================
+-- 
+-- Object groups
+
+cdcpSOL1NotificationObjectsGroup OBJECT-GROUP
+    OBJECTS
+        { cdSensorName, cdSensorValue, cdComponentName, cdLampHours,
+        cdTamperName, cdTamperValue }
+    STATUS        current
+    DESCRIPTION
+        "Notification objects"
+    ::= { cdcpSOL1NotificationGroups 1 }
+
+-- cdcpSOL1NotificationGroup OBJECT-GROUP OBJECTS
+
+cdcpSOL1NotificationGroup NOTIFICATION-GROUP
+    NOTIFICATIONS
+        { cdcpSOL1NotifyFan, cdcpSOL1NotifyInterlock,
+        cdcpSOL1NotifyTemperature, cdcpSOL1NotifySystemComm,
+        cdcpSOL1NotifyLampExpire, cdcpSOL1NotifyLampStrike,
+        cdcpSOL1NotifyLampUnexpectedOff, cdcpSOL1NotifySecurityTamper,
+        cdcpSOL1NotifyLampHalfLife, cdcpSOL1NotifyCoolant }
+    STATUS        current
+    DESCRIPTION
+        "Notifications"
+    ::= { cdcpSOL1NotificationGroups 2 }
+
+cdcpSOL1NotificationObjects OBJECT IDENTIFIER ::= { cdcpSOL1Notification 2 }
+
+-- ====================================================================
+-- 
+-- Notification objects
+
+cdSensorName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Identifies the specific sensor which triggered the
+         notification."
+    ::= { cdcpSOL1NotificationObjects 1 }
+
+cdSensorValue OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "A string with the formatted value of the sensor which
+         triggered the notification."
+    ::= { cdcpSOL1NotificationObjects 2 }
+
+cdComponentName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Descripes the component which caused a comm error to trigger
+         the notification."
+    ::= { cdcpSOL1NotificationObjects 3 }
+
+cdLampHours OBJECT-TYPE
+    SYNTAX        INTEGER (0..65535)
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Hours the installed lamp has operated."
+    ::= { cdcpSOL1NotificationObjects 4 }
+
+cdTamperName OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "Identifies the specific tamper which triggered the
+         notification."
+    ::= { cdcpSOL1NotificationObjects 5 }
+
+cdTamperValue OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    accessible-for-notify
+    STATUS        current
+    DESCRIPTION
+        "A string with the formatted value of the tamper which
+         triggered the notification."
+    ::= { cdcpSOL1NotificationObjects 6 }
+
+cdcpSOL1Notifications OBJECT IDENTIFIER ::= { cdcpSOL1Notification 3 }
+
+cdcpSOL1NotificationsPrefix OBJECT IDENTIFIER ::= { cdcpSOL1Notifications 0 }
+
+-- ====================================================================
+-- 
+-- Projector notifications
+
+cdcpSOL1NotifyFan NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "A fan speed error has occured."
+    ::= { cdcpSOL1NotificationsPrefix 1 }
+
+cdcpSOL1NotifyInterlock NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "An interlock was tripped."
+    ::= { cdcpSOL1NotificationsPrefix 2 }
+
+cdcpSOL1NotifyTemperature NOTIFICATION-TYPE
+    OBJECTS
+        { cdSensorName, cdSensorValue }
+    STATUS        current
+    DESCRIPTION
+        "Temperature sensor breached operational threshold."
+    ::= { cdcpSOL1NotificationsPrefix 3 }
+
+cdcpSOL1NotifySystemComm NOTIFICATION-TYPE
+    OBJECTS
+        { cdComponentName }
+    STATUS        current
+    DESCRIPTION
+        "Communications to critical system component failed."
+    ::= { cdcpSOL1NotificationsPrefix 4 }
+
+cdcpSOL1NotifyLampExpire NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp reached operational limit."
+    ::= { cdcpSOL1NotificationsPrefix 5 }
+
+cdcpSOL1NotifyLampStrike NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp failed to strike."
+    ::= { cdcpSOL1NotificationsPrefix 6 }
+
+cdcpSOL1NotifyLampUnexpectedOff NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Unexpected lamp failure."
+    ::= { cdcpSOL1NotificationsPrefix 7 }
+
+cdcpSOL1NotifyCoolant NOTIFICATION-TYPE
+    STATUS        current
+    DESCRIPTION
+        "Liquid cooling pump failure"
+    ::= { cdcpSOL1NotificationsPrefix 8 }
+
+cdcpSOL1NotifyLampHalfLife NOTIFICATION-TYPE
+    OBJECTS
+        { cdLampHours }
+    STATUS        current
+    DESCRIPTION
+        "Lamp half life exceeded."
+    ::= { cdcpSOL1NotificationsPrefix 9 }
+
+cdcpSOL1NotifySecurityTamper NOTIFICATION-TYPE
+    OBJECTS
+        { cdTamperName, cdTamperValue }
+    STATUS        current
+    DESCRIPTION
+        "Security System has been tampered tamper name and tamper
+         state."
+    ::= { cdcpSOL1NotificationsPrefix 10 }
+
+END
+
+

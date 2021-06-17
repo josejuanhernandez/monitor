@@ -1,0 +1,86 @@
+[configuration.attribute]
+group: General
+label: Firmware Version
+value: 1.3.6.1.4.1.24391.4.1.2.4.0:string
+
+[configuration.attribute]
+group: General
+label: Software Version
+value: 1.3.6.1.4.1.24391.4.1.2.3.0:string
+
+[configuration.attribute]
+group: General
+label: Decoder Version
+value: 1.3.6.1.4.1.24391.4.1.2.5.0:string
+
+[configuration.attribute]
+group: General
+label: Product Number
+value: 1.3.6.1.4.1.24391.4.1.2.6.0:string
+
+[configuration.attribute]
+group: General
+label: Bundle Version
+value: 1.3.6.1.4.1.24391.4.1.2.7.0:string
+
+[configuration.attribute]
+group: General
+label: Board Type
+value: 1.3.6.1.4.1.24391.4.1.2.8.0:string
+
+[configuration.attribute]*12
+group: Hardware
+label: 1.3.6.1.4.1.24391.4.1.3.1.2.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.1.2.1.4.#:string
+type: 1.3.6.1.4.1.24391.4.1.3.1.2.1.3.#:enumerate|1=Motherboard|2=HDD|3=Chassis|4=CPU|5=Memory|6=Addon Board|7=USB Generic
+version: 1.3.6.1.4.1.24391.4.1.3.1.2.1.5.#:string
+sn: 1.3.6.1.4.1.24391.4.1.3.1.2.1.6.#:string
+
+[configuration.attribute]*11
+group: Software
+label: 1.3.6.1.4.1.24391.4.1.3.1.1.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.1.1.1.4.#:string
+type: 1.3.6.1.4.1.24391.4.1.3.1.1.1.3.#:enumerate|1=Software|2=Firmware|3=Operating System|4=Library|5=Package|6=Kernel
+
+[configuration.attribute]*23
+group: Features
+label: 1.3.6.1.4.1.24391.4.1.3.1.3.1.2.#:string
+value: Enabled
+
+[configuration.attribute]*5
+group: Volumes
+label: 1.3.6.1.4.1.24391.4.1.3.2.2.1.1.2.#:string
+value: Mounted
+type: 1.3.6.1.4.1.24391.4.1.3.2.2.1.1.3.#:enumerate|1=System|2=Data|3=External
+
+[configuration.measure]*5
+group: Volumes
+label: 1.3.6.1.4.1.24391.4.1.3.2.2.1.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.2.2.1.1.4.#:int
+unit: bytes
+
+[configuration.attribute]*1,10..17
+group: Storage
+label: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.6.#:string
+type: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.5.#:enumerate|1=Unknown|2=CF|3=SSD|4=HDD
+bus: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.3.#:enumerate|1=Unknown|2=IDE|3=USB|4=SATA|5=SAS|6=Firewire
+
+[configuration.measure]*1,10..17
+group: Storage
+label: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.2.#:string
+capacity: 1.3.6.1.4.1.24391.4.1.3.2.1.1.1.4.#:int
+unit: bytes
+
+[configuration.attribute]*2
+group: RAID
+label: 1.3.6.1.4.1.24391.4.1.3.2.2.2.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.2.2.2.1.3.#:enumerate|1=Unknown|2=None|3=Stripping|4=Mirror|5=5|6=Linear
+
+[configuration.attribute]*23
+group: Features
+label: 1.3.6.1.4.1.24391.4.1.3.1.3.1.2.#:string
+value: 1.3.6.1.4.1.24391.4.1.3.1.3.1.3.#:enumerate|1=Undefined|2=Ok|3=Active|4=Not Active
+
+sn: =>
+version: 0* =>

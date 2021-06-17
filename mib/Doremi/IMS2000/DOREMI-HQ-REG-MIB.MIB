@@ -1,0 +1,337 @@
+
+-- *****************************************************************************
+-- 
+--  Copyright (c) 2005-2011, Doremi Labs, Inc.
+--    All rights reserved.
+-- 
+--  Redistribution in source or binary forms, with or without
+--  modification, are NOT permitted.
+-- 
+--    Doremi Labs, Inc.
+--    306 East Alameda Avenue
+--    Burbank, CA 91502
+--    Tel : (818) 562 1101
+--    Fax : (818) 562 1109
+-- 
+--  $Id$
+--  
+-- *****************************************************************************
+
+DOREMI-HQ-REG-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	OBJECT-IDENTITY, MODULE-IDENTITY, enterprises, 
+	Counter32, Integer32
+		FROM SNMPv2-SMI
+	TEXTUAL-CONVENTION, DisplayString
+		FROM SNMPv2-TC;
+
+doremiHQRoot MODULE-IDENTITY
+	LAST-UPDATED "201402111515Z"
+	ORGANIZATION 
+		"DoremiLabs, Inc. - Broadcast Video Server and video encoder equipment - Digital cinema"
+	CONTACT-INFO 
+		"1020 Chestnut St.
+		Burbank, CA 91506
+		U.S.A.
+		Tel.: +1 (818) 562-1101
+		mailto://sales@doremilabs.com
+		http://www.doremilabs.com
+		"
+	DESCRIPTION 
+		"This is the MIB where all root OIDs are registered. Department are 
+		granted individual OIDs."
+
+	REVISION "201101251743Z"
+	DESCRIPTION 
+		"Edited by hmorillon@doremilabs.com on January 25th, 2011
+		- initial version"
+
+	REVISION "201303141906Z"
+	DESCRIPTION 
+		"Edited by hmorillon@doremilabs.com on March 14th 2013
+		- add NP100 product sysobjectid
+		- add LE100 product sysobjectid
+		"
+
+	REVISION "201402111515Z"
+	DESCRIPTION 
+		"Edited by hmorillon@doremilabs.com on Feb. 11th 2014
+		- add IMS product sysobjectid
+		- add IMS2 product sysobjectid
+		- add NP4000 product sysobjectid"
+::= { enterprises 24391 }
+
+
+DrmEventDescription ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  DisplayString
+
+
+DrmEventSeverity ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"Used to assign severities to detected events. Event severity data is sent
+		with Traps, to indicate the severity of particular Traps.
+		Spaces have been left in the enumerated definitions to any future severity
+		definitions."
+	SYNTAX  INTEGER {
+		normal (3),
+		warning (5),
+		minor (7),
+		major (9),
+		critical (10)
+	}
+
+
+DrmFanSpeed ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"Fan speed measurement in round per minute.
+		0 means that the fan is stopped
+		-1 indicates a non applicable value; for instance when a Fan is declared
+		but not present physically in the system."
+	SYNTAX  Integer32
+
+
+DrmGenericTableIndex ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"A unique value, greater than zero, for each row in the table. 
+		The value can be continuous or sparse.
+		The value must remain constant at least from one re-initialization of the
+		 entity's network management system to the next re-initialization."
+	SYNTAX  Counter32
+
+
+DrmLongDisplayString ::= TEXTUAL-CONVENTION
+	DISPLAY-HINT 	"4096a"
+	STATUS     current
+	DESCRIPTION 
+		"This new type extend the usual DisplayString type but is
+		reserved for long text content.
+		The saem constraints than DisplayString apply:
+		- only printable text"
+	SYNTAX  OCTET STRING (SIZE(0..4096))
+
+
+DrmPowerLowVoltage ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"Power voltage measurement in millivolt. 
+		0 indicates a power loss,
+		-1 indicates that the value is not applicable. For instance if a voltage
+		is registered in the system but do not have physical sense."
+	SYNTAX  Integer32
+
+
+DrmResourceName ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"This type is used to identify various component within the system.
+		Example: identifier for disk, storage, fan, channel, ..."
+	SYNTAX  DisplayString
+
+
+DrmTemperature ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"Local temperature measurement in Celcius degree.
+		This type is used only for ambiant temperature (eg not for low temperatures 
+		closed to 0 Celsius degree.
+		0 indicates that there is no associated reading. For instance if no physical
+		sensor is attached in the system."
+	SYNTAX  Integer32
+
+
+DrmTrapControl ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		"Used to enable or disable specific Traps."
+	SYNTAX  INTEGER {
+		trapEnable (1),
+		trapDisable (2)
+	}
+
+
+DrmWorkingState ::= TEXTUAL-CONVENTION
+	STATUS     current
+	DESCRIPTION 
+		""
+	SYNTAX  INTEGER {
+		stateUndefined (1),
+		stateNotApplicable (2),
+		stateNormal (3),
+		stateWarning (4),
+		stateError (5)
+	}
+
+
+drmDeprecatedRoot  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"This is the root for deprecated MIB. MIB is no longer active but is still 
+		supported for historical reasons."
+	::= { doremiHQRoot 1 }
+
+drmExperimentalRoot  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"All experimental MIBS are organized under this node. When those MIBs 
+		have been fully developed and tested, they will be moved under the
+		Registration node.
+		MIBs which are in Beta-test status may also appear under this experimental 
+		node."
+	::= { doremiHQRoot 2 }
+
+drmRegistrationRoot  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"All MIBs (that have completed testing) along with associated registration data,
+		are organized under this node. This includes Global Registrations, Product MIBs,
+		and registration of MIBs in other categories."
+	::= { doremiHQRoot 3 }
+
+drmRegGlobal  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"This node is intended for global registration information only. eg. definitions
+		that register products."
+	::= { drmRegistrationRoot 1 }
+
+drmProductRegs  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Specific product Registrations are under this node."
+	::= { drmRegGlobal 1 }
+
+drmDCProductRegs  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Digital cinema product registrations are under this node."
+	::= { drmProductRegs 1 }
+
+drmDCPlayerProductReg  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"The OID of this node is the definition of the authoritative registration
+		for the DoremiLabs Inc. family product of DC Player.
+		It includes, not exclusively, the dcp2000, ShowVault, DC-Post..."
+	::= { drmDCProductRegs 1 }
+
+drmDCPRegCurrent  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCPlayerProductReg 1 }
+
+drmProductNameDCP2000  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"DCP2000 product"
+	::= { drmDCPRegCurrent 1 }
+
+drmProductNameDCPost  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"DCPost"
+	::= { drmDCPRegCurrent 2 }
+
+drmProductNameShowVault  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCPRegCurrent 3 }
+
+-- LE100 product line
+
+drmProductNameLE100  OBJECT IDENTIFIER ::= { drmDCPRegCurrent 4 }
+
+-- NP100 product line
+
+drmProductNameNP100  OBJECT IDENTIFIER ::= { drmDCPRegCurrent 5 }
+
+-- IMS product line
+
+drmProductNameIMS    OBJECT IDENTIFIER ::= { drmDCPRegCurrent 6 }
+
+-- IMS2 product line
+
+drmProductNameIMS2   OBJECT IDENTIFIER ::= { drmDCPRegCurrent 7 }
+
+-- NP4000 product line
+
+drmProductNameNP4000  OBJECT IDENTIFIER ::= { drmDCPRegCurrent 8 }
+
+drmDCStreamerProductReg  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCProductRegs 2 }
+
+drmDCSRegCurrent  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCStreamerProductReg 1 }
+
+drmProductNameStreamIt  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCSRegCurrent 1 }
+
+drmDCManagerProductReg  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCProductRegs 3 }
+
+drmDCMasteringProductreg  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCProductRegs 4 }
+
+drmDCMiscProductreg  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCProductRegs 5 }
+
+drmDCMisRegCurrent  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCMiscProductreg 1 }
+
+drmProductNameS430  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCMisRegCurrent 1 }
+
+drmDCRoot  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		"Products from Digital Cinema department are organized under this node."
+	::= { doremiHQRoot 4 }
+
+drmdcDCPlayerMib  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCRoot 1 }
+
+drmdcDCStreamerMib  OBJECT-IDENTITY
+	STATUS     current
+	DESCRIPTION 
+		""
+	::= { drmDCRoot 2 }
+END
+
+
+-- This MIB was created using NuDesign Team's Visual MIBuilder (Ver 4.6).
+
