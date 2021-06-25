@@ -12,7 +12,7 @@ L'UTILISATION DU LOGICIEL VAUT POUR ACCEPTATION DES PRÉSENTES CONDITIONS. EN CA
 
 PRÉAMBULE
 
-A.	Christie possède (en licence) le logiciel de la query d'informations de gestion MIB SNMP du projecteur de cinéma numérique (le "logiciel sous licence"), utilisé pour la surveillance à distance des projecteurs de cinéma numériques CP2000 ("projecteurs de cinéma numériques Christie").
+A.	Christie possède (en licence) le logiciel de la program d'informations de gestion MIB SNMP du projecteur de cinéma numérique (le "logiciel sous licence"), utilisé pour la surveillance à distance des projecteurs de cinéma numériques CP2000 ("projecteurs de cinéma numériques Christie").
 
 B.	Conformément aux conditions de cette licence, le propriétaire souhaite obtenir une licence de Christie et Christie souhaite accorder au propriétaire une licence pour le logiciel sous licence utilisé par le propriétaire pour la surveillance à distance des projecteurs de cinéma numériques Christie.
 

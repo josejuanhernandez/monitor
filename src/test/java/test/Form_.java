@@ -1,6 +1,6 @@
 package test;
 
-import com.cinepolis.cosmos.Form;
+import com.cinepolis.cosmos.monitor.goals.crawler.Form;
 import org.junit.Test;
 
 import java.util.List;

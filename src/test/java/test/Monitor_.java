@@ -1,23 +1,11 @@
 package test;
 
-import com.cinepolis.cosmos.*;
-import com.cinepolis.cosmos.Model.Task;
-import com.cinepolis.cosmos.collectors.DatalakeCollector;
-import com.cinepolis.cosmos.collectors.DatamartCollector;
-import org.junit.Test;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
-import static com.cinepolis.cosmos.Model.Task.Configuration;
-import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class Monitor_ {
+	/*
 	@Test
 	public void given_no_devices_should_produce_empty_datamart() {
 		List<DeviceAccessor> devices = Collections.emptyList();
@@ -82,9 +70,9 @@ public class Monitor_ {
 			}
 
 			@Override
-			public String execute(Task task) {
-				return model.goals.stream()
-						.map(g->g.formOf(task))
+			public String execute(Goal goal) {
+				return model.books.stream()
+						.map(g->g.formOf(goal))
 						.map(f->new Query(f,""))
 						.map(b->b.format(new HashMap<>()))
 						.collect(joining("\n\n"));
@@ -95,4 +83,6 @@ public class Monitor_ {
 	private Device createDevice(String ip) {
 		return new Device(ip);
 	}
+
+	 */
 }

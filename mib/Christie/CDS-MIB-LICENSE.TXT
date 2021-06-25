@@ -12,7 +12,7 @@ BY USING THE SOFTWARE, LICENSEE ACCEPTS THESE TERMS.  IF LICENSEE DOES NOT ACCEP
  
 RECITALS
 
-A.	Christie owns or licenses proprietary digital cinema projector SNMP management information query software (the "Licensed Software") which is used in connection with remote monitoring of CP2000 series digital cinema projectors ("Christie DC Projectors").
+A.	Christie owns or licenses proprietary digital cinema projector SNMP management information program software (the "Licensed Software") which is used in connection with remote monitoring of CP2000 series digital cinema projectors ("Christie DC Projectors").
 
 B.	Subject to the terms and conditions of this License, Licensee desires to license from Christie, and Christie is willing to license to Licensee, the Licensed Software for use by Licensee in connection with remote monitoring of Christie DC Projectors.
 

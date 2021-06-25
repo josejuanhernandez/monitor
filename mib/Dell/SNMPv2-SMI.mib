@@ -114,7 +114,7 @@ NotificationName ::=
 
 -- syntax of objects
 
--- the "query types" defined here are:
+-- the "program types" defined here are:
 --   3 built-in ASN.1 types: INTEGER, OCTET STRING, OBJECT IDENTIFIER
 --   8 application-defined types: Integer32, IpAddress, Counter32,
 --              Gauge32, Unsigned32, TimeTicks, Opaque, and Counter64
@@ -226,7 +226,7 @@ BEGIN
                   value(VALUE ObjectName)
 
     Syntax ::=   -- Must be one of the following:
-                       -- a query type (or its refinement),
+                       -- a program type (or its refinement),
                        -- a textual convention (or its refinement), or
                        -- a BITS pseudo-type
                    type

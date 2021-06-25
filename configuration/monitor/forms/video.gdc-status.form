@@ -1,9 +1,0 @@
-videoDeviceBoardTemp	.1.3.6.1.4.1.28713.1.1.6.1.4	INTEGER32	read-only		GDC-DC-MIB	The board temperature of the video device.
-videoDeviceFPGATemp	.1.3.6.1.4.1.28713.1.1.6.1.5	INTEGER32	read-only		GDC-DC-MIB	The FPGA temperature of the video device.
-
-memTotal	.1.3.6.1.4.1.28713.1.2.1	INTEGER32	read-only		GDC-DC-MIB	The total amount of memory in the server (in KB).
-memFree	.1.3.6.1.4.1.28713.1.2.2	INTEGER32	read-only		GDC-DC-MIB	The amount of free memory in the server (in KB).
-
-sysUpTime	1.3.6.1.4.1.28713.1.1.8.0
-
-raidDegraded	.1.3.6.1.4.1.28713.1.6.1.1.6	TruthValue	read-only		GDC-DC-MIB	Indicates whether the raid is in a degraded state or not.

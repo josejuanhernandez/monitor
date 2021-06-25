@@ -12,7 +12,7 @@ L'UTILIZZO DEL SOFTWARE DA PARTE DEL LICENZIATARIO EQUIVALE ALL'ACCETTAZIONE DEL
  
 INTRODUZIONE
 
-A.	Christie possiede o cede in licenza il software proprietario digitale per management information query del proiettore cinematografico SNMP ("Software soggetto a licenza") che viene utilizzato in relazione al monitoraggio remoto dei proiettori cinematografici digitali della serie CP2000 ("Proiettori DC Christie").
+A.	Christie possiede o cede in licenza il software proprietario digitale per management information program del proiettore cinematografico SNMP ("Software soggetto a licenza") che viene utilizzato in relazione al monitoraggio remoto dei proiettori cinematografici digitali della serie CP2000 ("Proiettori DC Christie").
 
 B.	In virtù dei termini e delle condizioni della presente Licenza, il Licenziatario desidera ottenere in licenza da Christie, e Christie, da parte sua, dichiara la propria disponibilità a concedere in licenza al Licenziatario, il Software soggetto a licenza, affinché il Licenziatario lo utilizzi in relazione al monitoraggio remoto dei Proiettori DC Christie.
 

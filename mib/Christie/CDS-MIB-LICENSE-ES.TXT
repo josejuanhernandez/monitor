@@ -12,7 +12,7 @@ AL USAR EL SOFTWARE, EL TITULAR DE LA LICENCIA ACEPTA ESTOS TÉRMINOS. SI EL TIT
  
 ENUMERACIÓN
 
-A	Christie es propietaria o concede licencias de propiedad de software de query de información gestionada de SNMP de proyectores digitales cinematográficos (el "software con licencia") que se usa junto con el control remoto de los proyectores digitales cinematográficos de la serie CP2000 ("proyectores DC de Christie").
+A	Christie es propietaria o concede licencias de propiedad de software de program de información gestionada de SNMP de proyectores digitales cinematográficos (el "software con licencia") que se usa junto con el control remoto de los proyectores digitales cinematográficos de la serie CP2000 ("proyectores DC de Christie").
 
 B.	En virtud d los términos y las condiciones de esta Licencia, el titular de la licencia desea obtener una licencia de Christie, y Christie está dispuesta a otorgar la licencia al titular del software con licencia que usará el titular de licencia relacionado para el control remoto de los proyectores DC de Christie.
 

@@ -4877,7 +4877,7 @@ ProcessorDeviceFamily                           ::= TEXTUAL-CONVENTION
     deviceFamilyIsG4(201),                      -- family is G4
     deviceFamilyIsG5(202),                      -- family is G5
     deviceFamilyIsESA390G6(203),                -- family is ESA/390 G6
-    deviceFamilyIszArchitectur(204),            -- family is z/Architectur query
+    deviceFamilyIszArchitectur(204),            -- family is z/Architectur program
     deviceFamilyIsIntelCorei5(205),             -- family is Intel(R) Core(TM) i5 processor
     deviceFamilyIsIntelCorei3(206),             -- family is Intel(R) Core(TM) i3 processor
     deviceFamilyIsVIAC7M(210),                  -- family is VIA C7(TM)-M Processor Family
@@ -5679,11 +5679,11 @@ NetworkDeviceTOECapabilityFlags                 ::= TEXTUAL-CONVENTION
     SYNTAX                                      INTEGER {
     -- Note: These values are bit fields, so combination values are possible.
     -- none(0),                                 -  querying for TOE capability is not supported
-    unknown(1),                                 -- querying for TOE capability is supported but query returned an error
+    unknown(1),                                 -- querying for TOE capability is supported but program returned an error
     available(2),                               -- device has TOE capability
     notAvailable(4),                            -- device does not have TOE capability
     cannotBeDetermined(8),                      -- querying for TOE capability is supported but an error prevented querying
-    driverNotResponding(16)                     -- querying for TOE capability is supported but driver did not respond to query
+    driverNotResponding(16)                     -- querying for TOE capability is supported but driver did not respond to program
 }
 
 NetworkDeviceiSCSICapabilityFlags               ::= TEXTUAL-CONVENTION
@@ -5693,11 +5693,11 @@ NetworkDeviceiSCSICapabilityFlags               ::= TEXTUAL-CONVENTION
     SYNTAX                                      INTEGER {
     -- Note: These values are bit fields, so combination values are possible.
     -- none(0),                                 -  querying for iSCSI capability is not supported
-    unknown(1),                                 -- querying for iSCSI capability is supported but query returned an error
+    unknown(1),                                 -- querying for iSCSI capability is supported but program returned an error
     available(2),                               -- device has iSCSI capability
     notAvailable(4),                            -- device does not have iSCSI capability
     cannotBeDetermined(8),                      -- querying for iSCSI capability is supported but an error prevented querying
-    driverNotResponding(16)                     -- querying for iSCSI capability is supported but driver did not respond to query
+    driverNotResponding(16)                     -- querying for iSCSI capability is supported but driver did not respond to program
 }
 
 NetworkDeviceCapabilitiesFlags                  ::= TEXTUAL-CONVENTION

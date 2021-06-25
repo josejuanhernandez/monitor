@@ -1,6 +1,6 @@
 package test;
 
-import com.cinepolis.cosmos.Formula;
+import com.cinepolis.cosmos.monitor.goals.crawler.Formula;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package test;
 
-import com.cinepolis.cosmos.Model;
+import com.cinepolis.cosmos.monitor.goals.crawler.Model;
 import org.junit.Test;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class Model_ {
 		return name.startsWith("Null") ? name : name+"-"+suffix;
 	}
 
-	public List<Model.Goal> goals() {
-		return Model.of("CP2220").goals;
+	public List<Model.Book> goals() {
+		return Model.of("CP2220").books;
 	}
 }
