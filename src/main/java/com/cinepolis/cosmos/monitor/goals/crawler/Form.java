@@ -1,5 +1,7 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
+import com.cinepolis.cosmos.monitor.Archetype;
+import com.cinepolis.cosmos.monitor.WebService;
 import com.cinepolis.cosmos.monitor.goals.crawler.parser.Field;
 import com.cinepolis.cosmos.monitor.goals.crawler.parser.Preprocessor;
 
@@ -179,7 +181,7 @@ public class Form {
 				append(format(definition));
 			}
 			String content = content();
-			return Debug.rawMode ? content : executeMacrosOn(content);
+			return WebService.Debug.rawMode ? content : executeMacrosOn(content);
 		}
 
 		private String content() {
@@ -196,7 +198,7 @@ public class Form {
 		}
 
 		private boolean isContent(StringBuilder sb) {
-			return Debug.rawMode || isFirstBlock(sb) || isValid(sb);
+			return WebService.Debug.rawMode || isFirstBlock(sb) || isValid(sb);
 		}
 
 		private boolean isValid(StringBuilder sb) {

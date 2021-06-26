@@ -1,6 +1,6 @@
 package com.cinepolis.cosmos.parser;
 
-import com.cinepolis.cosmos.monitor.goals.crawler.Archetype;
+import com.cinepolis.cosmos.monitor.Archetype;
 import com.cinepolis.cosmos.monitor.goals.crawler.parser.Field;
 import org.junit.Before;
 import org.junit.Test;

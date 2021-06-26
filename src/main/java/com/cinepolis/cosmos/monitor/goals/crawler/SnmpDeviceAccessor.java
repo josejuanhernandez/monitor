@@ -1,5 +1,7 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
+import com.cinepolis.cosmos.monitor.Inventory;
+
 import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
@@ -10,15 +12,15 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.joining;
 
 public class SnmpDeviceAccessor implements DeviceAccessor {
-	private final Device device;
+	private final Inventory.Device device;
 	private Model model = Model.Unreachable;
 
-	public SnmpDeviceAccessor(Device device) {
+	public SnmpDeviceAccessor(Inventory.Device device) {
 		this.device = device;
 	}
 
 	@Override
-	public Device device() {
+	public Inventory.Device device() {
 		return device;
 	}
 

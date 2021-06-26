@@ -1,6 +1,8 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
 
+import com.cinepolis.cosmos.monitor.Archetype;
+
 import java.io.File;
 import java.util.*;
 import java.util.function.Function;
