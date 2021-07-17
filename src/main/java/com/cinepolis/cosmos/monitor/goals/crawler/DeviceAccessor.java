@@ -1,9 +1,9 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
-import com.cinepolis.cosmos.monitor.Inventory;
+import com.cinepolis.cosmos.monitor.inventory.Device;
 
 public interface DeviceAccessor {
-	Inventory.Device device();
+	Device device();
 	default String ip() {
 		return device().ip;
 	}
@@ -11,6 +11,6 @@ public interface DeviceAccessor {
 
 	Model model();
 
-	String read(String goal);
+	String read(String view);
 
 }

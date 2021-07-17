@@ -1,6 +1,6 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
-import com.cinepolis.cosmos.monitor.Inventory;
+import com.cinepolis.cosmos.monitor.inventory.Device;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -12,15 +12,15 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.joining;
 
 public class SnmpDeviceAccessor implements DeviceAccessor {
-	private final Inventory.Device device;
+	private final Device device;
 	private Model model = Model.Unreachable;
 
-	public SnmpDeviceAccessor(Inventory.Device device) {
+	public SnmpDeviceAccessor(Device device) {
 		this.device = device;
 	}
 
 	@Override
-	public Inventory.Device device() {
+	public Device device() {
 		return device;
 	}
 
@@ -36,11 +36,15 @@ public class SnmpDeviceAccessor implements DeviceAccessor {
 
 	public DeviceAccessor init() {
 		try {
-			this.model = modelIn(parse(execute(queriesForInit())));
+			this.model = modelIn(contentOf(initForm()));
 		} catch (IOException e) {
 			this.model = Model.Unreachable;
 		}
 		return this;
+	}
+
+	private Model modelIn(String content) {
+		return modelIn(asMap(content));
 	}
 
 	private Model modelIn(Map<String, String> attributes) {
@@ -49,34 +53,34 @@ public class SnmpDeviceAccessor implements DeviceAccessor {
 				Model.Unreachable;
 	}
 
-	public String read(String goal) {
-		return pretty(contentOf(goal));
+	public String read(String view) {
+		return pretty(contentOf(view));
 	}
 
-	private String contentOf(String goal) {
+	private String contentOf(String view) {
 		try {
-			return isUnreachable() ? unreachableOf(goal) : execute(queriesOf(goal));
+			return isUnreachable() ? unreachableOf(view) : contentOf(queriesOf(view));
 		}
 		catch (Exception e) {
-			return unreachableOf(goal);
+			return unreachableOf(view);
 		}
 	}
 
-	private String unreachableOf(String name) {
-		return Form.Unreachable.raw().replace("event", name.toLowerCase());
+	private String unreachableOf(String form) {
+		return Form.Unreachable.raw().replace("$event", form.toLowerCase());
 	}
 
 	private boolean isUnreachable() {
 		return model == Model.Unreachable;
 	}
 
-	private String execute(Stream<Query> queries) throws IOException {
-		try (SnmpClient client = new SnmpClient(this.device.ip, this.model.keyMapper).start()) {
-			return execute(queries, client);
+	private String contentOf(Stream<Query> queries) throws IOException {
+		try (SnmpClient client = new SnmpClient(this.device.ip, this.model.oidMapper).start()) {
+			return contentOf(queries, client);
 		}
 	}
 
-	private String execute(Stream<Query> queries, SnmpClient client) {
+	private String contentOf(Stream<Query> queries, SnmpClient client) {
 		return queries.map(query -> format(query, client)).collect(joining(""));
 	}
 
@@ -85,11 +89,11 @@ public class SnmpDeviceAccessor implements DeviceAccessor {
 		return query.format(attributes);
 	}
 
-	private Map<String, String> parse(String text) {
-		return parse(text.split("\n"));
+	private Map<String, String> asMap(String text) {
+		return asMap(text.split("\n"));
 	}
 
-	private Map<String, String> parse(String[] lines) {
+	private Map<String, String> asMap(String[] lines) {
 		Map<String,String> attributes = new HashMap<>();
 		for (String line : lines) {
 			if (!isAttribute(line)) continue;
@@ -103,12 +107,12 @@ public class SnmpDeviceAccessor implements DeviceAccessor {
 		return line.contains(":") && !line.contains("noSuchObject");
 	}
 
-	private Stream<Query> queriesForInit() {
+	private Stream<Query> initForm() {
 		return List.of(new Query(Form.Init)).stream();
 	}
 
-	private Stream<Query> queriesOf(String name) {
-		return model.books.stream().map(book -> new Query(book.formOf(name), book.tags));
+	private Stream<Query> queriesOf(String view) {
+		return model.queries.stream().filter(q->q.is(view));
 	}
 
 	private String pretty(String text) {
@@ -122,12 +126,12 @@ public class SnmpDeviceAccessor implements DeviceAccessor {
 				.replace("$screen", String.valueOf(device.screen != 0 ? device.screen : "-"))
 				.replace("$model", model.name)
 				.replace("\n[", "\n\n[")
-				.replace(":",": ");
+				.replaceAll("(^\\.+?):","$1: ");
 	}
 
 	@Override
 	public String toString() {
-		return device + "\t" + model;
+		return device + ":" + model;
 	}
 
 }

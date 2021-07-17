@@ -1,6 +1,7 @@
 package com.cinepolis.cosmos.monitor;
 
 import com.cinepolis.cosmos.monitor.goals.crawler.*;
+import com.cinepolis.cosmos.monitor.inventory.Device;
 import spark.Request;
 import spark.Spark;
 
@@ -11,11 +12,11 @@ import static java.util.stream.Collectors.joining;
 public class WebService {
 	public static void run() {
 		Spark.port(8080);
-		Spark.get("/mode/:mode", (req, res) -> Debug.rawMode = req.params(":mode").equals("raw"));
+		Spark.get("/mode/:mode", (req, res) -> Form.debug = req.params(":mode").equals("raw"));
 		Spark.get("/forms", (req, res) -> forms());
 		Spark.get("/devices", (req, res) -> devices());
 		Spark.get("/devices/:device", (req, res) -> deviceIn(req).model().name);
-		Spark.get("/devices/:device/:goal", (req, res) -> deviceIn(req).read(taskIn(req)));
+		Spark.get("/devices/:device/:view", (req, res) -> deviceIn(req).read(viewIn(req)));
 		Spark.post("/devices/:device/:oids", (req, res) -> get(deviceIn(req), req.body().split("\n")));
 	}
 
@@ -28,24 +29,26 @@ public class WebService {
 		}
 	}
 
-	public static String taskIn(Request req) {
-		return req.params(":goal");
+	public static String viewIn(Request req) {
+		return req.params(":view");
 	}
 
 	private static String devices() {
 		return Inventory.Devices.stream()
-				.map(Inventory.Device::toString)
+				.map(Device::toString)
 				.collect(joining("\n"));
 	}
 
 	private static DeviceAccessor deviceIn(Request req) {
-		return new SnmpDeviceAccessor(Inventory.find(req.params(":device"))).init();
+		Device device = Inventory.device(req.params(":device"));
+		System.out.println(device);
+		return new SnmpDeviceAccessor(device).init();
 	}
 
 	public static String forms() {
 		try {
 			Model.reload();
-			return join("\n", Model.Forms.keySet());
+			return Model.Forms.keySet().stream().sorted().collect(joining("\n"));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -53,7 +56,5 @@ public class WebService {
 		}
 	}
 
-	public static class Debug {
-		public static boolean rawMode = false;
-	}
+
 }

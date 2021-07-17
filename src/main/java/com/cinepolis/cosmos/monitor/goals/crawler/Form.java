@@ -1,7 +1,6 @@
 package com.cinepolis.cosmos.monitor.goals.crawler;
 
-import com.cinepolis.cosmos.monitor.Archetype;
-import com.cinepolis.cosmos.monitor.WebService;
+import com.cinepolis.cosmos.Archetype;
 import com.cinepolis.cosmos.monitor.goals.crawler.parser.Field;
 import com.cinepolis.cosmos.monitor.goals.crawler.parser.Preprocessor;
 
@@ -20,10 +19,10 @@ import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.*;
 
 public class Form {
-	public final static Form Null = new Form("Null", "");
 	public final static Form Init = Form.of(Archetype.DeviceInitForm);
 	public final static Form Unreachable = Form.of(Archetype.DeviceUnreachableForm);
 	public final static Form Unknown = Form.of(Archetype.DeviceUnknownForm);
+	public static boolean debug = false;
 	private final String name;
 	private final List<Field.Definition> definitions;
 	private final List<Macro> macros;
@@ -181,7 +180,7 @@ public class Form {
 				append(format(definition));
 			}
 			String content = content();
-			return WebService.Debug.rawMode ? content : executeMacrosOn(content);
+			return debug ? content : executeMacrosOn(content);
 		}
 
 		private String content() {
@@ -198,7 +197,7 @@ public class Form {
 		}
 
 		private boolean isContent(StringBuilder sb) {
-			return WebService.Debug.rawMode || isFirstBlock(sb) || isValid(sb);
+			return debug || isFirstBlock(sb) || isValid(sb);
 		}
 
 		private boolean isValid(StringBuilder sb) {
@@ -240,4 +239,5 @@ public class Form {
 		}
 
 	}
+
 }

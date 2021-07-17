@@ -1,4 +1,4 @@
-[event]
+[$event]
 ts: $ts
 model: $model 
 ip: $ip
@@ -8,6 +8,6 @@ region: $region
 country: $country
 screen: $screen
 
-[event.alert]
+[$event.alert]
 label: Network connectivity
 issue: Connection Failure

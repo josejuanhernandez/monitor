@@ -1,3 +1,6 @@
 datalake
 configuration_
 target
+datamarts
+dependency-reduced-pom.xml
+*.zip

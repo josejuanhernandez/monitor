@@ -1,28 +1,32 @@
 package com.cinepolis.cosmos.monitor;
 
-import java.io.IOException;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.cinepolis.cosmos.Archetype;
+import com.cinepolis.cosmos.monitor.inventory.Device;
+import com.cinepolis.cosmos.monitor.inventory.Division;
+import com.cinepolis.cosmos.monitor.inventory.Theater;
 
-import static com.cinepolis.cosmos.monitor.Archetype.Network;
-import static com.cinepolis.cosmos.monitor.Archetype.Territory;
-import static java.lang.Integer.parseInt;
+import java.io.IOException;
+import java.util.*;
+
 import static java.nio.file.Files.readAllLines;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
 public class Inventory {
-	public static final List<Device> Devices = loadDevices();
 	public static final List<Division> Divisions = loadDivisions();
-	public static final ZoneId Mexico = ZoneId.of("America/Mexico_City");
+	public static final List<Theater> Theaters = loadTheaters();
+	public static final Map<String, Theater> TheaterMap = new HashMap<>();
+	public static final List<Device> Devices = loadDevices();
+	public static final Map<String, Device> DeviceMap = new HashMap<>();
 
-	public static Device find(String ip) {
-		return Devices.stream()
-				.filter(d -> d.ip.equals(ip))
-				.findFirst()
-				.orElse(new Device(ip));
+	public static Theater theater(String id) {
+		if (TheaterMap.isEmpty()) loadTheaterMap();
+		return TheaterMap.get(id);
+	}
+
+	public static Device device(String ip) {
+		if (DeviceMap.isEmpty()) loadDeviceMap();
+		return DeviceMap.get(ip);
 	}
 
 	private static List<Device> loadDevices() {
@@ -34,92 +38,67 @@ public class Inventory {
 		}
 	}
 
-	private static List<Device> readDevices() throws IOException {
-		return readAllLines(Network.toPath()).stream()
-				.map(Inventory::devices)
-				.flatMap(Collection::stream)
-				.collect(toList());
-	}
-
-	private static List<Device> devices(String segment) {
-		return devices(segment.split("\t"));
-	}
-
-	private static List<Device> devices(String[] split) {
-		return devices(
-				new Theater(split[4], split[5], split[6], split[7], split[8]),
-				split[0], split[1], parseInt(split[2]), parseInt(split[3])
-		);
-	}
-
-	private static List<Device> devices(Theater theater, String operationSegment, String projectionSegment, int screens, int offset) {
-		List<Device> devices = new ArrayList<>();
-		if (!operationSegment.isEmpty()) {
-			devices.add(new Device(operationSegment + (offset + 1), theater, 0));
+	private static List<Theater> loadTheaters() {
+		try {
+			return readTheaters();
+		} catch (IOException e) {
+			System.err.println("Theaters could not be loaded");
+			return emptyList();
 		}
-		if (!projectionSegment.isEmpty()) {
-			//devices.add(new Device(projectionSegment + (offset+6), theater, 0));
-			for (int i = 1; i <= screens; i++) {
-				devices.add(new Device(projectionSegment + (i + offset + 20), theater, i));
-				devices.add(new Device(projectionSegment + (i + offset + 40), theater, i));
-			}
-		}
-		return devices;
 	}
 
 	private static List<Division> loadDivisions() {
 		try {
-			return readAllLines(Territory.toPath()).stream().map(Division::new).collect(toList());
+			return readDivisions();
 		} catch (IOException e) {
 			return emptyList();
 		}
 	}
 
-	public static class Division {
-		public final String code;
-
-		public Division(String code) {
-			this.code = code;
-		}
+	private static List<Device> readDevices() throws IOException {
+		return readAllLines(Archetype.Theaters.toPath()).stream()
+				.map(s->s.split("\t"))
+				.filter(s->s.length > 7)
+				.map(Device::in)
+				.flatMap(Collection::stream)
+				.collect(toList());
 	}
 
-	public static class Device {
-		public final String ip;
-		public final int screen;
-		public final Theater theater;
-
-		public Device(String ip, Theater theater, int screen) {
-			this.ip = ip;
-			this.screen = screen;
-			this.theater = theater;
-		}
-
-		public Device(String ip) {
-			this.ip = ip;
-			this.theater = new Theater("-","-","-","-","-");
-			this.screen = 0;
-		}
-
-		@Override
-		public String toString() {
-			return ip + "\t" + theater.id + "\t"  + theater.name + "(" + theater.country + ")" +"\t" + screen;
-		}
+	private static List<Theater> readTheaters() throws IOException{
+		return readAllLines(Archetype.Theaters.toPath()).stream()
+				.filter(l->!l.isEmpty())
+				.map(Theater::new)
+				.collect(toList());
 	}
 
-	public static class Theater {
-		public final String id;
-		public final String name;
-		public final String city;
-		public final String region;
-		public final String country;
+	private static List<Division> readDivisions() throws IOException {
+		return readAllLines(Archetype.Divisions.toPath()).stream()
+				.filter(l->!l.isEmpty())
+				.map(Division::new)
+				.collect(toList());
+	}
 
-		public Theater(String id, String name, String city, String region, String country) {
-			this.id = id;
-			this.name = name;
-			this.city = city;
-			this.region = region;
-			this.country = country;
-		}
+	private static void loadTheaterMap() {
+		Theaters.forEach(Inventory::put);
+	}
+
+	public static Theater add(Theater theater) {
+		TheaterMap.put(theater.key(), theater);
+		return theater;
+	}
+
+
+	private static void loadDeviceMap() {
+		Devices.forEach(Inventory::put);
+	}
+
+	private static void put(Theater theater) {
+		TheaterMap.put(theater.id, theater);
+		TheaterMap.put(theater.key(), theater);
+	}
+
+	private static void put(Device device) {
+		DeviceMap.put(device.ip, device);
 	}
 
 }

@@ -1,0 +1,23 @@
+[configuration]
+ts: $ts
+type: lamp.$model
+ip: $ip
+name: barco.A? Lamp 1
+name: barco.B? Lamp 2
+name: barco.U ? Lamp
+name: christie ? Lamp
+theater: $theater
+city: $city
+region: $region
+country: $country
+screen: $screen
+sn: barco.U? 1.3.6.1.4.1.12612.220.11.2.2.4.1.0:string
+sn: barco.A? 1.3.6.1.4.1.12612.220.11.2.2.4.11.1.0:string
+sn: barco.B? 1.3.6.1.4.1.12612.220.11.2.2.4.12.1.0:string
+sn: christie? 1.3.6.1.4.1.25766.1.12.1.1.3.4.1.0:string
+
+[configuration.attribute]
+group: System
+label: Type Installed
+value: barco? NA
+value: christie? 1.3.6.1.4.1.25766.1.12.1.1.3.4.6.0:string

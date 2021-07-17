@@ -23,7 +23,9 @@ public class Library {
 		long value = Long.parseLong(v.get("value"));
 		long max = Long.parseLong(v.get("max"));
 		if (value < max) return "";
-		return "[status.alert]\nlabel: Usage time\nissue: Expired\n";
+		return "[status.alert]\n" +
+				"label: Usage time\n" +
+				"issue: Expired\n";
 	}
 
 }

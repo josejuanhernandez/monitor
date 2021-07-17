@@ -12,19 +12,19 @@ import static java.util.stream.Collectors.toList;
 
 public class Query {
 	private final Form form;
-	private final List<String> states;
+	private final List<String> tags;
 
 	public Query(Form form) {
 		this(form, emptyList());
 	}
 
-	public Query(Form form, String states) {
-		this(form, listOf(states));
+	public Query(Form form, String tags) {
+		this(form, listOf(tags));
 	}
 
-	public Query(Form form, List<String> states) {
+	public Query(Form form, List<String> tags) {
 		this.form = form;
-		this.states = states;
+		this.tags = tags;
 	}
 
 	public static OutputStream create(File base) throws FileNotFoundException {
@@ -38,7 +38,7 @@ public class Query {
 	public List<String> keys() {
 		return form.fields()
 				.filter(Field::isAttribute)
-				.filter(f -> f.matches(states))
+				.filter(f -> f.matches(tags))
 				.map(a -> a.asAttribute().value)
 				.distinct()
 				.collect(toList());
@@ -46,7 +46,15 @@ public class Query {
 
 	public String format(Map<String, String> variables) {
 		if (form.isEmpty()) return "";
-		return form.formatterOf(variables, states).format();
+		return form.formatterOf(variables, tags).format();
 	}
 
+	public boolean is(String view) {
+		return form.name().startsWith(view);
+	}
+
+	@Override
+	public String toString() {
+		return form.name() + ": " + String.join(",", tags);
+	}
 }

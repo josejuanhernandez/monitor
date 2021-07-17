@@ -1,8 +1,8 @@
 package com.cinepolis.cosmos.monitor.goals;
 
-import com.cinepolis.cosmos.monitor.Event;
-import com.cinepolis.cosmos.monitor.Inventory;
+import com.cinepolis.cosmos.monitor.datahub.Event;
 import com.cinepolis.cosmos.monitor.Goal;
+import com.cinepolis.cosmos.monitor.Inventory;
 import com.cinepolis.cosmos.monitor.goals.crawler.DeviceAccessor;
 import com.cinepolis.cosmos.monitor.goals.crawler.SnmpDeviceAccessor;
 
@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class CrawlerGoal implements Goal {
-
 	private final String name;
 	private final int delay;
 	private final int period;
@@ -37,16 +36,6 @@ public class CrawlerGoal implements Goal {
 	}
 
 	@Override
-	public void start() {
-
-	}
-
-	@Override
-	public void terminate() {
-
-	}
-
-	@Override
 	public Iterator<Task> iterator() {
 		return deviceAccessors().map(this::taskOf).iterator();
 	}
@@ -64,7 +53,7 @@ public class CrawlerGoal implements Goal {
 		String event = device.read(name);
 		return new Event() {
 			@Override
-			public String id() {
+			public String source() {
 				return device.ip();
 			}
 

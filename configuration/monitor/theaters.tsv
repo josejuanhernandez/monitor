@@ -1,0 +1,788 @@
+1020009	Mexico Nuevo Laredo	Nuevo Laredo	Tamaulipas	Mexico	9	10.104.11.	1..5
+1020011	Churubusco	Ciudad de Mexico	Ciudad de Mexico	Mexico	11	10.117.22.	1..3
+1020021	Hollywood	Naucalpan	Estado de Mexico	Mexico	21	10.116.13.	1..5
+1020029	Hermosillo	Hermosillo	Sonora	Mexico	29	10.98.1.	1..8
+1020032	Las Torres	Guadalajara	Jalisco	Mexico	32	10.109.18.	1..4
+1020033	Leon	Leon	Guanajuato	Mexico	33	10.110.2.	1..7
+1020035	Centro Civico	Mexicali	Baja California Norte	Mexico	35	10.96.8.	1..11
+1020040	Plaza Crystal	Xalapa	Veracruz	Mexico	40	10.120.11.	1..6
+1020044	Boulevard	Puebla	Puebla	Mexico	44	10.119.6.	1..9
+1020046	Plaza Loreto	Puebla	Puebla	Mexico	46	10.119.9.	1..4
+1020047	Zaragoza	Queretaro	Queretaro	Mexico	47	10.111.6.	1..2
+1020060	Escala Morelia (Plaza Morelia)	Morelia	Michoacan	Mexico	60	10.115.1.	1..16
+1020063	Plaza Las Americas	Queretaro	Queretaro	Mexico	63	10.111.7.	1..4
+1020064	Izcalli	Cuautitlan Izcalli	Estado de Mexico	Mexico	64	10.116.56.	1..5
+1020067	Las Armas	Tlalnepantla	Estado de Mexico	Mexico	67	10.116.22.	1..5
+1020069	La Normal	Guadalajara	Jalisco	Mexico	69	10.109.13.	1..6
+1020071	Garza Sada	Monterrey	Nuevo Leon	Mexico	71	10.103.1.	1..13
+1020077	Tolsa	Guadalajara	Jalisco	Mexico	77	10.109.5.	1..7
+1020079	Tangamanga	San Luis Potosi	San Luis Potosi	Mexico	79	10.106.4.	1..5
+1020080	Plaza del Parque	Queretaro	Queretaro	Mexico	80	10.111.3.	1..6
+1020101	Plaza Tepeyac	Ciudad de Mexico	Ciudad de Mexico	Mexico	101	10.117.14.	1..6
+1020109	Los angeles	Monterrey	Nuevo Leon	Mexico	109	10.103.16.	1..3
+1020110	Interlomas	Huixquilucan	Estado de Mexico	Mexico	110	10.116.7.	1..16
+1020119	Plaza Crystal Atizapan	Atizapan	Estado de Mexico	Mexico	119	10.116.39.	1..5
+1020124	Las Americas Juarez	Ciudad Juarez	Chihuahua	Mexico	124	10.99.11.	1..5
+1020125	Plaza Museo	Xalapa	Veracruz	Mexico	125	10.120.5.	1..10
+1020126	Las Americas Veracruz	Veracruz	Veracruz	Mexico	126	10.120.1.	1..15
+1020128	Independencia	Guadalajara	Jalisco	Mexico	128	10.109.12.	1..6
+1020131	Carrousel	Tijuana	Baja California Norte	Mexico	131	10.96.1.	1..12
+1020132	Plaza Oriente	Ciudad de Mexico	Ciudad de Mexico	Mexico	132	10.117.13.	1..4
+1020137	Chihuahua Av. Vallarta	Chihuahua	Chihuahua	Mexico	137	10.99.1.	1..14
+1020138	Plaza Crystal	Puebla	Puebla	Mexico	138	10.119.3.	1..8
+1020139	Plaza Minatitlan	Minatitlan	Veracruz	Mexico	139	10.120.7.	1..10
+1020140	La Gran Plaza	Guadalajara	Jalisco	Mexico	140	10.109.4.	1..14
+1020141	Aguascalientes	Aguascalientes	Aguascalientes	Mexico	141	10.108.1.	1..14
+1020142	Galerias Acapulco	Acapulco	Guerrero	Mexico	142	10.121.1.	1..11
+1020143	La Noria	Puebla	Puebla	Mexico	143	10.119.2.	1..12
+1020145	Plaza Bella	Pachuca	Hidalgo	Mexico	145	10.112.1.	1..7
+1020146	Grand Plaza	Toluca	Estado de Mexico	Mexico	146	10.116.24.	1..7
+1020147	Arboledas	Guadalajara	Jalisco	Mexico	147	10.109.3.	1..10
+1020149	Culiacan	Culiacan	Sinaloa	Mexico	149	10.101.1.	1..13
+1020151	Miramontes	Ciudad de Mexico	Ciudad de Mexico	Mexico	151	10.117.6.	1..15
+1020152	Tapachula	Tapachula	Chiapas	Mexico	152	10.124.1.	1..8
+1020153	Durango	Durango	Durango	Mexico	153	10.102.1.	1..10
+1020154	Escala La Huerta	Morelia	Michoacan	Mexico	154	10.115.3.	1..15
+1020155	Diana	Ciudad de Mexico	Ciudad de Mexico	Mexico	155	10.117.7.	1..8
+1020156	Villahermosa	Villahermosa	Tabasco	Mexico	156	10.123.2.	1..15
+1020158	Satelite	Naucalpan	Estado de Mexico	Mexico	158	10.116.53.	1..15
+1020159	Plaza Las Americas Cancun	Cancun	Quintana Roo	Mexico	159	10.127.1.	1..14
+1020160	Plaza El Dorado	San Luis Potosi	San Luis Potosi	Mexico	160	10.106.1.	1..11
+1020161	Galerias Metepec	Toluca	Estado de Mexico	Mexico	161	10.116.23.	1..16
+1020162	Angelopolis	Puebla	Puebla	Mexico	162	10.119.1.	1..15
+1020164	Centro Magno	Guadalajara	Jalisco	Mexico	164	10.109.1.	1..19
+1020165	Plaza Rio	Tijuana	Baja California Norte	Mexico	165	10.96.3.	1..14
+1020166	Tampico	Tampico	Tamaulipas	Mexico	166	10.104.3.	1..15
+1020167	Plaza Fiesta	Matamoros	Tamaulipas	Mexico	167	10.104.1.	1..15
+1020168	Centro Max	Leon	Guanajuato	Mexico	168	10.110.1.	1..17
+1020169	VIP Interlomas	Huixquilucan	Estado de Mexico	Mexico	169	10.116.7.	17..20
+1020171	Pabellon	Guadalajara	Jalisco	Mexico	171	10.109.2.	1..14
+1020172	Plaza Aragon	Ecatepec	Estado de Mexico	Mexico	172	10.116.4.	1..19
+1020173	VIP Plaza Rio	Tijuana	Baja California Norte	Mexico	173	10.96.3.	15..19
+1020175	Cozumel	Cozumel	Quintana Roo	Mexico	175	10.127.5.	1..7
+1020176	VIP Culiacan	Culiacan	Sinaloa	Mexico	176	10.101.1.	14..17
+1020177	Nuevo Mexicali	Mexicali	Baja California Norte	Mexico	177	10.96.9.	1..12
+1020178	Las Americas Merida	Merida	Yucatan	Mexico	178	10.126.1.	1..14
+1020179	Plaza Monarca	Tijuana	Baja California Norte	Mexico	179	10.96.2.	1..14
+1020180	Perisur	Ciudad de Mexico	Ciudad de Mexico	Mexico	180	10.117.2.	1..16
+1020181	Pablo Livas	Monterrey	Nuevo Leon	Mexico	181	10.103.3.	1..11
+1020182	Americas Celaya	Celaya	Guanajuato	Mexico	182	10.110.6.	1..9
+1020183	VIP Perisur	Ciudad de Mexico	Ciudad de Mexico	Mexico	183	10.117.2.	17..20
+1020184	Galerias Laguna	Torreon	Coahuila	Mexico	184	10.100.5.	1..11
+1020185	VIP Plaza Las Americas	Cancun	Quintana Roo	Mexico	185	10.127.1.	15..18
+1020186	Cuatro Caminos	Torreon	Coahuila	Mexico	186	10.100.4.	1..11
+1020187	VIP Galerias Laguna	Torreon	Coahuila	Mexico	187	10.100.5.	12..14
+1020188	VIP Cuatro Caminos	Torreon	Coahuila	Mexico	188	10.100.4.	10..13
+1020189	Galerias Salamanca	Salamanca	Guanajuato	Mexico	189	10.110.10.	1..7
+1020190	Plaza Campestre	Ciudad Victoria	Tamaulipas	Mexico	190	10.104.6.	1..12
+1020191	San Miguel Izcalli	Cuautitlan Izcalli	Estado de Mexico	Mexico	191	10.116.5.	1..10
+1020192	VIP Las Americas Veracruz	Veracruz	Veracruz	Mexico	192	10.120.1.	6..10
+1020193	Universidad	Ciudad de Mexico	Ciudad de Mexico	Mexico	193	10.117.4.	1..14
+1020194	VIP Universidad	Ciudad de Mexico	Ciudad de Mexico	Mexico	194	10.117.4.	15..19
+1020196	Las Americas	Villahermosa	Tabasco	Mexico	196	10.123.1.	1..12
+1020197	Sendero Monterrey	Monterrey	Nuevo Leon	Mexico	197	10.103.4.	1..18
+1020198	Fashion Mall	Chihuahua	Chihuahua	Mexico	198	10.99.2.	1..10
+1020200	VIP Fashion Mall	Chihuahua	Chihuahua	Mexico	200	10.99.2.	11..14
+1020201	Plaza Cibeles	Irapuato	Guanajuato	Mexico	201	10.110.5.	1..13
+1020202	Galerias Valle Oriente	Monterrey	Nuevo Leon	Mexico	202	10.103.2.	1..14
+1020203	VIP Galerias Valle Oriente	Monterrey	Nuevo Leon	Mexico	203	10.103.2.	15..18
+1020204	La Paz	La Paz	Baja California Sur	Mexico	204	10.97.1.	1..15
+1020205	Oaxaca	Oaxaca	Oaxaca	Mexico	205	10.122.1.	1..14
+1020206	Galerias Guadalajara	Guadalajara	Jalisco	Mexico	206	10.109.6.	1..18
+1020207	VIP Galerias	Guadalajara	Jalisco	Mexico	207	10.109.6.	19..22
+1020208	Morelia Centro	Morelia	Michoacan	Mexico	208	10.115.2.	1..6
+1020209	Galerias	Pachuca	Hidalgo	Mexico	209	10.112.2.	1..15
+1020212	VIP Villahermosa	Villahermosa	Tabasco	Mexico	212	10.123.2.	16..19
+1020213	Plaza Sendero Las Torres	Ciudad Juarez	Chihuahua	Mexico	213	10.99.3.	1..16
+1020214	Las Americas	Chetumal	Quintana Roo	Mexico	214	10.127.4.	1..13
+1020216	Poliforum	Tuxtla Gutierrez	Chiapas	Mexico	216	10.124.3.	1..14
+1020217	Sur Aguascalientes	Aguascalientes	Aguascalientes	Mexico	217	10.108.2.	1..12
+1020218	Acapulco Renacimiento	Acapulco	Guerrero	Mexico	218	10.121.2.	1..10
+1020219	Las Misiones	Ciudad Juarez	Chihuahua	Mexico	219	10.99.4.	1..16
+1020220	VIP Las Misiones	Ciudad Juarez	Chihuahua	Mexico	220	10.99.4.	17..20
+1020221	Plaza Periferico	Reynosa	Tamaulipas	Mexico	221	10.104.5.	1..14
+1020222	VIP Plaza Periferico	Reynosa	Tamaulipas	Mexico	222	10.104.5.	15..18
+1020223	Bella Vista	Ciudad Obregon	Sonora	Mexico	223	10.98.4.	1..14
+1020224	Pie de la Cuesta	Acapulco	Guerrero	Mexico	224	10.121.3.	1..12
+1020225	Nezahualcoyotl	Nezahualcoyotl	Estado de Mexico	Mexico	225	10.116.6.	1..14
+1020226	San Cristobal	San Cristobal de las Casas	Chiapas	Mexico	226	10.124.5.	1..10
+1020227	Cruz del Sur	Puebla	Puebla	Mexico	227	10.119.4.	1..12
+1020231	Cumbres Monterrey	Monterrey	Nuevo Leon	Mexico	231	10.103.5.	1..14
+1020232	Puerto Vallarta	Puerto Vallarta	Jalisco	Mexico	232	10.109.11.	1..14
+1020233	Cancun Mall	Cancun	Quintana Roo	Mexico	233	10.127.2.	1..12
+1020234	Las Americas	Playa del Carmen	Quintana Roo	Mexico	234	10.127.6.	1..12
+1020235	Galerias Diana Acapulco	Acapulco	Guerrero	Mexico	235	10.121.4.	1..8
+1020236	Ajusco	Ciudad de Mexico	Ciudad de Mexico	Mexico	236	10.117.5.	1..10
+1020237	Salagua	Manzanillo	Colima	Mexico	237	10.114.2.	1..9
+1020238	Cuauhtemoc	Ciudad Cuauhtemoc	Chihuahua	Mexico	238	10.99.7.	1..8
+1020240	Cuernavaca	Cuernavaca	Morelos	Mexico	240	10.118.1.	1..15
+1020241	Nogales Mall	Nogales	Sonora	Mexico	241	10.98.3.	1..12
+1020242	Tecate	Tecate	Baja California Norte	Mexico	242	10.96.15.	1..7
+1020243	Centro Sur	Puebla	Puebla	Mexico	243	10.119.5.	1..12
+1020244	Ecatepec Las Americas	Ecatepec	Estado de Mexico	Mexico	244	10.116.8.	1..14
+1020245	Nezahualcoyotl Norte	Nezahualcoyotl	Estado de Mexico	Mexico	245	10.116.10.	1..12
+1020246	La Gran Plaza Cancun	Cancun	Quintana Roo	Mexico	246	10.127.3.	1..14
+1020247	Plaza Las Americas Xalapa	Xalapa	Veracruz	Mexico	247	10.120.6.	1..15
+1020249	Plaza Sendero	San Luis Potosi	San Luis Potosi	Mexico	249	10.106.2.	1..14
+1020250	La Nogalera	Saltillo	Coahuila	Mexico	250	10.100.1.	1..14
+1020252	VIP Galerias Metepec	Toluca	Estado de Mexico	Mexico	252	10.116.23.	17..20
+1020253	Anfora	Ciudad de Mexico	Ciudad de Mexico	Mexico	253	10.116.50.	1..7
+1020254	Galerias Atizapan	Atizapan	Estado de Mexico	Mexico	254	10.116.18.	1..11
+1020255	Galerias Monterrey	Monterrey	Nuevo Leon	Mexico	255	10.103.6.	1..16
+1020256	Multiplaza Arboledas	Tlalnepantla	Estado de Mexico	Mexico	256	10.116.11.	1..16
+1020257	Sendero Merida	Merida	Yucatan	Mexico	257	10.126.3.	1..12
+1020258	Perinorte	Cuautitlan Izcalli	Estado de Mexico	Mexico	258	10.116.31.	1..9
+1020259	Plaza agora Uruapan	Uruapan	Michoacan	Mexico	259	10.115.9.	1..11
+1020260	Plaza del Puerto	Veracruz	Veracruz	Mexico	260	10.120.2.	1..11
+1020261	VIP Galerias Monterrey	Monterrey	Nuevo Leon	Mexico	261	10.103.6.	17..20
+1020262	Centro Sur	Guadalajara	Jalisco	Mexico	262	10.109.7.	1..14
+1020263	Plaza San Pedro Mexicali	Mexicali	Baja California Norte	Mexico	263	10.96.10.	1..12
+1020264	Alameda Guadalajara	Guadalajara	Jalisco	Mexico	264	10.109.8.	1..7
+1020265	VIP Galerias Diana Acapulco	Acapulco	Guerrero	Mexico	265	10.121.4.	9..12
+1020266	VIP Cuernavaca	Cuernavaca	Morelos	Mexico	266	10.118.1.	16..19
+1020267	La Cuspide	Naucalpan	Estado de Mexico	Mexico	267	10.116.14.	1..12
+1020270	Zentralia	Colima	Colima	Mexico	270	10.114.1.	1..12
+1020272	Forum Tlaquepaque	Guadalajara	Jalisco	Mexico	272	10.109.15.	1..16
+1020273	Macroplaza del Mar	Ensenada	Baja California Norte	Mexico	273	10.96.13.	1..12
+1020274	Sendero Queretaro	Queretaro	Queretaro	Mexico	274	10.111.2.	1..12
+1020275	Sendero Hermosillo	Hermosillo	Sonora	Mexico	275	10.98.2.	1..10
+1020276	Sendero Toluca	Toluca	Estado de Mexico	Mexico	276	10.116.25.	1..12
+1020277	La Gran Plaza	Leon	Guanajuato	Mexico	277	10.110.3.	1..10
+1020278	Tehuacan	Puebla	Puebla	Mexico	278	10.119.7.	1..12
+1020279	VIP La Cuspide	Naucalpan	Estado de Mexico	Mexico	279	10.116.14.	13..16
+1020280	San Roque	Monterrey	Nuevo Leon	Mexico	280	10.103.7.	1..8
+1020282	Altaria	Aguascalientes	Aguascalientes	Mexico	282	10.108.3.	1..10
+1020283	VIP Andares	Guadalajara	Jalisco	Mexico	283	10.109.9.	1..12
+1020284	Parque Celaya	Celaya	Guanajuato	Mexico	284	10.110.7.	1..12
+1020285	La Isla	Acapulco	Guerrero	Mexico	285	10.121.5.	1..6
+1020286	Paseo Interlomas	Huixquilucan	Estado de Mexico	Mexico	286	10.116.36.	1..10
+1020288	Plaza Las Americas	Tuxtla Gutierrez	Chiapas	Mexico	288	10.124.4.	1..10
+1020289	Zentralia Coacalco	Coacalco	Estado de Mexico	Mexico	289	10.116.2.	1..8
+1020290	Sendero Matamoros	Matamoros	Tamaulipas	Mexico	290	10.104.2.	1..11
+1020291	Sendero Saltillo	Saltillo	Coahuila	Mexico	291	10.100.2.	1..12
+1020292	Gran Patio Zaragoza	Ciudad Juarez	Chihuahua	Mexico	292	10.99.5.	1..12
+1020293	Plaza Central	Ciudad de Mexico	Ciudad de Mexico	Mexico	293	10.117.10.	1..16
+1020294	Portal Churubusco	Ciudad de Mexico	Ciudad de Mexico	Mexico	294	10.116.27.	1..10
+1020295	VIP Las Americas Morelia	Morelia	Michoacan	Mexico	295	10.115.4.	6..9
+1020296	Plaza Ana	Zamora	Michoacan	Mexico	296	10.115.5.	1..8
+1020297	Forum Buenavista	Ciudad de Mexico	Ciudad de Mexico	Mexico	297	10.117.21.	1..16
+1020298	Plaza Crystal Tuxpan	Tuxpan	Veracruz	Mexico	298	10.120.3.	1..7
+1020299	Tecamac	Tecamac	Estado de Mexico	Mexico	299	10.116.15.	1..8
+1020300	Coacalco Power Center	Coacalco	Estado de Mexico	Mexico	300	10.116.3.	1..11
+1020301	Merida Altabrisa	Merida	Yucatan	Mexico	301	10.126.2.	1..10
+1020303	Galerias Las Torres	Leon	Guanajuato	Mexico	303	10.110.4.	1..12
+1020304	Ermita	Ciudad de Mexico	Ciudad de Mexico	Mexico	304	10.117.11.	1..12
+1020305	Espacio Las Americas	Morelia	Michoacan	Mexico	305	10.115.4.	1..5
+1020306	Paseo 2000 Tijuana	Tijuana	Baja California Norte	Mexico	306	10.96.4.	1..10
+1020307	Paseo Reforma	Nuevo Laredo	Tamaulipas	Mexico	307	10.104.4.	1..14
+1020308	Paseo Acoxpa	Ciudad de Mexico	Ciudad de Mexico	Mexico	308	10.117.17.	1..12
+1020309	Esfera Queretaro	Queretaro	Queretaro	Mexico	309	10.111.8.	1..15
+1020311	Ciudadela Lifestyle Center	Guadalajara	Jalisco	Mexico	311	10.109.10.	1..14
+1020312	Galerias Hipodromo	Tijuana	Baja California Norte	Mexico	312	10.96.18.	1..8
+1020315	Pabellon Rosarito	Rosarito	Baja California Norte	Mexico	315	10.96.16.	1..10
+1020316	VIP Altaria	Aguascalientes	Aguascalientes	Mexico	316	10.108.3.	11..14
+1020317	VIP Paseo Arcos Bosques	Ciudad de Mexico	Ciudad de Mexico	Mexico	317	10.117.9.	1..12
+1020318	Patio Lincoln (Sendero Lincoln)	Monterrey	Nuevo Leon	Mexico	318	10.103.9.	1..10
+1020319	Citadel Monterrey	Monterrey	Nuevo Leon	Mexico	319	10.103.8.	1..14
+1020320	Sendero Villahermosa	Villahermosa	Tabasco	Mexico	320	10.123.7.	1..8
+1020321	Galerias del Valle	Mexicali	Baja California Norte	Mexico	321	10.96.12.	1..12
+1020322	Galerias Mall Hermosillo	Hermosillo	Sonora	Mexico	322	10.98.6.	1..10
+1020323	VIP Merida Altabrisa	Merida	Yucatan	Mexico	323	10.126.2.	11..14
+1020324	San Luis Rio Colorado	San Luis Rio Colorado	Sonora	Mexico	324	10.98.7.	1..8
+1020325	San Jose del Cabo	Los Cabos	Baja California Sur	Mexico	325	10.97.2.	1..8
+1020326	Tepeji del Rio	Tepeji del Rio	Hidalgo	Mexico	326	10.112.3.	1..6
+1020329	Galerias Tapachula	Tapachula	Chiapas	Mexico	329	10.124.2.	1..10
+1020330	Sendero Ecatepec	Ecatepec	Estado de Mexico	Mexico	330	10.116.9.	1..10
+1020332	Sendero Ciudad Juarez	Ciudad Juarez	Chihuahua	Mexico	332	10.99.6.	1..10
+1020333	Interplaza Monterrey	Monterrey	Nuevo Leon	Mexico	333	10.103.10.	1..6
+1020334	Galerias Metropolitana	Uriangato	Guanajuato	Mexico	334	10.110.9.	1..7
+1020335	Galerias Tamarindos	Iguala	Guerrero	Mexico	335	10.121.7.	1..7
+1020339	Centro Lago de Guadalupe	Cuautitlan Izcalli	Estado de Mexico	Mexico	339	10.116.28.	1..10
+1020340	Pedregal Atizapan	Atizapan	Estado de Mexico	Mexico	340	10.116.20.	1..8
+1020342	Plaza Aeropuerto	Ciudad de Mexico	Ciudad de Mexico	Mexico	342	10.117.12.	1..11
+1020343	Sendero Apodaca	Monterrey	Nuevo Leon	Mexico	343	10.103.11.	1..8
+1020344	Plaza Telmex	Nezahualcoyotl	Estado de Mexico	Mexico	344	10.116.17.	1..16
+1020345	VIP Angelopolis	Puebla	Puebla	Mexico	345	10.119.1.	16..20
+1020346	Luna Parc	Cuautitlan Izcalli	Estado de Mexico	Mexico	346	10.116.21.	1..10
+1020347	Patio Coatzacoalcos	Coatzacoalcos	Veracruz	Mexico	347	10.120.4.	1..10
+1020348	VIP Samara	Ciudad de Mexico	Ciudad de Mexico	Mexico	348	10.117.19.	1..9
+1020349	Gran Patio Texcoco	Texcoco	Estado de Mexico	Mexico	349	10.116.29.	1..10
+1020351	Playas	Tijuana	Baja California Norte	Mexico	351	10.96.6.	1..8
+1020352	Plaza Centenario	Mexicali	Baja California Norte	Mexico	352	10.96.11.	1..12
+1020353	Plaza Marina	Ensenada	Baja California Norte	Mexico	353	10.96.14.	1..12
+1020354	Plaza Americana Otay	Tijuana	Baja California Norte	Mexico	354	10.96.5.	1..10
+1020355	Galerias Chilpancingo	Chilpancingo	Guerrero	Mexico	355	10.121.8.	1..7
+1020357	Encuentro Fortuna	Ciudad de Mexico	Ciudad de Mexico	Mexico	357	10.117.31.	1..8
+1020358	Patio Ayotla	Ixtapaluca	Estado de Mexico	Mexico	358	10.116.19.	1..7
+1020359	Sendero Ixtapaluca	Ixtapaluca	Estado de Mexico	Mexico	359	10.116.16.	1..16
+1020361	Cuautla	Cuautla	Morelos	Mexico	361	10.118.2.	1..12
+1020369	Plaza Las Flores Comitan	Comitan	Chiapas	Mexico	369	10.124.8.	1..7
+1020370	Town Center Zumpango	Zumpango	Estado de Mexico	Mexico	370	10.116.30.	1..11
+1020371	Town Center El Rosario	Ciudad de Mexico	Ciudad de Mexico	Mexico	371	10.117.20.	1..16
+1020372	Paseo San Isidro	Culiacan	Sinaloa	Mexico	372	10.101.7.	1..7
+1020374	Gran Plaza Mazatlan	Mazatlan	Sinaloa	Mexico	374	10.101.5.	1..14
+1020375	VIP Galerias Atizapan	Atizapan	Estado de Mexico	Mexico	375	10.116.18.	12..15
+1020376	VIP Galerias Hipodromo	Tijuana	Baja California Norte	Mexico	376	10.96.18.	9..12
+1020377	Cabo San Lucas	Los Cabos	Baja California Sur	Mexico	377	10.97.3.	1..10
+1020378	Sendero Acapulco	Acapulco	Guerrero	Mexico	378	10.121.6.	1..8
+1020379	VIP Sendero Saltillo	Saltillo	Coahuila	Mexico	379	10.100.2.	13..16
+1020380	VIP Esfera Queretaro	Queretaro	Queretaro	Mexico	380	10.111.8.	1..15
+1020385	Sendero Valle de Chalco	Valle de Chalco	Estado de Mexico	Mexico	385	10.116.35.	1..8
+1020386	Ciudad Acuña	Ciudad Acuña	Coahuila	Mexico	386	10.100.3.	1..8
+1020388	Plaza Valle Orizaba	Orizaba	Veracruz	Mexico	388	10.120.9.	1..12
+1020390	Centro Tepozan	Nezahualcoyotl	Estado de Mexico	Mexico	390	10.116.38.	1..12
+1020391	Plaza Centella Cuautitlan	Cuautitlan Izcalli	Estado de Mexico	Mexico	391	10.116.37.	1..10
+1020392	Espacio Aguascalientes	Aguascalientes	Aguascalientes	Mexico	392	10.108.5.	1..8
+1020393	Las Americas Taxco	Taxco	Guerrero	Mexico	393	10.121.10.	1..5
+1020395	Adana Lincoln	Monterrey	Nuevo Leon	Mexico	395	10.103.14.	1..7
+1020396	Zentralia	Ciudad del Carmen	Campeche	Mexico	396	10.125.2.	1..7
+1020399	Gran Patio Tlaxcala	Tlaxcala	Tlaxcala	Mexico	399	10.113.1.	1..7
+1020400	The Shoppes	La Paz	Baja California Sur	Mexico	400	10.97.6.	1..8
+1020401	VIP Galerias Mall Hermosillo	Hermosillo	Sonora	Mexico	401	10.98.6.	11..16
+1020402	Torres Lindavista	Ciudad de Mexico	Ciudad de Mexico	Mexico	402	10.117.15.	1..10
+1020404	La Piedad	La Piedad	Michoacan	Mexico	404	10.115.13.	1..7
+1020414	Plaza San Luis	San Luis Potosi	San Luis Potosi	Mexico	414	10.106.3.	1..12
+1020415	Plaza San Diego	Puebla	Puebla	Mexico	415	10.119.8.	1..11
+1020418	Escala Parral	Hidalgo del Parral	Chihuahua	Mexico	418	10.99.9.	1..7
+1020419	Plaza Carso	Ciudad de Mexico	Ciudad de Mexico	Mexico	419	10.117.18.	1..5
+1020420	Plaza Chimalhuacan	Chimalhuacan	Estado de Mexico	Mexico	420	10.116.34.	1..10
+1020434	Arkana Norte	Cuautitlan Izcalli	Estado de Mexico	Mexico	434	10.116.33.	1..9
+1020435	Del Rio Plaza Comercial	Reynosa	Tamaulipas	Mexico	435	10.104.8.	1..10
+1020438	Galerias Celaya	Celaya	Guanajuato	Mexico	438	10.110.11.	1..10
+1020439	Comalcalco	Comalcalco	Tabasco	Mexico	439	10.123.4.	1..5
+1020440	San Joaquin	Villahermosa	Tabasco	Mexico	440	10.123.5.	1..5
+1020443	Plaza Shangri-La	Cordoba	Veracruz	Mexico	443	10.120.10.	1..8
+1020444	Paseo del Rio	San Juan Del Rio	Queretaro	Mexico	444	10.111.5.	1..7
+1020445	Plaza Deportiva	Villahermosa	Tabasco	Mexico	445	10.123.6.	1..8
+1020446	VIP Plaza Carso	Ciudad de Mexico	Ciudad de Mexico	Mexico	446	10.117.18.	6..9
+1020447	Valle Soleado	Monterrey	Nuevo Leon	Mexico	447	10.103.13.	1..11
+1020448	Oblatos	Guadalajara	Jalisco	Mexico	448	10.109.20.	1..10
+1020449	Plaza Cañada	Huehuetoca	Estado de Mexico	Mexico	449	10.116.32.	1..5
+1020450	VIP Plaza San Luis	San Luis Potosi	San Luis Potosi	Mexico	450	10.106.3.	13..16
+1020452	Santa Rosa	Mazatlan	Sinaloa	Mexico	452	10.101.4.	1..5
+1020453	VIP Paseo Interlomas	Huixquilucan	Estado de Mexico	Mexico	453	10.116.36.	11..15
+1020454	Las Tiendas Cancun	Cancun	Quintana Roo	Mexico	454	10.127.8.	1..5
+1020455	Punto Atizapan	Atizapan	Estado de Mexico	Mexico	455	10.116.44.	1..5
+1020456	Lago Real	Bahia de Banderas	Nayarit	Mexico	456	10.107.1.	1..7
+1020457	Patio Universidad	Ciudad de Mexico	Ciudad de Mexico	Mexico	457	10.117.23.	1..10
+1020458	Patio Santa Fe	Ciudad de Mexico	Ciudad de Mexico	Mexico	458	10.117.24.	1..12
+1020461	Plaza Parque Jardin	Ciudad de Mexico	Ciudad de Mexico	Mexico	461	10.117.26.	1..8
+1020462	Plaza Rio Nilo	Tonala	Jalisco	Mexico	462	10.109.16.	1..12
+1020463	Gran Terraza Belenes	Zapopan	JalIsco	Mexico	463	10.109.19.	1..8
+1020464	Paseo San Francisco	San Francisco del Rincon	Guanajuato	Mexico	464	10.110.14.	1..6
+1020467	Paseo La Paz	La Paz	Baja California Sur	Mexico	467	10.97.4.	1..5
+1020468	La Pajarita	Tijuana	Baja California Norte	Mexico	468	10.96.7.	1..5
+1020469	Las Americas	Lazaro Cardenas	Michoacan	Mexico	469	10.115.10.	1..9
+1020470	Nuevo Sur	Monterrey	Nuevo Leon	Mexico	470	10.103.20.	1..11
+1020474	Galerias Zacatecas	Zacatecas	Zacatecas	Mexico	474	10.105.1.	1..12
+1020484	El Dorado Veracruz	Veracruz	Veracruz	Mexico	484	10.120.12.	1..10
+1020485	Plaza Chedraui Tlajomulco	Tlajomulco de Zuñiga	Jalisco	Mexico	485	10.109.17.	1..5
+1020486	Via Vallejo	Ciudad de Mexico	Ciudad de Mexico	Mexico	486	10.116.48.	1..10
+1020512	La Plazoleta	Cienega de Flores	Nuevo Leon	Mexico	512	10.103.17.	1..5
+1020513	Plaza Cadereyta	Cadereyta	Nuevo Leon	Mexico	513	10.103.15.	1..5
+1020514	Plaza Citadina	Reynosa	Tamaulipas	Mexico	514	10.104.9.	1..5
+1020515	Altea Linares	Linares	Nuevo Leon	Mexico	515	10.103.18.	1..5
+1020516	San Jeronimo	Puebla	Puebla	Mexico	516	10.119.10.	1..5
+1020517	Plaza San Francisco	Ciudad Hidalgo	Michoacan	Mexico	517	10.115.12.	1..5
+1020518	Jojutla	Jojutla	Morelos	Mexico	518	10.118.3.	1..5
+1020520	VIP Cumbres	Monterrey	Nuevo Leon	Mexico	520	10.103.5.	15..18
+1020525	Town Center Nicolas Romero	Nicolas Romero	Estado de Mexico	Mexico	525	10.116.40.	1..9
+1020527	Centro Comercial Altacia	Leon	Guanajuato	Mexico	527	10.110.13.	1..10
+1020528	La Victoria	Queretaro	Queretaro	Mexico	528	10.111.12.	1..10
+1020529	Plaza Emiliano Zapata	Emiliano Zapata	Morelos	Mexico	529	10.118.4.	1..5
+1020542	La Joya	Silao	Guanajuato	Mexico	542	10.110.12.	1..6
+1020543	VIP Galerias Pachuca	Pachuca	Hidalgo	Mexico	543	10.112.2.	16..19
+1020544	Galerias Campeche	Campeche	Campeche	Mexico	544	10.125.1.	1..8
+1020545	VIP El Dorado Veracruz	Veracruz	Veracruz	Mexico	545	10.120.12.	11..16
+1020560	Antea Queretaro	Queretaro	Queretaro	Mexico	560	10.111.9.	1..10
+1020561	Chedrahui Macuspana	Macuspana	Tabasco	Mexico	561	10.123.8.	1..5
+1020563	La Plazoleta Garcia	Garcia	Nuevo Leon	Mexico	563	10.103.25.	1..5
+1020564	Los Cedros Jiutepec	Jiutepec	Morelos	Mexico	564	10.118.6.	1..5
+1020565	Plaza Comercial Apizaco	Apizaco	Tlaxcala	Mexico	565	10.113.3.	1..7
+1020566	Sahuayo	Sahuayo	Michoacan	Mexico	566	10.115.14.	1..8
+1020568	VIP Centro Comercial Altacia	Leon	Guanajuato	Mexico	568	10.110.13.	11..14
+1020570	Parque Toreo	Naucalpan	Estado de Mexico	Mexico	570	10.116.42.	1..13
+1020571	VIP Antea Queretaro	Queretaro	Queretaro	Mexico	571	10.111.9.	11..14
+1020572	Santiago Tianguistenco	Tianguistenco	Estado de Mexico	Mexico	572	10.116.41.	1..5
+1020573	Chedraui Martinez de la Torre	Martinez de la Torre	Veracruz	Mexico	573	10.120.13.	1..7
+1020574	VIP Galerias Campeche	Campeche	Campeche	Mexico	574	10.125.1.	9..11
+1020575	Portal San angel	Ciudad de Mexico	Ciudad de Mexico	Mexico	575	10.117.30.	1..11
+1020576	Patio Tlalpan	Ciudad de Mexico	Ciudad de Mexico	Mexico	576	10.117.33.	1..10
+1020577	Altama	Tampico	Tamaulipas	Mexico	577	10.104.12.	1..12
+1020578	VIP Zentralia	Ciudad del Carmen	Campeche	Mexico	578	10.125.2.	8..10
+1020579	Oasis Coyoacan	Ciudad de Mexico	Ciudad de Mexico	Mexico	579	10.117.25.	1..8
+1020584	Galerias Metropolitana Autlan	Autlan de Navarro	Jalisco	Mexico	584	10.109.22.	1..5
+1020585	Paseo Fundadores	Montemorelos	Nuevo Leon	Mexico	585	10.103.19.	1..5
+1020587	San Fernando	Colima	Colima	Mexico	587	10.114.3.	1..7
+1020588	Real Center	Zapopan	Jalisco	Mexico	588	10.109.23.	1..9
+1020589	Multicenter El Salto	El Salto	Jalisco	Mexico	589	10.109.21.	1..5
+1020595	Pabellon Cuemanco	Ciudad de Mexico	Ciudad de Mexico	Mexico	595	10.117.27.	1..8
+1020598	Plaza Citadina San Luis	San Luis Potosi	San Luis Potosi	Mexico	598	10.106.6.	1..5
+1020606	VIP Nuevo Sur	Monterrey	Nuevo Leon	Mexico	606	10.103.20.	12..15
+1020607	VIP Oasis Coyoacan	Ciudad de Mexico	Ciudad de Mexico	Mexico	607	10.117.25.	9..12
+1020608	Plaza Cantera Aguamilpa	Tepic	Nayarit	Mexico	608	10.107.2.	1..5
+1020609	Rio Blanco	Orizaba	Veracruz	Mexico	609	10.120.16.	1..5
+1020611	La Florida	Acayucan	Veracruz	Mexico	611	10.120.14.	1..5
+1020613	Galerias Toluca	Toluca	Estado de Mexico	Mexico	613	10.116.43.	1..9
+1020614	VIP Galerias Toluca	Toluca	Estado de Mexico	Mexico	614	10.116.43.	10..12
+1020615	Galerias Serdan	Puebla	Puebla	Mexico	615	10.119.11.	1..10
+1020617	Plaza Crystal Paraiso	Paraiso	Tabasco	Mexico	617	10.123.9.	1..5
+1020618	Chedraui Durango	Durango	Durango	Mexico	618	10.102.2.	1..5
+1020620	Plaza Las Flores	Tonala	Chiapas	Mexico	620	10.124.9.	1..6
+1020629	VIP Avanta Gardens	Monterrey	Nuevo Leon	Mexico	629	10.103.24.	1..8
+1020630	Copilco	Ciudad de Mexico	Ciudad de Mexico	Mexico	630	10.117.28.	1..10
+1020631	Plaza El Prado Tarimbaro	Tarimbaro	Michoacan	Mexico	631	10.115.15.	1..7
+1020632	Esfera Monterrey	Monterrey	Nuevo Leon	Mexico	632	10.103.22.	1..11
+1020634	VIP Esfera Monterrey	Monterrey	Nuevo Leon	Mexico	634	10.103.22.	12..17
+1020635	El Dorado Coatzacoalcos	Coatzacoalcos	Veracruz	Mexico	635	10.120.17.	1..5
+1020646	Zinacantepec	Zinancatepec	Estado de Mexico	Mexico	646	10.116.51.	1..5
+1020655	Puerto Cancun	Cancun	Quintana Roo	Mexico	655	10.127.9.	1..10
+1020656	VIP Parque Toreo	Ciudad de Mexico	Ciudad de Mexico	Mexico	656	10.116.42.	1..13
+1020657	Pabellon Rio de los Remedios	Tlalnepantla	Estado de Mexico	Mexico	657	10.116.45.	1..5
+1020658	Acaya Coatzacoalcos	Coatzacoalcos	Veracruz	Mexico	658	10.120.15.	1..8
+1020659	Sendero la Fe	Apodaca	Nuevo Leon	Mexico	659	10.103.21.	1..10
+1020660	Acaya Mazatlan	Mazatlan	Sinaloa	Mexico	660	10.101.6.	1..10
+1020661	Punto La Gloria	Tepatitlan	Jalisco	Mexico	661	10.109.24.	1..5
+1020665	VIP Las Americas Xalapa	Xalapa	Veracruz	Mexico	665	10.120.6.	6..9
+1020666	Paseo Dolores	Dolores Hidalgo	Guanajuato	Mexico	666	10.110.15.	1..5
+1020667	Cosmopol	Coacalco	Estado de Mexico	Mexico	667	10.116.46.	1..8
+1020668	VIP Cosmopol	Coacalco	Estado de Mexico	Mexico	668	10.116.46.	9..12
+1020669	Plaza Kukulcan	Merida	Yucatan	Mexico	669	10.126.5.	1..8
+1020672	Juriquilla Uptown	Juriquilla	Queretaro	Mexico	672	10.111.10.	1..8
+1020673	VIP Miyana Polanco	Ciudad de Mexico	Ciudad de Mexico	Mexico	673	10.117.29.	1..7
+1020674	Paseo Cunduacan	Cunduacan	Tabasco	Mexico	674	10.123.10.	1..3
+1020675	Punto Oriente	Guadalajara	Jalisco	Mexico	675	10.109.25.	1..5
+1020677	VIP Midtown Jalisco	Guadalajara	Jalisco	Mexico	677	10.109.29.	1..8
+1020680	VIP La Isla Puerto Vallarta	Puerto Vallarta	Jalisco	Mexico	680	10.109.27.	1..4
+1020681	Paseo La Fe	San Nicolas de los Garza	Nuevo Leon	Mexico	681	10.103.23.	1..8
+1020682	Altea Huinala	Apodaca	Nuevo Leon	Mexico	682	10.103.26.	1..7
+1020704	Gustavo Baz	Tlalnepantla	Estado de Mexico	Mexico	704	10.116.57.	1..7
+1020733	Macro Plaza San Luis Potosi	San Luis Potosi	San Luis Potosi	Mexico	733	10.106.7.	1..7
+1020734	VIP Plaza Cibeles Irapuato	Irapuato	Guanajuato	Mexico	734	10.110.5.	14..17
+1020735	Sentura Tlalnepantla	Tlalnepantla	Estado de Mexico	Mexico	735	10.116.55.	1..8
+1020737	Punto Sur	Tlajomulco de Zuñiga	Jalisco	Mexico	737	10.109.30.	1..8
+1020757	Hilamas	Leon	Guanajuato	Mexico	757	10.110.16.	1..5
+1020761	Encuentro Tlalnepantla	Tlalnepantla	Estado de Mexico	Mexico	761	10.117.36.	1..7
+1020762	La Rioja Urban Center	Tlajomulco de Zuñiga	Jalisco	Mexico	762	10.109.26.	1..7
+1020770	Sendero Jabil Chihuahua	Chihuahua	Chihuahua	Mexico	770	10.99.10.	1..10
+1020771	Sendero Ganadera Culiacan	Culiacan	Sinaloa	Mexico	771	10.101.11.	1..10
+1020772	Paseo Molino	Toluca	Estado de Mexico	Mexico	772	10.116.58.	1..7
+1020774	VIP Paseo La Fe	San Nicolas de los Garza	Nuevo Leon	Mexico	774	10.103.23.	9..12
+1020778	Solaz Plaza (Temixco)	Temixco	Morelos	Mexico	778	10.118.7.	1..5
+1020779	Adelitas	Ciudad Victoria	Tamaulipas	Mexico	779	10.104.13.	1..7
+1020819	Paseo Chapultepec	Tijuana	Baja California Norte	Mexico	819	10.96.19.	1..5
+1020820	Velaria Mall	Aguascalientes	Aguascalientes	Mexico	820	10.108.6.	1..7
+1020821	Punto Bahia	Manzanillo	Colima	Mexico	821	10.114.4.	1..7
+1020822	La Monumental	Ciudad Juarez	Chihuahua	Mexico	822	10.99.14.	1..7
+1020826	Plaza Cuitlahuac	Ciudad de Mexico	Ciudad de Mexico	Mexico	826	10.116.63.	1..7
+1020830	VIP Portal San angel	Ciudad de Mexico	Ciudad de Mexico	Mexico	830	10.117.30.	12..15
+1020831	VIP Plaza Portal D10	Cuernavaca	Morelos	Mexico	831	10.118.8.	9..12
+1020832	VIP Via Vallejo	Ciudad de Mexico	Ciudad de Mexico	Mexico	832	10.116.48.	11..14
+1020837	Almenares	San Nicolas de los Garza	Nuevo Leon	Mexico	837	10.103.27.	1..7
+1020848	Sendero Los Mochis	Ahome	Sinaloa	Mexico	848	10.101.8.	1..8
+1020849	Punto Los Mochis	Los Mochis	Sinaloa	Mexico	849	10.101.10.	1..7
+1020859	Gran Terraza Coapa	Ciudad de Mexico	Ciudad de Mexico	Mexico	859	10.116.62.	1..11
+1020860	Sendero Tijuana	Tijuana	Baja California Norte	Mexico	860	10.96.20.	1..10
+1020864	Plaza Las Flores Villaflores	Villaflores	Chiapas	Mexico	864	10.124.10.	1..5
+1020868	Averanda	Cuernavaca	Morelos	Mexico	868	10.118.9.	1..9
+1020870	Sentura Zamora	Zamora	Michoacan	Mexico	870	10.115.16.	1..7
+1020871	Plaza Portal D10	Cuernavaca	Morelos	Mexico	871	10.118.8.	1..8
+1020872	Ciudad Guzman	Zapotlan El Grande	Jalisco	Mexico	872	10.109.32.	1..5
+1020875	Punto Valle	San Pedro Garza	Nuevo Leon	Mexico	875	10.103.28.	1..10
+1020877	Magno Centro Interlomas	Huixquilucan	Estado de Mexico	Mexico	877	10.116.49.	1..13
+1020878	City Center Zona Esmeralda	Atizapan	Estado de Mexico	Mexico	878	10.116.54.	1..6
+1020879	Las Antenas	Ciudad de Mexico	Ciudad de Mexico	Mexico	879	10.117.34.	1..12
+1020880	Parque Puebla	Puebla	Puebla	Mexico	880	10.119.13.	1..10
+1020898	Galerias Santa Anita	Tlajomulco de Zuñiga	Jalisco	Mexico	898	10.109.33.	1..12
+1020899	Vista Norte	Ciudad de Mexico	Ciudad de Mexico	Mexico	899	10.117.35.	1..7
+1020900	VIP Plaza Satelite	Satelite	Estado de Mexico	Mexico	900	10.116.53.	16..22
+1020902	Puerta Huatulco	Huatulco	Oaxaca	Mexico	902	10.122.2.	1..5
+1020903	Villas del Sol	Playa del Carmen	Quintana Roo	Mexico	903	10.127.10.	1..7
+1020904	The Harbor Merida	Merida	Yucatan	Mexico	904	10.126.8.	1..8
+1020905	VIP Altama	Tampico	Tamaulipas	Mexico	905	10.104.12.	13..16
+1020907	Tizayuca	Tizayuca	Hidalgo	Mexico	907	10.112.6.	1..7
+1020908	Sendero Saltillo Sur	Saltillo	Coahuila	Mexico	908	10.100.7.	1..10
+1020915	Peñaflor	Queretaro	Queretaro	Mexico	915	10.111.11.	1..5
+1020920	Paseo Central	Chihuahua	Chihuahua	Mexico	920	10.99.13.	1..10
+1020921	Plaza Tlatelolco	Ciudad de Mexico	Ciudad de Mexico	Mexico	921	10.117.32.	1..5
+1020932	VIP Encuentro Fortuna	Ciudad de Mexico	Ciudad de Mexico	Mexico	932	10.117.31.	9..12
+1020933	Plaza Mexico	Guadalajara	JALISCO	Mexico	933	10.109.28.	1..4
+1020935	VIP Gran Plaza	Guadalajara	Jalisco	Mexico	935	10.109.4.	7..10
+1020944	Puerta Tlatelolco	Ciudad de Mexico	Ciudad de Mexico	Mexico	944	10.117.40.	1..12
+1020945	Citadina Corregidora	El Pueblito	Queretaro	Mexico	945	10.111.14.	1..7
+1020948	VIP Puerto Cancun	Cancun	Quintana Roo	Mexico	948	10.127.9.	11..16
+1020949	Eloy Cavazos	Guadalupe	Nuevo Leon	Mexico	949	10.103.30.	1..7
+1020950	Juarez Centro Mall	Ciudad Juarez	Chihuahua	Mexico	950	10.99.12.	1..5
+1020951	Sendero Obregon	Cajeme	Sonora	Mexico	951	10.98.8.	1..10
+1020954	Plaza Azahares	Culiacan	Sinaloa	Mexico	954	10.101.9.	1..5
+1020970	Morelia Rio	Morelia	Michoacan	Mexico	970	10.115.17.	1..5
+1020972	La Isla Merida	Merida	Yucatan	Mexico	972	10.126.7.	1..8
+1020975	Paseo Monclova	Monclova	Coahuila	Mexico	975	10.100.10.	1..10
+1020976	VIP La Victoria	Queretaro	Queretaro	Mexico	976	10.111.12.	11..14
+1020991	San Vicente Las Palmas	Bahia de Banderas	Nayarit	Mexico	991	10.107.4.	1..5
+1020998	Matamoros	Matamoros	Coahuila	Mexico	998	10.100.9.	1..5
+1020999	San Pedro	San Pedro	Coahuila	Mexico	999	10.100.8.	1..5
+1021000	Arco Norte	Cancun	Quintana Roo	Mexico	1000	10.127.11.	1..7
+1021003	Moraleda Atlixco	Atlixco	Puebla	Mexico	1003	10.119.15.	1..7
+1021008	Guadiana	Durango	Durango	Mexico	1008	10.102.3.	1..7
+1021011	Akropolis	Merida	Yucatan	Mexico	1011	10.126.6.	1..5
+1021012	Gran Santa Fe Caucel	Merida	Yucatan	Mexico	1012	10.126.9.	1..9
+1021013	Tezozomoc	Ciudad de Mexico	Ciudad de Mexico	Mexico	1013	10.117.38.	1..5
+1021019	VIP Paseo Acoxpa	Ciudad de Mexico	Ciudad de Mexico	Mexico	1019	10.117.17.	5..8
+1021020	VIP San Pedro Mexicali	Mexicali	Baja California Norte	Mexico	1020	10.96.10.	6..9
+1021031	VIP El Dorado SLP	San Luis Potosi	San Luis Potosi	Mexico	1031	10.106.1.	11..14
+1021032	El Titan	Monterrey	Nuevo Leon	Mexico	1032	10.103.35.	1..5
+1021037	Pesqueria Nuevo Leon	Monterrey	Nuevo Leon	Mexico	1037	10.103.31.	1..5
+1021038	Magdalena de Kino	Magdalena de Kino	Sonora	Mexico	1038	10.98.11.	1..5
+1021044	VIP The Harbor Merida	Merida	Yucatan	Mexico	1044	10.126.8.	9..12
+1021046	VIP Sentura Tlalnepantla	Tlalnepantla	Estado de Mexico	Mexico	1046	10.116.55.	9..12
+1021047	VIP Punto Valle	San Pedro Garza	Nuevo Leon	Mexico	1047	10.103.28.	11..10
+1021048	Caborca	Caborca	Sonora	Mexico	1048	10.98.10.	1..5
+1021050	Delicias	Delicias	Chihuahua	Mexico	1050	10.99.18.	1..5
+1021051	Jimenez Chihuahua	Jimenez	Chihuahua	Mexico	1051	10.99.15.	1..5
+1021062	Plaza Eden Teziutlan	Teziutlan	Puebla	Mexico	1062	10.119.14.	1..5
+1021070	Citadina Escobedo	Monterrey	Nuevo Leon	Mexico	1070	10.103.29.	1..5
+1021072	VIP Paseo Monclova	Monclova	Coahuila	Mexico	1072	10.100.10.	11..14
+1021073	Sendero Mexicali	Mexicali	Baja California Norte	Mexico	1073	10.96.21.	1..10
+1021074	Paseo Nueva España	Chihuahua	Chihuahua	Mexico	1074	10.99.17.	1..7
+1021096	Plaza Vertice Tlaxcala	Tlaxcala	Tlaxcala	Mexico	1096	10.113.4.	1..7
+1021102	Los Heroes Ixtapaluca	Ixtapaluca	Estado de Mexico	Mexico	1102	10.116.61.	1..5
+1021103	Portal Veracruz	Veracruz	Veracruz	Mexico	1103	10.120.19.	1..8
+1021104	San Sebastian	Puebla	Puebla	Mexico	1104	10.119.17.	1..5
+1021105	Paseo Morelos	Leon	Guanajuato	Mexico	1105	10.110.19.	1..5
+1021106	Plaza Sayula	Sayula	Jalisco	Mexico	1106	10.109.31.	1..5
+1021116	Bugambilias Ixtlahuaca	Ixtlahuaca	Ciudad de Mexico	Mexico	1116	10.116.64.	1..5
+1021117	Vertice Pachuca	Pachuca	Hidalgo	Mexico	1117	10.112.5.	1..7
+1021123	Ramos Arizpe	Ramos Arizpe	Coahuila	Mexico	1123	10.100.12.	1..5
+1021124	Muzquiz	Muzquiz	Coahuila	Mexico	1124	10.100.11.	1..5
+1021128	Plaza Santiago	Nuevo Leon	Monterrey	Mexico	1128	10.103.33.	1..5
+1021129	Los angeles Tuxtepec	Tuxtepec	Oaxaca	Mexico	1129	10.122.4.	1..5
+1021141	Plaza Camargo	Camargo	Chihuahua	Mexico	1141	10.99.16.	1..5
+1021143	Las Palmas Huauchinango	Huauchinango	Puebla	Mexico	1143	10.119.16.	1..3
+1021145	San Antonio Gomez Palacio	Gomez Palacio	Durango	Mexico	1145	10.102.6.	1..5
+1021177	Uruapan Plaza 500	Uruapan	Michoacan	Mexico	1177	10.115.20.	1..7
+1021178	Patzcuaro	Patzcuaro	Michoacan	Mexico	1178	10.115.19.	1..5
+1021195	Puerto Peñasco	Puerto Peñasco	Sonora	Mexico	1195	10.98.9.	1..5
+1021196	Plaza Acambaro	Acambaro	Guanajuato	Mexico	1196	10.110.18.	1..5
+1021204	Ometepec	Ometepec	Guerrero	Mexico	1204	10.121.11.	1..5
+1021207	Plaza Chilpancingo	Chilpancingo	Guerrero	Mexico	1207	10.121.12.	1..6
+1021208	Solidaridad	Nuevo Leon	Monterrey	Mexico	1208	10.103.34.	1..5
+1021218	Punta Anahuac	Mexicali	Baja California Norte	Mexico	1218	10.96.23.	1..5
+1021222	VIP Punto Sur	Tlajomulco de Zuñiga	Jalisco	Mexico	1222	10.109.30.	9..12
+1021223	VIP Gran Terraza Coapa	Ciudad de Mexico	Ciudad de Mexico	Mexico	1223	10.116.62.	1..11
+1021224	VIP Galerias Santa Anita	Tlajomulco de Zuñiga	Jalisco	Mexico	1224	10.109.33.	1..10
+1021256	Viaducto	Iztacalco	Ciudad de Mexico	Mexico	1256	10.117.41.	1..7
+1021258	Argania	San Juan de los Lagos	Jalisco	Mexico	1258	10.109.34.	1..5
+1021262	Pinocelli	Ciudad Juarez	Chihuahua	Mexico	1262	10.99.19.	1..5
+1021264	Plaza Madero	Parras de la Fuente	Coahuila	Mexico	1264	10.100.13.	1..5
+1021266	Guasave	Guasave	Sinaloa	Mexico	1266	10.101.12.	1..5
+1021272	Tecoman	Tecoman	Colima	Mexico	1272	10.114.6.	1..5
+2012001	Terramall	Tres Rios	Cartago	Costa Rica	210	10.194.1.	1..2,6..15
+2012002	Tres Rios	Tres Rios	Cartago	Costa Rica	211	10.194.1.	3..5
+2012003	Desamparados	San Jose	San Jose	Costa Rica	365	10.194.2.	1..6
+2012004	Paseo Metropoli	Cartago	Cartago	Costa Rica	534	10.194.4.	1..8
+2012005	Lincoln	Chia	San Jose	Costa Rica	605	10.194.6.	1..6
+2012007	Paseo de las Flores	Heredia	Heredia	Costa Rica	670	10.194.5.	1..7
+2012008	VIP Lincoln	Chia	San Jose	Costa Rica	684	10.194.6.	7..8
+2012009	VIP Terrazas Lindora	Lindora	Santa Ana	Costa Rica	638	10.194.7.	1..9
+2022002	Galerias Miraflores	Guatemala	Guatemala	Guatemala	215	10.192.1.	1..14
+2022003	Oakland Mall	Guatemala	Guatemala	Guatemala	363	10.192.2.	1..11
+2022004	Oakland Mall (VIP)	Guatemala	Guatemala	Guatemala	384	10.192.2.	12..15
+2022005	Portales	Guatemala	Guatemala	Guatemala	488	10.192.3.	1..10
+2022006	Cayala	Guatemala	Guatemala	Guatemala	586	10.192.4.	1..7
+2022007	Santa Clara	Villanueva	Guatemala	Guatemala	648	10.192.5.	1..7
+2022008	Plaza Americas	Mazatenango	Suchitepequez	Guatemala	692	10.192.7.	1..5
+2022010	El Frutal	El Frutal	Guatemala	Guatemala	767	10.192.8.	1..5
+2022011	Naranjo Mall	Chia	Guatemala	Guatemala	768	10.192.6.	1..8
+2022012	Parque las Americas	Guatemala	Guatemala	Guatemala	971	10.192.9.	1..6
+2022013	Sankris Mall	San Cristobal	Guatemala. CA	Guatemala	966	10.192.10.	1..6
+2022014	Rus Mall	Guatemala	Guatemala	Guatemala	1138	10.192.12.	1..8
+2022016	Interplaza Xela	Quezaltenango	Guatemala	Guatemala	1114	10.192.13.	1..7
+2022017	Metroplaza Jutiapa	Jutiapa	Jutiapa	Guatemala	1115	10.192.15.	1..3
+2022691	Utzulew Mall	Quetzaltenango	Guatemala	Guatemala	691	10.192.11.	1..6
+2022999	Centro Gran Carcha	San Pedro Carcha	Guatemala	Guatemala	1241
+2032001	Multiplaza Pacific	Panama	Panama	Panama	228	10.195.1.	1..10
+2032003	Metro Mall	Panama	Panama	Panama	406	10.195.2.	1..10
+2032004	Westland Mall	Arraijan	Panama	Panama	496	10.195.3.	1..8
+2032005	Stadium Mall	Panama	Panama	Panama		10.195.5.	1..9
+2032006	VIP Soho	Chia	Obarrio	Panama	662	10.195.4.	1..7
+2032007	VIP Stadium Mall	Panama	Panama	Panama		10.195.5.	10..12
+2032008	Andes Mall	Chia	Panama	Panama	775	10.195.6.	1..6
+2032010	Town Center	Panama	Panama	Panama	1079	10.195.8.	1..5
+2032011	VIP Town Center	Panama	Panama	Panama	1080	10.195.8.	6..8
+2032012	Anclas Mall	Panama	Panama	Panama	1284	10.195.9.	1..6
+2032013	Federall Mall	Panama	Panama	Panama	1285	10.195.10.	1..8
+2032947	El Dorado	pending	Panama	Panama	947	10.195.7.	1..9
+2032999	Altaplaza	Panama	Panama	Panama	633
+2032999	VIP Altaplaza	Panama	Panama	Panama	701
+2042001	Galerias San Salvador	San Salvador	San Salvador	El Salvador	251	10.193.1.	1..3,7..11
+2042002	Multiplaza San Salvador	San Salvador	San Salvador	El Salvador	422	10.193.2.	1..8
+2042003	Metrocentro Santa Ana	Santa Ana	San Salvador	El Salvador	495	10.193.3.	1..5
+2042005	VIP Galerias San Salvador	San Salvador	San Salvador	El Salvador	1202	10.193.1.	4..9
+2052001	Cascadas Mall	Tegucigalpa	Tegucigalpa	Honduras	381	10.198.1.	1..7
+2052002	VIP Cascadas Mall	Tegucigalpa	Tegucigalpa	Honduras	547	10.198.1.	8..10
+2052003	Altara	San Pedro Sula	San Pedro Sula	Honduras	690	10.198.3.	1..6
+2052005	Mall Premier	Tegucigalpa	Tegucigalpa	Honduras	829	10.198.2.	1..5
+2052006	Mall Premier Juticalpa	Juticalpa	Juticalpa	Honduras	1113	10.198.4.	1..3
+2062001	Los Hayuelos	Bogota	Bogota	Colombia	350	10.196.1.	1..9
+2062002	Limonar Cali	Cali	Valle del Cauca	Colombia	382	10.196.2.	1..11
+2062003	VIP Limonar Cali	Cali	Valle del Cauca	Colombia	421	10.196.2.	12..14
+2062004	San Silvestre	Barrancabermeja	Barrancabermeja	Colombia	405	10.196.3.	1..6
+2062007	Mallplaza Calima	Bogota	Bogota	Colombia	436	10.196.5.	1..8
+2062008	City Plaza	Medellin	Antioquia	Colombia	526	10.196.6.	1..6
+2062013	Diverplaza	Bogota	Bogota	Colombia	549	10.196.11.	1..9
+2062015	Fontanar	Chia	Cundinamarca	Colombia	636	10.196.7.	8..11
+2062018	Fontanar (VIP)	Chia	Cundinamarca	Colombia	700	10.196.7.	1..7
+2062020	VIP Plaza Claro	Bogota	Bogota	Colombia	978	10.196.9.	1..7
+2062021	VIP Mallplaza Buenavista	Buenavista	Barranquilla	Colombia	1229	10.196.12.	1..5
+2062999	Mallplaza Manizales	Manizales	Caldes	Colombia	637
+2062999	Mega Mall	Valledupar	Cesar	Colombia	625
+2082001	C. Hoyts La Reina	??	La Reina	Chile	-	10.203.2.	1..16
+2082002	Hoyts Parque Arauco	Santiago	Metropolitana	Chile	-	10.203.17.	1..14
+2082004	Hoyts Arauco Maipu	Maipu	Santiago	Chile	-	10.203.20.	1..10
+2082005	Hoyts San Agustin	Santiago	Metropolitana	Chile	-	10.203.18.	1..8
+2082006	Hoyts Estacion Central	Santiago	Metropolitana	Chile	-	10.203.19.	1..8
+2082007	Hoyts Puente Alto	Santiago	Puente Alto	Chile	-	10.203.21.	1..8
+2082008	Hoyts Antofagasta Plaza	Antofagasta	Antofagasta	Chile	714	10.203.5.	1..6
+2082009	Hoyts Puerto Montt	Puerto Montt	Los Lagos	Chile	-	10.203.10.	1..5
+2082010	Hoyts Talca	Talca	Maule	Chile	-	10.203.11.	1..6
+2082011	Hoyts Valparaiso	Valparaiso	Valparaiso	Chile	-	10.203.24.	1..5
+2082012	Hoyts Plaza Sur	San Bernardo	Santiago	Chile	-	10.203.13.	1..6
+2082013	Hoyts Los Angeles	Los Angeles	Los Angeles	Chile	-	10.203.8.	1..6
+2082014	Hoyts Calama	Calama	Antofagasta	Chile	-	10.203.3.	1..6
+2082015	Hoyts Antofagasta Lider	Antofagasta	Antofagasta	Chile	-	10.203.4.	1..6
+2082016	Hoyts Los Dominicos	Santiago	Metropolitana	Chile	-	10.203.14.	1..6
+2082017	Hoyts Temuco	Temuco	Temuco	Chile	-	10.203.6.	1..5
+2082018	Hoyts Quilicura	Santiago	Quilicura	Chile	-	10.203.23.	1..6
+2082019	Hoyts Paseo San Bernardo	Santiago	San Bernardo	Chile	-	10.203.12.	1..6
+2082020	Hoyts Trapenses	Santiago	Metropolitana	Chile	-	10.203.15.	1..6
+2082021	Hoyts Melipilla	Melipilla	Talagante	Chile	-	10.203.16.	1..3
+2082023	Hoyts Plaza Egaña	Santiago	La Reina	Chile	-	10.203.22.	1..11
+2082024	Hoyts Chillan	-	Bio Bio	Chile	-	10.203.9.	1..4
+2082026	Hoyts Casa Costanera	Santiago	Metropolitana	Chile	-	10.203.25.	1..3
+2082028	Hoyts Vivo San Fernando	San Fernando	Region de O'higgins	Chile	-	10.203.26.	1..5
+2082030	Hoyts Quillota	-	-	Chile	-	10.203.29.	1..5
+2082032	Hoyts Galeria Imperio	Santiago de Chile	Chile	Chile	-	10.203.28.	1..6
+2082033	Hoyts Coquimbo	Coquimbo	Region de Coquimbo	Chile	-	10.203.30.	1..8
+2082034	Hoyts Padre Hurtado	Santiago	Santiago	Chile	-	10.203.27.	1..6
+2082035	Hoyts Padre Hurtado (VIP)	Santiago	Santiago	Chile	-	10.203.27.	7..8
+2082037	Hoyts Rojas Magallanes	Santiago de Chile	Chile	Chile	-	10.203.33.	1..7
+2082038	Hoyts Espacio Urbano	Puente Alto	Santiago de Chile	Chile	-	10.203.36.	1..10
+2082039	Hoyts Ovalle	Coquimbo	-	Chile	-	10.203.35.	1..3
+2082041	Hoyts Vivo Outlet Temuco	Temuco	-	Chile	-	10.203.32.	1..6
+2082042	Hoyts Castro	Castro	Castro	Chile	-	10.203.31.	1..4
+2082051	Vivo Outlet Maipu	Maipu	Maipu	Chile	-	10.203.37.	1..4
+2092001	Village Cines Pilar	Pilar	Buenos Aires	Argentina	-	10.205.6.	1..9
+2092002	Village Cines Rosario	Rosario	Santa Fe	Argentina	-	10.205.4.	1..13
+2092003	Village Cines Avellaneda	Avellaneda	Buenos Aires	Argentina	-	10.205.5.	1..16
+2092004	Village Cines Mendoza Plaza	Guaymallen	Mendoza	Argentina	-	10.205.3.	1..10
+2092005	Village Cines Arena Maipu	Maipu	Mendoza	Argentina	-	10.205.8.	1..5
+2092006	Village Cines Neuquen	Neuquen	Neuquen	Argentina	-	10.205.2.	1..7
+2092007	Village Cines Recoleta	Capital Federal	Buenos Aires	Argentina	-	10.205.1.	1..10
+2092008	Village Cines Caballito	Capital Federal	Buenos Aires	Argentina	-	10.205.7.	1..9
+2092009	Village Cines Merlo	Merlo	Buenos Aires	Argentina	-	10.205.9.	1..6
+2092010	Village Lujan	Buenos Aires	Argentina	Argentina	-	10.205.10.	1..6
+2120001	Santa Ursula	Ribeirao Preto	São Paulo	Brazil	-	10.201.1.	1..8
+2120002	Lagoon	Rio de Janeiro	Rio de Janeiro	Brazil	-	10.201.5.	1..6
+2120004	Boulevard Belem	Belem	Para	Brazil	-	10.201.2.	1..7
+2120005	Largo 13	São Paulo	São Paulo	Brazil	-	10.201.3.	1..8
+2120006	Salvador Norte	Salvador	Bahia	Brazil	-	10.201.4.	1..8
+2120007	San Pelegrino	Caxias do Sul	Rio Grande do Sul	Brazil	-	10.201.9.	1..6
+2120008	Parque Barueri	Barueri	São Paulo	Brazil	-	10.201.19.	1..9
+2120010	Iguatemi Alphaville	Barueri	São Paulo	Brazil	-	10.201.6.	1..6
+2120011	Norte Sul Plaza	Campo Grande	Mato Grosso do Sul	Brazil	-	10.201.8.	1..7
+2120012	JK Iguatemi	São Paulo	São Paulo	Brazil	-	10.201.17.	1..8
+2120013	Blumenau Norte	Blumenau	Santa Catarina	Brazil	-	10.201.7.	1..7
+2120014	Iguatemi Alphaville (VIP)	Barueri	São Paulo	Brazil	-	10.201.6.	7..10
+2120017	Bela Vista	Salvador	Bahia	Brazil	-	10.201.20.	1..9
+2120018	Estação BH	Belo Horizonte	Minas Gerais	Brazil	-	10.201.18.	1..6
+2120019	Ponta Negra	Manaus	Amazonas	Brazil	-	10.201.25.	4..10
+2120020	Jundiai	Jundiai	São Paulo	Brazil	-	10.201.23.	1..7
+2120021	Continente Park	São Jose	Santa Catarina	Brazil	-	10.201.22.	1..8
+2120022	Parque Belem	Belem	Para	Brazil	-	10.201.21.	1..7
+2120023	Box Campinas	Campinas	São Paulo	Brazil	-	10.201.10.	1..10
+2120024	Box Sao Luis	São Luis	Maranhão	Brazil	-	10.201.11.	1..10
+2120025	Box São Gonçalo	São Conçalo	Rio de Janeiro	Brazil	-	10.201.12.	1..8
+2120026	Box Joao Pessoa	João Pessoa	Paraiba	Brazil	-	10.201.13.	1..11
+2120027	Box Guararapes	Recife	Pernambuco	Brazil	-	10.201.14.	1..12
+2120028	Box Itaquera	São Paulo	São Paulo	Brazil	-	10.201.15.	1..8
+2120030	Patio Batel	Curitiba	Parana	Brazil	-	10.201.31.	1..2
+2120031	Patio Batel (VIP)	Curitiba	Parana	Brazil	-	10.201.31.	3..8
+2120033	Bauru	Bauru	São Paulo	Brazil	-	10.201.29.	1..6
+2120034	Natal Shopping	Natal	Rio Grande do Norte	Brazil	-	10.201.27.	1..8
+2120035	São Bernardo	São Bernardo do Campo	São Paulo	Brazil	-	10.201.24.	1..8
+2120036	Iguatemi Ribeirao Preto	Ribeirao Preto	São Paulo	Brazil	-	10.201.26.	1..6
+2120037	Natal Norte	Natal	Rio Grande do Norte	Brazil	-	10.201.28.	1..6
+2120038	Ponta Negra (VIP)	Manaus	Amazonas	Brazil	-	10.201.25.	1..3
+2120040	North Shopping Joquei	Fortaleza	Ceara	Brazil	-	10.201.16.	1..5
+2120041	Sorocaba Esplanada	Sorocaba	São Paulo	Brazil	-	10.201.30.	1..10
+2120042	Moxuara	Campo Grande	Cariacica	Brazil	-	10.201.35.	1..5
+2120043	Shopping Rio Poty	Teresina	Piaui	Brazil	-	10.201.43.	1..12
+2120044	Iguatemi S.J do Rio Preto	São Jose do Rio Preto	São Paulo	Brazil	-	10.201.32.	1..7
+2120045	Parque Maia	Guarulhos	São Paulo	Brazil	-	10.201.34.	1..11
+2120046	Riomar Fortaleza	Fortaleza	Ceara	Brazil	-	10.201.33.	1..10
+2120047	C.Patteo Olinda	Olinda	Pernambuco	Brazil	-	10.201.51.	1..8
+2120048	Shopping Cerrado	Goiania	Goias	Brazil	-	10.201.44.	1..7
+2120050	Uberlândia	-	Minas Gerais	Brazil	-	10.201.39.	1..10
+2120051	Manaus Plaza	Manaus	Amazonas	Brazil	-	10.201.37.	1..8
+2120052	Manaus Millenium	Manaus	Amazonas	Brazil	-	10.201.36.	1..8
+2120053	Avenida Plaza Sao Jose Do Rio Preto	São Jose do Rio Preto	São Paulo	Brazil	-	10.201.41.	1..7
+2120054	Cuiaba	Cuibaba	Mato Grosso	Brazil	-	10.201.38.	1..8
+2120055	Marilia Shopping	Marilia	São Paulo	Brazil	-	10.201.40.	1..5
+2120056	Amapa Garden	Macapa	Amapa	Brazil	-	10.201.42.	1..8
+2120057	Mangabeira Shopping	João Pessoa	Paraiba	Brazil	-	10.201.45.	1..5
+2120059	Plaza Shopping Carapicuiba	Carapicuiba	São Paulo	Brazil	-	10.201.46.	1..5
+2120060	RioMar Presidente Kennedy	Fortaleza	Ceara	Brazil	-	10.201.47.	1..6
+2120061	Cinepolis Itaqua Garden	Itaquaquecetuba	São Paulo	Brazil	-	10.201.48.	1..5
+2120062	Praça Nova Santa Maria	Santa Maria	Rio Grande do Sul	Brazil	-	10.201.49.	1..5
+2120063	Estacao Cuiaba	Cuiaba	Mato Grosso	Brazil	-	10.201.52.	1..7
+2120066	Jockey Plaza Shopping	Tarumã	Curitiba	Brazil	-	10.201.55.	1..8
+2120068	Galerias Campinas	Campinas	São Paulo	Brazil	-	10.201.54.	1..5
+2120069	JP Porto Alegre	Porto Alegre	Brazil	Brasil	-	10.201.50.	1..4
+2120072	Rio Design	Rio de Janeiro	Rio de Janeiro	Brazil	-	10.201.53.	1..3
+2120074	Jardim Oriente	Jardim America	São Jose dos Campos	Brazil	-	10.201.57.	1..7
+2120077	Ourinhos	Vila Boa Esperança	Ourinhos	Brazil	-	10.201.56.	1..4
+2220001	Celebration Mall Amritsar	Amristar	Punjab	India	-	10.202.3.	1..4
+2220002	Royal Meenakshi Mall	Bengaluru	Karnataka	India	-	10.202.31.	1..7
+2220003	World Trade Park Jaipur	Jaipur	Rajasthan	India	-	10.202.2.	1..4
+2220004	Cinema Star High Street	Thane	Maharashtra	India	-	10.202.22.	1..5
+2220005	Aashima Mall	Bhopal	Madhya Pradesh	India	-	10.202.17.	1..7
+2220011	Season Mall	Pune	Maharashtra	India	-	10.202.38.	1..12
+2220012	Acropolis Mall Kolkata	Kolkata	Kolkata	India	-	10.202.41.	1..4
+2220018	PVP Square Vijayawada	Vijayawada	Andra Pradesh	India	-	10.202.40.	1..6
+2220019	Imperial Square Mall Surat	Surat	Gujarat	India	-	10.202.23.	1..6
+2220020	Patna	Patna	Bihar	India	-	10.202.30.	1..4
+2220021	Alpha One Mall	Ahmedabad	Gujarat	India	-	10.202.24.	1..6
+2220022	City Centre Mall Mangalore	Mangalore	Karnataka	India	-	10.202.32.	1..5
+2220023	Viviana Mall	Thane	Maharashtra	India	-	10.202.26.	1..10
+2220026	Red Mall Ghaziabad	-	Uttar Pradesh	India	-	10.202.50.	1..10
+2220027	Centre Square Mall (VIP)	Kochi	Kerala	India	-	10.202.35.	9..11
+2220030	Urban Oasis Mall Hubli	Hubli	Karnataka	India	-	10.202.37.	1..5
+2220031	Urban Oasis Mall Hubli	Hubli	Karnataka	India	-	10.202.51.	1..4
+2220032	Magnet Mall	Mumbai	Maharashtra	India	-	10.202.25.	1..6
+2220033	GVM Noida	GreaterNoida	Uttar Pradesh	India	-	10.202.46.	1..5
+2220034	Centre Square Mall	Kochi	Kerala	India	-	10.202.35.	1..8
+2220036	Season Mall   (VIP)	Pune	Maharashtra	India	-	10.202.38.	13..15
+2220038	Viviana Mall (VIP)	Thane	Maharashtra	India	-	10.202.26.	11..15
+2220040	MBD Mall Ludhiana	Ludhiana	Punjab	India	-	10.202.7.	1..5
+2220041	Manjeera Mall	Hydarabad	Telangana	India	-	10.202.39.	1..5
+2220044	Sumashilp Pune	Pune	Maharashtra	India	-	10.202.45.	1..8
+2220046	Inorbit Mall Vadodara	Vadodara	Gujarat	India	-	10.202.27.	1..6
+2220049	ETA Mall Bangalore	Bengaluru	Karnataka	India	-	10.202.36.	1..8
+2220052	Orion East Mall	Bengaluru	Karnataka	India	-	10.202.43.	1..5
+2220054	Grand Mall Muzaffarpur	Muzaffarpur	Bihar	India	-	10.202.52.	1..4
+2220055	Unity One Rohini	-	Delhi	India	-	10.202.1.	1..4
+2220058	Fun Cinema Galaxy Mall Ambala	Ambala	Haryana	India	-	10.202.6.	1..2
+2220059	Fun Cinema DB Mall Bhopal	Bhopal	Madhya Pradesh	India	-	10.202.18.	1..6
+2220060	FC Mittal City Bathinda	Bhatinda	Punjab	India	-	10.202.5.	1..4
+2220061	FC Sigma Mall Bangalore	Bengaluru	Karnataka	India	-	10.202.33.	1..3
+2220062	Fun Republic Mall Coimbatore	Coimbatore	Tamil Nadu	India	-	10.202.34.	1..5
+2220063	Fun Republic Chandigarh	Chandigarh	Chandigarh	India	-	10.202.9.	1..4
+2220064	V3S Mall Laxmi	Delhi	Delhi	India	-	10.202.13.	1..3
+2220065	FC NSQ Mall Pitampura	Delhi	Delhi	India	-	10.202.12.	1..3
+2220066	CRM Mall Shahdara	Delhi	Delhi	India	-	10.202.10.	1..4
+2220067	FC TDI Mall Moti	Delhi	Delhi	India	-	10.202.11.	1..3
+2220068	Fun Cinema DD City Mall Gwalior	Gwalior	Madhya Pradesh	India	-	10.202.21.	1..4
+2220069	Triton Mega Mall Jaipur	Jaipur	Rajasthan	India	-	10.202.19.	1..4
+2220070	Fun Cinema City Mall Kota	Kota	Rajasthan	India	-	10.202.20.	1..4
+2220071	Fun Republic Mall Lucknow	Lucknow	Uttar Pradesh	India	-	10.202.16.	1..4
+2220072	Fun Cinema K Star Mall Chembur	Mumbai	Maharashtra	India	-	10.202.28.	1..5
+2220073	Andheri	Mumbai	Maharashtra	India	-	10.202.29.	1..4
+2220074	FC Mittal Mega Panipat	Panipat	Haryana	India	-	10.202.14.	1..3
+2220075	Lake Mall Kolkata	Kolkatta	Kolkatta	India	-	10.202.44.	1..4
+2220076	Jagat	-	Chandigarh	India	-	10.202.8.	1..3
+2220077	One Awadh Center Mall	-	Uttar Pradesh	India	-	10.202.15.	1..8
+2220079	Mantra Mall Hyderabad	Hydarabad	Telangana	India	-	10.202.49.	1..6
+2220102	DT DLF Place Saket	Delhi	Delhi	India	-	10.202.47.	1..6
+2220103	DT Savitri GK	Delhi	Delhi	India	-	10.202.48.	1..1
+2320001	Del Mar	San Diego	California	USA	-	10.199.1.	1..12
+2320002	La Costa California	Carlsbad	California	USA	-	10.199.3.	1..6
+2320003	Coconut Grove	Miami	Florida	USA	-	10.199.8.	1..15
+2320004	Ocean Ranch	Laguna Miel	California	USA	-	10.199.4.	1..7
+2320005	Rancho Santa Margarita	Rancho Santa Margarita	California	USA	-	10.199.6.	1..6
+2320006	Westlake Village	Westlake Village	California	USA	-	10.199.5.	1..8
+2320007	Deerfield	Deerfield Beach	Florida	USA	-	10.199.7.	1..8
+2320011	San Mateo	San Mateo	California	USA	-	10.199.24.	1..10
+2320012	Polk County	Davenport	Florida	USA	-	10.199.11.	1..9
+2320013	Jupiter	Jupiter	Florida	USA	-	10.199.12.	1..14
+2320016	Dayton	Miamisburg	Ohio	USA	-	10.199.18.	1..12
+2320018	Pico Rivera	Pico Rivera	California	USA	-	10.199.10.	1..15
+2320019	Vista	Vista	California	USA	-	10.199.9.	1..15
+2320021	Victory Park	Dallas	Texas	USA	-	10.199.20.	1..8
+2320023	Glades Park	Eules	Texas	USA	-	10.199.19.	1..12
+2320027	West Hartford	West Hartford	Connecticut	USA	-	10.199.13.	1..6
+2320028	Parsippany	Troy Hills	New Jersey	USA	-	10.199.14.	1..12
+2320029	Mansfield	Hackettstown	New Jersey	USA	-	10.199.15.	1..15
+2320030	Succasunna	Succasunna	New Jersey	USA	-	10.199.16.	1..10
+2320031	Chelsea	New York, NY.	New York	USA	-	10.199.17.	1..9
+2320035	Hamlin	Winter Garden	Florida	USA	-	10.199.21.	1..10
+2320038	Kentlands / Gaithersburg	Kentlands	Gaithersburg	USA	-	10.199.23.	1..9
+2320040	La Costa Town Square 8	Carlsbad	California	USA	-	10.199.31.	1..8
+2320052	Lantana	Austin	Texas	USA	-	10.199.27.	1..10
+2320053	Trails	Austin	Texas	USA	-	10.199.26.	1..11
+2320054	Flower Mound	Flower Mound	Texas	USA	-	10.199.28.	1..8
+2320055	Keller	Keller	Texas	USA	-	10.199.29.	1..8
+2320056	McKinney	McKinney	Texas	USA	-	10.199.30.	1..10
+2320057	Woodlands	Tomball	Texas	USA	-	10.199.25.	1..11
+2420001	Plaza Norte	Lima	Lima	Peru	-	10.197.1.	1..14
+2420002	Santa Anita	Lima	Lima	Peru	-	10.197.2.	1..11
+2420003	Arequipa	Arequipa	Arequipa	Peru	-	10.197.4.	1..6
+2420005	Pucallpa Peru	Pucallpa	Ucayali	Peru	-	10.197.3.	1..5
+2420010	Santa Catalina	Santa Catalina	Santa catalina	Peru	-	10.197.6.	1..6
+2520001	Ideal	Madrid	Madrid	Spain	780	10.54.50.
+2520002	Baricentro	Barcelona	Cataluña	Spain	781	10.54.56.
+2520003	Icaria	Barcelona	Cataluña	Spain	782	10.54.52.
+2520004	Rosales	A Coruña	Galicia	Spain	783	10.54.40.
+2520005	Sant Cugat	Barcelona	Cataluña	Spain	784	10.54.20.
+2520006	Ocimax	Gijon	Asturias	Spain	785	10.54.14.
+2520007	Vecindario	Las Palmas	Canarias	Spain	786	10.54.10.
+2520008	Vinalopo	Alicante	Levante	Spain	787	10.54.24.
+2520009	Planetocio	Madrid	Madrid	Spain	788	10.54.34.
+2520011	Plaza Mayor	Malaga	Andalucia	Spain	790	10.54.68.
+2520012	Rincon de la Victoria	Malaga	Andalucia	Spain	791	10.54.18.
+2520013	Orotava	Santa Cruz Tenerife	Canarias	Spain	792	10.54.12.
+2520014	Los Prados	Oviedo	Asturias	Spain	793	10.54.6.
+2520015	Puerta Alicante	Alicante	Levante	Spain	794	10.54.16.
+2520016	Tres Aguas	Madrid	Madrid	Spain	795	10.54.42.
+2520017	Meridiano	Santa Cruz Tenerife	Canarias	Spain	796	10.44.18.1
+2520018	Fuerteventura	Las Palmas	Canarias	Spain	797	10.54.62.
+2520019	Roquetas	Almeria	Andalucia	Spain	798	10.54.38.
+2520020	Vigo	Vigo	Galicia	Spain	799	10.54.36.
+2520021	Imaginalia	Albacete	Castilla La Mancha	Spain	800	10.54.26.
+2520022	Megapark	Vizcaya	Pais Vasco	Spain	801	10.54.28.
+2520023	Rivas	Madrid	Madrid	Spain	802	10.54.30.
+2520024	Area Sur	Cadiz	Andalucia	Spain	803	10.54.48.
+2520025	Islazul	Madrid	Madrid	Spain	804	10.54.2.
+2520026	Plenilunio	Madrid	Madrid	Spain	805	10.54.32.
+2520027	Plaza Imperial	Zaragoza	Zaragoza	Spain		10.54.44.
+2520028	Vialia Malaga	Malaga	Andalucia	Spain	807
+2520029	Berceo	Logroño	La Rioja	Spain	808	10.54.46.
+2520030	Espacio	A Coruña	Galicia	Spain	809	10.54.22.
+2520031	Abrera	Barcelona	Cataluña	Spain	810	10.54.66.
+2520032	Mercado de Campanar	Valencia	Valencia	Spain	811	10.54.72.
+2520033	Vialia Albacete	Albacete	Castilla La Mancha	Spain	817	10.54.XX.YY
+2520034	Boulevard	alava	Pais Vasco	Spain	812	10.54.76.
+2520035	Plaza Norte 2	Madrid	Madrid	Spain	813	10.54.78.
+2520036	Castelldefels	Barcelona	Cataluña	Spain	814	10.54.82.
+2520037	Parc Central	Tarragona	Cataluña	Spain	815	10.54.XX.YY
+2520038	Las Arenas	Las Palmas	Canarias	Spain	816	10.54.70.
+2520039	Itaroa	Huarte	Navarra	Spain	982
+2520040	Palafox Luxury	Madrid	Madrid	Spain	1310	10.204.48.21	1..7
+2520041	Comedia	Barcelona	Cataluña	Spain	1009	10.204.40.21	1..5
+2520042	Plaza Norte 2 Luxury	Madrid	Madrid	Spain	1053
+2520043	Torrecardenas	Almeria	Andalucia	Spain	1057	10.204.43.	1..10
+2520045	VidaNova Parc	Valencia	Valencia	Spain	1059	10.204.46.	1..7
+2520047	Alisios	Las Palmas	Canarias	Spain	1075	10.204.41.	1..10
+2520048	Puerta Europa	Cadiz	Andalucia	Spain	1098	10.204.45.	1..10
+2520049	Artea	Vizcaya	Pais Vasco	Spain	1097	10.204.42.	1..9
+2520050	Vallsur	Valladolid	Castilla Leon	Spain	1120	10.204.44.	1..8
+2520051	Lagoh	Sevilla	Andalucia	Spain	1119	10.204.49.	1..11
+2520055	As Termas	Lugo	Galicia	Spain	1308	10.204.47.	1..8
+2520056	Faro	Badajoz	Extremadura	Spain	1339
+2520057	Bahia Sur	Cadiz	Andalucia	Spain	1340
+2520058	Parque Corredor	Madrid	Madrid	Spain	1321	10.204.50.	1..9
+2620001	C. Sohar Oasis Mall Sohar	Sohar	Sohar	Oman	-	10.206.2.	1..8
+2620002	C. Oasis Mall Salalah	Salalah	Oman	Oman	-
+2620003	C. Avenues Mall Muscat	Mascate	Mascate	Oman	-
+2720001	C. Atrium Bahrain	Al Janabiyah	Manama	Barein	-	10.206.1.	1..13
+2820002	C. Oasis Mall Sharjah	Sarja	Sharjah	Emiratos Arabes Unidos	-

@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static com.cinepolis.cosmos.monitor.Archetype.Forms;
+import static com.cinepolis.cosmos.Archetype.Forms;
 import static java.nio.file.Files.readAllLines;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;

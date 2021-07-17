@@ -1,9 +1,20 @@
 package com.cinepolis.cosmos.monitor;
 
+import com.cinepolis.cosmos.monitor.datahub.Event;
+import com.cinepolis.cosmos.monitor.goals.CrawlerGoal;
 import com.cinepolis.cosmos.monitor.goals.ScrapperGoal;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
+
+import static com.cinepolis.cosmos.Archetype.GoalTank;
 
 public interface Goal extends Iterable<Goal.Task> {
 
@@ -11,8 +22,16 @@ public interface Goal extends Iterable<Goal.Task> {
 	long delay();
 	long period();
 
-	void start();
-	void terminate();
+	default void start() {
+		Logger.info(name() + " goal started");
+		write(event("start"));
+	}
+
+	default void terminate() {
+		write(event("terminate"));
+		Logger.info(name() + " goal terminated");
+	}
+
 
 	interface Task {
 		Event execute();
@@ -28,9 +47,9 @@ public interface Goal extends Iterable<Goal.Task> {
 
 		public Factory() {
 			this.goals = List.of(
-	//				new DeviceGoal("configuration", Minute, Day),
-	//				new DeviceGoal("status", 15 * Minute, 15 * Minute),
-					new ScrapperGoal("show", 0, Minute)
+//					new CrawlerGoal("configuration", 0, Day),
+//					new CrawlerGoal("status", 15 * Minute, 15 * Minute),
+					new ScrapperGoal("exhibition", 5*Minute, Minute)
 			);
 		}
 
@@ -43,4 +62,22 @@ public interface Goal extends Iterable<Goal.Task> {
 			return goals.size();
 		}
 	}
+
+	private static String today() {
+		LocalDate now = LocalDate.now();
+		return String.format("%04d%02d%02d", now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+	}
+
+	private void write(byte[] bytes) {
+		try {
+			Path path = new File(GoalTank, today() + ".inl").toPath();
+			Files.write(path, bytes, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException ignored) {
+		}
+	}
+
+	private byte[] event(String action) {
+		return String.format("[goal]\nts: %s\nname: %s\naction: %s\n\n", Instant.now(), name(), action).getBytes();
+	}
+
 }

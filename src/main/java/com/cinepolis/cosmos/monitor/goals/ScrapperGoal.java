@@ -1,26 +1,23 @@
 package com.cinepolis.cosmos.monitor.goals;
 
 import com.cinepolis.cosmos.monitor.Goal;
-import com.cinepolis.cosmos.monitor.goals.scrapper.exhibition.Exhibition;
-import com.cinepolis.cosmos.monitor.goals.scrapper.session.Session;
+import com.cinepolis.cosmos.monitor.goals.scrapper.Exhibition;
+import com.cinepolis.cosmos.monitor.goals.scrapper.Website;
 
-import java.time.*;
 import java.util.Iterator;
-import java.util.List;
-
-import static com.cinepolis.cosmos.monitor.Inventory.*;
 
 public class ScrapperGoal implements Goal {
 	private final String name;
 	private final int delay;
 	private final int period;
-	private List<Exhibition> exhibitions;
-	private LocalDate expired;
+	private final Website website;
 
 	public ScrapperGoal(String name, int delay, int period) {
 		this.name = name;
 		this.delay = delay;
 		this.period = period;
+		this.website = new Website();
+		this.website.start();
 	}
 
 	@Override
@@ -39,56 +36,21 @@ public class ScrapperGoal implements Goal {
 	}
 
 	@Override
-	public void start() {
-
-	}
-
-	@Override
-	public void terminate() {
-
-	}
-
-	@Override
 	public Iterator<Task> iterator() {
 		return new Iterator<>() {
-			private final int now = now();
-			private final Iterator<Exhibition> iterator = exhibitions().stream()
-					.filter(e->e.isActive(now))
-					.iterator();
-
+			private final Iterator<Exhibition> iterator = website.activeExhibitions().iterator();
 
 			@Override
 			public boolean hasNext() {
 				return iterator.hasNext();
 			}
+
 			@Override
 			public Task next() {
-				return () -> asSession(iterator.next());
+				Exhibition exhibition = iterator.next();
+				return () -> website.update(exhibition);
 			}
-
 		};
-	}
-
-	private static Session asSession(Exhibition exhibition) {
-		return Session.read(exhibition);
-	}
-
-	private static int now() {
-		return LocalTime.now().toSecondOfDay() + offset(Mexico).getTotalSeconds() - offset(ZoneId.systemDefault()).getTotalSeconds();
-	}
-
-	private static ZoneOffset offset(ZoneId ZONE) {
-		return ZONE.getRules().getOffset(Instant.now());
-	}
-
-	private List<Exhibition> exhibitions() {
-		if (requireExhibitionsUpdate()) exhibitions = Exhibition.read(Divisions);
-		expired = LocalDate.now();
-		return exhibitions;
-	}
-
-	private boolean requireExhibitionsUpdate() {
-		return expired == null || (LocalTime.now().getHour() == 15 && LocalDate.now().isBefore(expired));
 	}
 
 }

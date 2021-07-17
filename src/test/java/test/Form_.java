@@ -10,11 +10,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class Form_ {
 
 	@Test
-	public void empty() {
-		assertThat(Form.Null.fields().count()).isEqualTo(0L);
-	}
-
-	@Test
 	public void of_comments() {
 		Form form = new Form("", List.of("aa //comment", "//comment"));
 		assertThat(form.definitions().size()).isEqualTo(1);

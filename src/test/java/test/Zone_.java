@@ -17,8 +17,8 @@ public class Zone_ {
 		assertThat(query.format(map())).isEqualTo("");
 	}
 
-	public Query query(Form form, String state) {
-		return new Query(form, state);
+	public Query query(Form form, String tags) {
+		return new Query(form, tags);
 	}
 
 	@Test
