@@ -44,7 +44,10 @@ public class Cinema implements Iterable<Schedule> {
 
 	public Theater theater() {
 		if (theater == null) theater = Inventory.theater(country() + vistaId);
-		if (theater == null) theater = Inventory.add(new Theater("?", name, cityName, "?", division.country, vistaId, null, null));
+		if (theater == null) {
+			theater = Inventory.add(new Theater("?", name, cityName, "?", division.country, vistaId, null, null));
+			System.out.println(theater);
+		}
 		return theater;
 	}
 }

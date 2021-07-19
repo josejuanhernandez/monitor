@@ -1,5 +1,6 @@
 package com.cinepolis.cosmos.monitor.goals.scrapper;
 
+import com.cinepolis.cosmos.monitor.Logger;
 import com.cinepolis.cosmos.monitor.datahub.Event;
 import com.cinepolis.cosmos.monitor.inventory.Theater;
 
@@ -86,6 +87,10 @@ public class Exhibition implements Event {
 		return theater != null;
 	}
 
+	public boolean hasScreen() {
+		return screen != 0;
+	}
+
 	public boolean isActiveAt(int minuteOfDay) {
 		return Math.abs(minuteOfDay() - minuteOfDay) < 20;
 	}
@@ -101,13 +106,13 @@ public class Exhibition implements Event {
 	}
 
 	public Exhibition screen(int screen) {
-		try {
-			this.screen = screen;
-			this.projector = theater.projector(screen);
-			this.server = theater.server(screen);
+		if (screen == 0) {
+			Logger.error("Can't find screen for " + this.toString());
+			return this;
 		}
-		catch (NumberFormatException ignored) {
-		}
+		this.screen = screen;
+		this.projector = theater.projector(screen);
+		this.server = theater.server(screen);
 		return this;
 	}
 }

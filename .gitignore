@@ -4,3 +4,4 @@ target
 datamarts
 dependency-reduced-pom.xml
 *.zip
+*.xlsx

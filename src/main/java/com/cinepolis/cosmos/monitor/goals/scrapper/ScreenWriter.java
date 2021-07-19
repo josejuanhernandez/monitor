@@ -1,22 +1,23 @@
 package com.cinepolis.cosmos.monitor.goals.scrapper;
 
-import com.cinepolis.cosmos.monitor.Matches;
-import com.cinepolis.cosmos.monitor.goals.scrapper.Exhibition;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Connection;
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
 import static java.time.LocalTime.parse;
-import static java.util.Comparator.comparingInt;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
+import static java.util.stream.Collectors.toList;
 import static org.jsoup.Connection.Method.POST;
 
 public class ScreenWriter {
@@ -24,6 +25,7 @@ public class ScreenWriter {
 	private final Gson gson;
 	private final Map<String,String> cookies;
 	private final Map<String, Integer> screens;
+	private final static int TIMEOUT = 10_000;
 
 	public ScreenWriter(String segment)  {
 		this.segment = segment;
@@ -53,8 +55,11 @@ public class ScreenWriter {
 		if (isNotLogged()) return result;
 		try {
 			Schedules schedules = gson.fromJson(get("/core/scheduling/schedule"), Schedules.class);
-			for (Schedules.Data data : schedules)
-				result.add(new Session(data.displayName, parse(data.time), screens.get(data.screen)));
+			String today = LocalDate.now().format(ISO_LOCAL_DATE);
+			for (Schedules.Data data : schedules) {
+				if (!data.date.equals(today)) continue;
+				result.add(new Session(data.pointOfSale.title, parse(data.time), screens.get(data.screen), data.pointOfSale.seats));
+			}
 		} catch (IOException ignored) {
 		}
 		return result;
@@ -64,7 +69,7 @@ public class ScreenWriter {
 		try {
 			return edit(loginForm())
 					.submit()
-					.timeout(30_000)
+					.timeout(TIMEOUT)
 					.cookies(new HashMap<>())
 					.method(POST)
 					.execute()
@@ -77,7 +82,7 @@ public class ScreenWriter {
 	private Document loginForm() throws IOException {
 		return Jsoup.connect(url())
 				.method(Connection.Method.GET)
-				.timeout(30_000)
+				.timeout(TIMEOUT)
 				.execute()
 				.parse();
 	}
@@ -95,14 +100,13 @@ public class ScreenWriter {
 		return "http://" + segment;
 	}
 
-	private String get(String data) throws IOException {
-		Connection.Response response;
-		String screens = url() + data;
-		response = Jsoup.connect(screens)
+	private String get(String path, String... data) throws IOException {
+		Response response = Jsoup.connect(url() + path)
 				.method(POST)
 				.cookies(cookies)
-				.timeout(30_000)
+				.timeout(TIMEOUT)
 				.ignoreContentType(true)
+				.data(data)
 				.execute();
 		return response.body();
 	}
@@ -110,8 +114,7 @@ public class ScreenWriter {
 	public static class Cinema implements Iterable<Cinema.Data> {
 		public Screens data;
 
-		@NotNull
-		@Override
+		@Override @NotNull
 		public Iterator<Data> iterator() {
 			return data.screens.values().iterator();
 		}
@@ -123,10 +126,8 @@ public class ScreenWriter {
 		public static class Data {
 			public String uuid;
 			public String identifier;
-
 		}
 	}
-
 
 	public static class Schedules implements Iterable<Schedules.Data> {
 		public Map<String, Data> data;
@@ -138,20 +139,29 @@ public class ScreenWriter {
 		}
 
 		public static class Data {
-			public String uuid;
 			@SerializedName("display_name")
 			public String displayName;
 			@SerializedName("screen_uuid")
 			public String screen;
+			@SerializedName("start_date")
+			public String date;
 			@SerializedName("start_time")
 			public String time;
+			@SerializedName("pos_information")
+			public PointOfSale pointOfSale;
+		}
+
+		public static class PointOfSale {
+			@SerializedName("feature_title")
+			public String title;
+			@SerializedName("seats_available")
+			public int seats;
 		}
 
 	}
 
 	public static class Schedule implements Iterable<Session> {
 		private final List<Session> sessions = new ArrayList<>();
-		private final Matches matches = new Matches();
 
 		public void add(Session session) {
 			sessions.add(session);
@@ -163,27 +173,55 @@ public class ScreenWriter {
 		}
 
 		public void update(Exhibition exhibition) {
-			sessions.stream()
-					.filter(s -> exhibition.time.equals(s.time))
-					.max(comparingInt(s -> matches(exhibition, s)))
-					.ifPresent(value -> exhibition.screen(value.screen));
-
+			if (size() == 0) return;
+			Classifier classifier = new Classifier(exhibition);
+			String alias = classifier.aliasIn(sessionsAt(exhibition.time));
+			Session session = find(exhibition.time, alias);
+			exhibition.screen(session.screen).seats(session.seats);
+			sessions.remove(session);
 		}
 
-		public int matches(Exhibition exhibition, Session session) {
-			return matches.between(exhibition.movie, session.movie);
+		@NotNull
+		private List<String> sessionsAt(LocalTime time) {
+			return this.sessions.stream()
+					.filter(s -> matches(time, s.time))
+					.map(s->s.movie)
+					.distinct()
+					.collect(toList());
+		}
+
+		private boolean matches(LocalTime exhibition, LocalTime show) {
+			int minutes = (exhibition.toSecondOfDay() - show.toSecondOfDay()) / 60;
+			return -20 <= minutes && minutes <= 30;
+		}
+
+		@NotNull
+		private Session find(LocalTime time, String alias) {
+			return this.sessions.stream()
+					.filter(s -> matches(time, s.time))
+					.filter(s -> s.movie.equals(alias))
+					.findFirst()
+					.orElse(Session.Null);
+		}
+
+		public int size() {
+			return sessions.size();
 		}
 	}
 
 	public static class Session {
+		public static final Session Null = new Session("", null, 0, 0);
+
 		public final String movie;
 		public final LocalTime time;
 		public final int screen;
+		public final int seats;
 
-		public Session(String movie, LocalTime time, int screen) {
+		public Session(String movie, LocalTime time, int screen, int seats) {
 			this.movie = movie;
 			this.time = time;
 			this.screen = screen;
+			this.seats = seats;
 		}
 
 		@Override

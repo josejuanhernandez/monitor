@@ -1,23 +1,23 @@
-1020009	Mexico Nuevo Laredo	Nuevo Laredo	Tamaulipas	Mexico	9	10.104.11.	1..5
-1020011	Churubusco	Ciudad de Mexico	Ciudad de Mexico	Mexico	11	10.117.22.	1..3
-1020021	Hollywood	Naucalpan	Estado de Mexico	Mexico	21	10.116.13.	1..5
-1020029	Hermosillo	Hermosillo	Sonora	Mexico	29	10.98.1.	1..8
-1020032	Las Torres	Guadalajara	Jalisco	Mexico	32	10.109.18.	1..4
-1020033	Leon	Leon	Guanajuato	Mexico	33	10.110.2.	1..7
-1020035	Centro Civico	Mexicali	Baja California Norte	Mexico	35	10.96.8.	1..11
-1020040	Plaza Crystal	Xalapa	Veracruz	Mexico	40	10.120.11.	1..6
-1020044	Boulevard	Puebla	Puebla	Mexico	44	10.119.6.	1..9
-1020046	Plaza Loreto	Puebla	Puebla	Mexico	46	10.119.9.	1..4
-1020047	Zaragoza	Queretaro	Queretaro	Mexico	47	10.111.6.	1..2
-1020060	Escala Morelia (Plaza Morelia)	Morelia	Michoacan	Mexico	60	10.115.1.	1..16
-1020063	Plaza Las Americas	Queretaro	Queretaro	Mexico	63	10.111.7.	1..4
-1020064	Izcalli	Cuautitlan Izcalli	Estado de Mexico	Mexico	64	10.116.56.	1..5
-1020067	Las Armas	Tlalnepantla	Estado de Mexico	Mexico	67	10.116.22.	1..5
-1020069	La Normal	Guadalajara	Jalisco	Mexico	69	10.109.13.	1..6
-1020071	Garza Sada	Monterrey	Nuevo Leon	Mexico	71	10.103.1.	1..13
-1020077	Tolsa	Guadalajara	Jalisco	Mexico	77	10.109.5.	1..7
-1020079	Tangamanga	San Luis Potosi	San Luis Potosi	Mexico	79	10.106.4.	1..5
-1020080	Plaza del Parque	Queretaro	Queretaro	Mexico	80	10.111.3.	1..6
+1020009	Mexico Nuevo Laredo	Nuevo Laredo	Tamaulipas	Mexico	009	10.104.11.	1..5
+1020011	Churubusco	Ciudad de Mexico	Ciudad de Mexico	Mexico	011	10.117.22.	1..3
+1020021	Hollywood	Naucalpan	Estado de Mexico	Mexico	021	10.116.13.	1..5
+1020029	Hermosillo	Hermosillo	Sonora	Mexico	029	10.98.1.	1..8
+1020032	Las Torres	Guadalajara	Jalisco	Mexico	032	10.109.18.	1..4
+1020033	Leon	Leon	Guanajuato	Mexico	033	10.110.2.	1..7
+1020035	Centro Civico	Mexicali	Baja California Norte	Mexico	035	10.96.8.	1..11
+1020040	Plaza Crystal	Xalapa	Veracruz	Mexico	040	10.120.11.	1..6
+1020044	Boulevard	Puebla	Puebla	Mexico	044	10.119.6.	1..9
+1020046	Plaza Loreto	Puebla	Puebla	Mexico	046	10.119.9.	1..4
+1020047	Zaragoza	Queretaro	Queretaro	Mexico	047	10.111.6.	1..2
+1020060	Escala Morelia (Plaza Morelia)	Morelia	Michoacan	Mexico	060	10.115.1.	1..16
+1020063	Plaza Las Americas	Queretaro	Queretaro	Mexico	063	10.111.7.	1..4
+1020064	Izcalli	Cuautitlan Izcalli	Estado de Mexico	Mexico	064	10.116.56.	1..5
+1020067	Las Armas	Tlalnepantla	Estado de Mexico	Mexico	067	10.116.22.	1..5
+1020069	La Normal	Guadalajara	Jalisco	Mexico	069	10.109.13.	1..6
+1020071	Garza Sada	Monterrey	Nuevo Leon	Mexico	071	10.103.1.	1..13
+1020077	Tolsa	Guadalajara	Jalisco	Mexico	077	10.109.5.	1..7
+1020079	Tangamanga	San Luis Potosi	San Luis Potosi	Mexico	079	10.106.4.	1..5
+1020080	Plaza del Parque	Queretaro	Queretaro	Mexico	080	10.111.3.	1..6
 1020101	Plaza Tepeyac	Ciudad de Mexico	Ciudad de Mexico	Mexico	101	10.117.14.	1..6
 1020109	Los angeles	Monterrey	Nuevo Leon	Mexico	109	10.103.16.	1..3
 1020110	Interlomas	Huixquilucan	Estado de Mexico	Mexico	110	10.116.7.	1..16
@@ -537,41 +537,41 @@
 2062021	VIP Mallplaza Buenavista	Buenavista	Barranquilla	Colombia	1229	10.196.12.	1..5
 2062999	Mallplaza Manizales	Manizales	Caldes	Colombia	637
 2062999	Mega Mall	Valledupar	Cesar	Colombia	625
-2082001	C. Hoyts La Reina	??	La Reina	Chile	-	10.203.2.	1..16
-2082002	Hoyts Parque Arauco	Santiago	Metropolitana	Chile	-	10.203.17.	1..14
-2082004	Hoyts Arauco Maipu	Maipu	Santiago	Chile	-	10.203.20.	1..10
-2082005	Hoyts San Agustin	Santiago	Metropolitana	Chile	-	10.203.18.	1..8
-2082006	Hoyts Estacion Central	Santiago	Metropolitana	Chile	-	10.203.19.	1..8
-2082007	Hoyts Puente Alto	Santiago	Puente Alto	Chile	-	10.203.21.	1..8
+2082001	Hoyts La Reina	-	La Reina	Chile	Pendiente	10.203.2.	1..16
+2082002	Hoyts Parque Arauco	Santiago	Metropolitana	Chile	Pendiente	10.203.17.	1..14
+2082004	Hoyts Arauco Maipú	Maipú	Santiago	Chile	Pendiente	10.203.20.	1..10
+2082005	Hoyts San Agustin	Santiago	Metropolitana	Chile	Pendiente	10.203.18.	1..8
+2082006	Hoyts Estacion Central	Santiago	Metropolitana	Chile	Pendiente	10.203.19.	1..8
+2082007	Hoyts Puente Alto	Santiago	Puente Alto	Chile	Pendiente	10.203.21.	1..8
 2082008	Hoyts Antofagasta Plaza	Antofagasta	Antofagasta	Chile	714	10.203.5.	1..6
-2082009	Hoyts Puerto Montt	Puerto Montt	Los Lagos	Chile	-	10.203.10.	1..5
-2082010	Hoyts Talca	Talca	Maule	Chile	-	10.203.11.	1..6
-2082011	Hoyts Valparaiso	Valparaiso	Valparaiso	Chile	-	10.203.24.	1..5
-2082012	Hoyts Plaza Sur	San Bernardo	Santiago	Chile	-	10.203.13.	1..6
-2082013	Hoyts Los Angeles	Los Angeles	Los Angeles	Chile	-	10.203.8.	1..6
-2082014	Hoyts Calama	Calama	Antofagasta	Chile	-	10.203.3.	1..6
-2082015	Hoyts Antofagasta Lider	Antofagasta	Antofagasta	Chile	-	10.203.4.	1..6
-2082016	Hoyts Los Dominicos	Santiago	Metropolitana	Chile	-	10.203.14.	1..6
-2082017	Hoyts Temuco	Temuco	Temuco	Chile	-	10.203.6.	1..5
-2082018	Hoyts Quilicura	Santiago	Quilicura	Chile	-	10.203.23.	1..6
-2082019	Hoyts Paseo San Bernardo	Santiago	San Bernardo	Chile	-	10.203.12.	1..6
-2082020	Hoyts Trapenses	Santiago	Metropolitana	Chile	-	10.203.15.	1..6
-2082021	Hoyts Melipilla	Melipilla	Talagante	Chile	-	10.203.16.	1..3
-2082023	Hoyts Plaza Egaña	Santiago	La Reina	Chile	-	10.203.22.	1..11
-2082024	Hoyts Chillan	-	Bio Bio	Chile	-	10.203.9.	1..4
-2082026	Hoyts Casa Costanera	Santiago	Metropolitana	Chile	-	10.203.25.	1..3
-2082028	Hoyts Vivo San Fernando	San Fernando	Region de O'higgins	Chile	-	10.203.26.	1..5
-2082030	Hoyts Quillota	-	-	Chile	-	10.203.29.	1..5
-2082032	Hoyts Galeria Imperio	Santiago de Chile	Chile	Chile	-	10.203.28.	1..6
-2082033	Hoyts Coquimbo	Coquimbo	Region de Coquimbo	Chile	-	10.203.30.	1..8
-2082034	Hoyts Padre Hurtado	Santiago	Santiago	Chile	-	10.203.27.	1..6
-2082035	Hoyts Padre Hurtado (VIP)	Santiago	Santiago	Chile	-	10.203.27.	7..8
-2082037	Hoyts Rojas Magallanes	Santiago de Chile	Chile	Chile	-	10.203.33.	1..7
-2082038	Hoyts Espacio Urbano	Puente Alto	Santiago de Chile	Chile	-	10.203.36.	1..10
-2082039	Hoyts Ovalle	Coquimbo	-	Chile	-	10.203.35.	1..3
-2082041	Hoyts Vivo Outlet Temuco	Temuco	-	Chile	-	10.203.32.	1..6
-2082042	Hoyts Castro	Castro	Castro	Chile	-	10.203.31.	1..4
-2082051	Vivo Outlet Maipu	Maipu	Maipu	Chile	-	10.203.37.	1..4
+2082009	Hoyts Puerto Montt	Puerto Montt	Los Lagos	Chile	Pendiente	10.203.10.	1..5
+2082010	Hoyts Talca	Talca	Maule	Chile	716	10.203.11.	1..6
+2082011	Hoyts Valparaiso	Valparaiso	Valparaiso	Chile	Pendiente	10.203.24.	1..5
+2082012	Hoyts Plaza Sur	San Bernardo	Santiago	Chile	Pendiente	10.203.13.	1..6
+2082013	Hoyts Los Angeles	Los Angeles	Los Angeles	Chile	Pendiente	10.203.8.	1..6
+2082014	Hoyts Calama	Calama	Antofagasta	Chile	720	10.203.3.	1..6
+2082015	Hoyts Antofagasta Lider	Antofagasta	Antofagasta	Chile	Pendiente	10.203.4.	1..6
+2082016	Hoyts Los Dominicos	Santiago	Metropolitana	Chile	Pendiente	10.203.14.	1..6
+2082017	Hoyts Temuco	Temuco	Temuco	Chile	723	10.203.6.	1..5
+2082018	Hoyts Quilicura	Santiago	Quilicura	Chile	Pendiente	10.203.23.	1..6
+2082019	Hoyts Paseo San Bernardo	Santiago	San Bernardo	Chile	Pendiente	10.203.12.	1..6
+2082020	Hoyts Trapenses	Santiago	Metropolitana	Chile	Pendiente	10.203.15.	1..6
+2082021	Hoyts Melipilla	Melipilla	Talagante	Chile	Pendiente	10.203.16.	1..3
+2082023	Hoyts Plaza Egaña	Santiago	La Reina	Chile	Pendiente	10.203.22.	1..11
+2082024	Hoyts Chillán	-	Chillan	Chile	730	10.203.9.	1..4
+2082026	Hoyts Casa Costanera	Santiago	Metropolitana	Chile	Pendiente	10.203.25.	1..3
+2082028	Hoyts Vivo San Fernando	San Fernando	Región de O'higgins	Chile	843	10.203.26.	1..5
+2082030	Hoyts Quillota	-	-	Chile	Pendiente	10.203.29.	1..5
+2082032	Hoyts Galeria Imperio	-	Santiago de Chile	Chile	Pendiente	10.203.28.	1..6
+2082033	Hoyts Coquimbo	Coquimbo	Region de Coquimbo	Chile	917	10.203.30.	1..8
+2082034	Hoyts Padre Hurtado	Santiago	Santiago	Chile	Pendiente	10.203.27.	1..6
+2082035	Hoyts Padre Hurtado (VIP)	Santiago	Santiago	Chile	Pendiente	10.203.27.	7..8
+2082037	Hoyts Rojas Magallanes	-	Santiago de Chile	Chile	Pendiente	10.203.33.	1..7
+2082038	Hoyts Espacio Urbano	Puente Alto	Santiago de Chile	Chile	Pendiente	10.203.36.	1..10
+2082039	Hoyts Ovalle	Coquimbo	-	Chile	Pendiente	10.203.35.	1..3
+2082041	Hoyts Vivo Outlet Temuco	Temuco	-	Chile	Pendiente	10.203.32.	1..6
+2082042	Hoyts Castro	Castro	Castro	Chile	Pendiente	10.203.31.	1..4
+2082051	Hoyts Outlet Maipu	Maipu	Maipu	Chile	Pendiente	10.203.37.	1..4
 2092001	Village Cines Pilar	Pilar	Buenos Aires	Argentina	-	10.205.6.	1..9
 2092002	Village Cines Rosario	Rosario	Santa Fe	Argentina	-	10.205.4.	1..13
 2092003	Village Cines Avellaneda	Avellaneda	Buenos Aires	Argentina	-	10.205.5.	1..16

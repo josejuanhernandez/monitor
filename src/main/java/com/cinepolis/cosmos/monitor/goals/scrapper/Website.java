@@ -30,22 +30,37 @@ public class Website {
 		timer.schedule(updateTask(), 0, 6*Hours);
 	}
 
+	public static void main(String[] args) {
+		Website website = new Website();
+		ScreenWriter screenWriter = new ScreenWriter("10.96.3.1");
+		Schedule schedule = screenWriter.schedule();
+		List<Exhibition> exhibitions = website.exhibitionsIn(new Division("tijuana\tMexico"));
+		for (Exhibition exhibition : exhibitions) {
+			if (!exhibition.theater.id.equals("1020173")) continue;
+			if (!exhibition.time.equals(LocalTime.of(17,30))) continue;
+			schedule.update(exhibition);
+
+		}
+	}
+
 	private static final int Hours = 1000 * 60  * 60;
 
 	public synchronized void update() throws InterruptedException {
-		Logger.info("Updating websites...");
+		Logger.info("Analyzing websites...");
 		exhibitions.clear();
 		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(16);
 		for (Division division: Divisions)
-			executor.submit(() -> update(division));
-		executor.awaitTermination(5, TimeUnit.MINUTES);
-		Logger.info("Websites updated");
+			executor.submit(() -> update(exhibitionsIn(division)));
+		waitFor(executor);
+		Logger.info("Websites analyzed");
 	}
 
-	private void update(Division division)  {
+	private void waitFor(ThreadPoolExecutor executor)  {
 		try {
-			update(exhibitionsIn(division));
-		} catch (InterruptedException ignored) {
+			while (executor.getQueue().size() > 0) Thread.sleep(100);
+			executor.awaitTermination(10, TimeUnit.SECONDS);
+		}
+		catch (InterruptedException ignored) {
 		}
 	}
 
@@ -53,19 +68,22 @@ public class Website {
 		return scrapperOf(division.country).exhibitionsIn(division);
 	}
 
-	private void update(List<Exhibition> exhibitions) throws InterruptedException {
+	private void update(List<Exhibition> exhibitions) {
 		if (exhibitions.size() == 0) return;
-		this.exhibitions.addAll(exhibitions);
+		synchronized (this.exhibitions) {
+			this.exhibitions.addAll(exhibitions);
+		}
 		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(16);
-		for (Theater theater : theatersIn(exhibitions))
+		for (Theater theater : theatersIn(exhibitions)){
 			executor.submit(() -> {
 				Schedule schedule = scheduleOf(theater);
-				for (Exhibition exhibition : exhibitions) {
-					if (exhibition.theater != theater) continue;
-					schedule.update(exhibition);
-				}
+				exhibitions.stream()
+						.filter(exhibition -> exhibition.theater == theater)
+						.forEach(schedule::update);
 			});
-		executor.awaitTermination(5, TimeUnit.MINUTES);
+
+		}
+		waitFor(executor);
 	}
 
 	@NotNull
@@ -75,7 +93,7 @@ public class Website {
 
 	private Schedule scheduleOf(Theater theater) {
 		ScreenWriter screenWriter = new ScreenWriter(theater.segment + "1");
-		if (screenWriter.isNotLogged()) Logger.error("It is not possible to log into " + theater);
+		if (screenWriter.isNotLogged()) Logger.error("It was not possible to log into theater " + theater);
 		return screenWriter.schedule();
 	}
 
@@ -90,7 +108,7 @@ public class Website {
 		return scrapperOf(exhibition.country).update(exhibition);
 	}
 
-	public Stream<Exhibition> activeExhibitions() {
+	public synchronized Stream<Exhibition> activeExhibitions() {
 		Logger.info("Refreshing active exhibitions...");
 		return query(minuteOfDay());
 	}
@@ -111,14 +129,14 @@ public class Website {
 	}
 
 	static Map<String, Scrapper> Scrappers = new HashMap<>() {{
-		//put("Chile", new ChileScrapper());
-		//put("Colombia", new ColombiaScrapper());
-		//put("Costa Rica", new CostaRicaScrapper());
-		//put("El Salvador", new SalvadorScrapper());
+		put("Chile", new ChileScrapper());
+		put("Colombia", new ColombiaScrapper());
+		put("Costa Rica", new CostaRicaScrapper());
+		put("El Salvador", new SalvadorScrapper());
 		put("Guatemala", new GuatemalaScrapper());
-		//put("Honduras", new HondurasScrapper());
-		//put("Mexico", new MexicoScrapper());
-		//put("Panama", new PanamaScrapper());
+		put("Honduras", new HondurasScrapper());
+		put("Mexico", new MexicoScrapper());
+		put("Panama", new PanamaScrapper());
 		//put("Spain", new SpainScrapper());
 	}};
 
